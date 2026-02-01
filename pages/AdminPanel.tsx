@@ -1,135 +1,140 @@
 
 import React, { useState } from 'react';
-import { LayoutDashboard, Users, Globe, Briefcase, PlusSquare, UserCheck, LogOut, Filter, Check, X, Eye, Edit, Trash2 } from 'lucide-react';
+import { 
+  LayoutDashboard, Users, BookOpen, Globe, Briefcase, Trophy, 
+  Settings, LogOut, CheckCircle, Clock, Plus, Filter, UserCheck, 
+  Mail, ShieldCheck, PieChart, FileText, Bell, Lock
+} from 'lucide-react';
 import { Card, Badge, Button, Input } from '../components/Common';
 import { useNavigate } from 'react-router-dom';
 
-type AdminView = 'dashboard' | 'applications' | 'summits' | 'gov' | 'private' | 'programs' | 'users';
+type AdminView = 'master' | 'users' | 'learning' | 'govt' | 'industry' | 'challenges' | 'mentors' | 'startups' | 'events' | 'onboarding' | 'outcomes' | 'settings';
 
 const AdminPanel = () => {
+  const [activeView, setActiveView] = useState<AdminView>('master');
   const navigate = useNavigate();
-  const [activeView, setActiveView] = useState<AdminView>('dashboard');
-  const [filter, setFilter] = useState('All');
 
-  const stats = [
-    { label: 'Total Users', value: '452' },
-    { label: 'Applications', value: '128' },
-    { label: 'Pending', value: '45' },
-    { label: 'Approved', value: '83' }
+  const navGroups = [
+    { label: 'Core', items: [
+      { id: 'master', label: 'Dashboard', Icon: LayoutDashboard },
+      { id: 'users', label: 'Users & Roles', Icon: Users },
+      { id: 'onboarding', label: 'Onboarding', Icon: UserCheck }
+    ]},
+    { label: 'Systems', items: [
+      { id: 'learning', label: 'Learning System', Icon: BookOpen },
+      { id: 'govt', label: 'Gov Research', Icon: Globe },
+      { id: 'industry', label: 'Industry Research', Icon: Briefcase },
+      { id: 'challenges', label: 'Challenges', Icon: Trophy }
+    ]},
+    { label: 'Community', items: [
+      { id: 'mentors', label: 'Mentors', Icon: ShieldCheck },
+      { id: 'startups', label: 'Startups', Icon: Rocket },
+      { id: 'events', label: 'Events', Icon: Calendar }
+    ]},
+    { label: 'Platform', items: [
+      { id: 'outcomes', label: 'Impact', Icon: PieChart },
+      { id: 'settings', label: 'Settings', Icon: Settings }
+    ]}
   ];
 
   const renderContent = () => {
-    switch (activeView) {
+    switch(activeView) {
       case 'users':
         return (
-          <div className="animate-in fade-in duration-300">
-            <h2 className="text-2xl font-black text-[#0A2463] mb-8 uppercase tracking-tighter">User Management</h2>
-            <Card className="p-0 border-none shadow-xl rounded-[40px] bg-white overflow-hidden">
-              <table className="w-full text-left">
-                <thead className="bg-gray-50/50 text-[10px] font-black uppercase tracking-widest text-gray-400">
-                  <tr>
-                    <th className="px-8 py-4">Name</th>
-                    <th className="px-8 py-4">Email</th>
-                    <th className="px-8 py-4">Role</th>
-                    <th className="px-8 py-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-50">
-                  {[
-                    { name: 'Aakash Kumar', email: 'aakash@example.com', role: 'Member' },
-                    { name: 'Priya Sharma', email: 'priya@example.com', role: 'Member' },
-                    { name: 'Admin One', email: 'admin@nx.res', role: 'Admin' }
-                  ].map((user, i) => (
-                    <tr key={i} className="hover:bg-gray-50/30">
-                      <td className="px-8 py-6 font-bold text-[#0A2463] text-sm uppercase">{user.name}</td>
-                      <td className="px-8 py-6 text-sm font-semibold text-gray-500">{user.email}</td>
-                      <td className="px-8 py-6 text-xs font-black uppercase tracking-widest text-gray-400">{user.role}</td>
-                      <td className="px-8 py-6 text-right">
-                        <button className="p-2 text-red-400 hover:bg-red-50 rounded-lg"><Trash2 size={16} /></button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </Card>
-          </div>
-        );
-      case 'summits':
-        return (
-          <div className="animate-in fade-in duration-300">
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-2xl font-black text-[#0A2463] uppercase tracking-tighter">Summit Management</h2>
-              <Button size="sm" className="rounded-xl">+ Create Summit</Button>
+          <div className="space-y-8 animate-in slide-in-from-right">
+            <div className="flex justify-between items-center">
+              <h2 className="text-3xl font-black text-[#0A2463] uppercase tracking-tighter">User Management</h2>
+              <div className="flex space-x-4">
+                <Button size="sm" variant="outline">Export CSV</Button>
+                <Button size="sm"><Plus size={16} /> Invite User</Button>
+              </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="p-8 bg-white border-none shadow-sm">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="font-black text-[#0A2463] uppercase">Startup Summit 2024</h3>
-                  <Badge status="Approved" />
-                </div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Participants: 124</p>
-                <div className="flex space-x-2">
-                  <Button size="sm" variant="outline" className="flex-1 rounded-xl">Edit</Button>
-                  <Button size="sm" className="flex-1 rounded-xl">Participants</Button>
-                </div>
-              </Card>
-            </div>
-          </div>
-        );
-      default:
-        return (
-          <div className="animate-in fade-in duration-300">
-            {/* STAT CARDS */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-              {stats.map(stat => (
-                <Card key={stat.label} className="p-8 bg-white border-none shadow-sm">
-                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{stat.label}</p>
-                  <h4 className="text-3xl font-black text-[#0A2463]">{stat.value}</h4>
-                </Card>
-              ))}
-            </div>
-
-            {/* APPLICATIONS TABLE */}
-            <Card className="p-0 border-none shadow-xl rounded-[40px] overflow-hidden bg-white">
-              <div className="p-8 border-b border-gray-50 flex justify-between items-center">
-                <h3 className="font-black text-[#0A2463] uppercase tracking-tighter">Recent Applications</h3>
-                <div className="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-xl">
-                  <Filter size={14} className="text-gray-400" />
-                  <select className="bg-transparent text-[10px] font-black uppercase tracking-widest outline-none">
-                    <option>All Domains</option>
-                    <option>Summit</option>
-                  </select>
+            <Card className="p-0 border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white">
+              <div className="p-8 border-b border-gray-50 flex space-x-4">
+                <Input label="" placeholder="Search users..." className="mb-0 flex-grow" />
+                <div className="flex items-center bg-gray-50 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400">
+                  <Filter size={14}/> Filter
                 </div>
               </div>
               <table className="w-full text-left">
                 <thead className="bg-gray-50/50 text-[10px] font-black uppercase tracking-widest text-gray-400">
                   <tr>
-                    <th className="px-8 py-4">Name</th>
-                    <th className="px-8 py-4">Domain</th>
-                    <th className="px-8 py-4">Status</th>
-                    <th className="px-8 py-4 text-right">Action</th>
+                    <th className="px-10 py-5">User</th>
+                    <th className="px-10 py-5">Role</th>
+                    <th className="px-10 py-5">Status</th>
+                    <th className="px-10 py-5 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
                   {[
-                    { name: 'Aakash', domain: 'Summit', status: 'Pending' },
-                    { name: 'Priya', domain: 'Initiative', status: 'Approved' }
-                  ].map((app, i) => (
-                    <tr key={i} className="hover:bg-gray-50/30 transition-colors">
-                      <td className="px-8 py-6 font-bold text-[#0A2463] text-sm uppercase">{app.name}</td>
-                      <td className="px-8 py-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">{app.domain}</td>
-                      <td className="px-8 py-6"><Badge status={app.status} /></td>
-                      <td className="px-8 py-6 text-right">
-                        <div className="flex justify-end space-x-2">
-                          <button className="p-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-600 hover:text-white transition-colors"><Check size={16} /></button>
-                          <button className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-colors"><X size={16} /></button>
-                        </div>
+                    { name: 'Aakash Kumar', email: 'aakash@nx.com', role: 'Student', status: 'Approved' },
+                    { name: 'Dr. Sarah', email: 'sarah@nx.com', role: 'Mentor', status: 'Pending' }
+                  ].map((user, i) => (
+                    <tr key={i} className="hover:bg-gray-50/20 transition-colors">
+                      <td className="px-10 py-8">
+                        <p className="font-black text-[#0A2463] uppercase text-sm">{user.name}</p>
+                        <p className="text-xs text-gray-400 font-bold">{user.email}</p>
+                      </td>
+                      <td className="px-10 py-8 text-[10px] font-black uppercase tracking-widest text-gray-400">{user.role}</td>
+                      <td className="px-10 py-8"><Badge status={user.status} /></td>
+                      <td className="px-10 py-8 text-right">
+                        <button className="text-[10px] font-black uppercase text-[#FB8500] tracking-widest hover:underline">Manage</button>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </Card>
+          </div>
+        );
+      case 'master':
+      default:
+        return (
+          <div className="space-y-12 animate-in fade-in">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {[
+                { label: 'Active Students', val: '1,280', color: '#0A2463' },
+                { label: 'Open Research', val: '32', color: '#FB8500' },
+                { label: 'Pending Apps', val: '45', color: '#FFB703' },
+                { label: 'Monthly Growth', val: '+12%', color: '#06A77D' }
+              ].map(stat => (
+                <Card key={stat.label} className="p-8 border-none shadow-sm rounded-[2.5rem] bg-white">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">{stat.label}</p>
+                  <h4 className="text-4xl font-black" style={{ color: stat.color }}>{stat.val}</h4>
+                </Card>
+              ))}
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+              <Card className="p-10 border-none shadow-xl rounded-[3rem] bg-white">
+                <h3 className="font-black text-[#0A2463] uppercase text-sm mb-8 tracking-tighter">Research Monitoring</h3>
+                <div className="space-y-6">
+                  {[
+                    { name: 'Urban Waste AI', type: 'Gov', status: '75%' },
+                    { name: 'Solar Grid Opt.', type: 'Industry', status: '40%' }
+                  ].map(proj => (
+                    <div key={proj.name} className="flex items-center space-x-6">
+                      <div className="flex-grow">
+                        <div className="flex justify-between mb-2">
+                          <span className="font-bold text-sm">{proj.name}</span>
+                          <span className="text-xs font-black opacity-40">{proj.status}</span>
+                        </div>
+                        <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                          <div className="bg-[#FB8500] h-full" style={{ width: proj.status }}></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+              <Card className="p-10 border-none shadow-xl rounded-[3rem] bg-[#1E1E1E] text-white">
+                <h3 className="font-black uppercase text-sm mb-8 tracking-tighter">System Logs</h3>
+                <div className="space-y-4 font-mono text-[10px] opacity-60">
+                  <p> User [ID: 892] registered track: AI_ML</p>
+                  <p> Admin [ID: 001] approved 5 student_apps</p>
+                  <p> New research_call added: Transport_Dept</p>
+                </div>
+              </Card>
+            </div>
           </div>
         );
     }
@@ -137,41 +142,46 @@ const AdminPanel = () => {
 
   return (
     <div className="flex min-h-screen bg-[#F8F9FA]">
-      {/* SIDEBAR */}
-      <aside className="w-64 bg-[#1E1E1E] text-white p-8 flex flex-col fixed h-full z-10">
-        <div className="flex items-center space-x-2 mb-12">
+      <aside className="w-72 bg-[#1E1E1E] text-white p-8 flex flex-col fixed h-full z-10 overflow-y-auto">
+        <div className="mb-12 flex items-center space-x-3">
           <div className="w-8 h-8 bg-[#FB8500] rounded-lg flex items-center justify-center font-black">N</div>
-          <span className="font-black text-xl tracking-tighter">NX ADMIN</span>
+          <span className="font-black text-xl tracking-tighter uppercase">NX Admin</span>
         </div>
-        <nav className="space-y-1 flex-grow">
-          {[
-            { id: 'dashboard', icon: <LayoutDashboard size={18} />, label: 'Dashboard' },
-            { id: 'summits', icon: <Globe size={18} />, label: 'Summits' },
-            { id: 'gov', icon: <PlusSquare size={18} />, label: 'Gov Res' },
-            { id: 'private', icon: <Briefcase size={18} />, label: 'Private Res' },
-            { id: 'users', icon: <UserCheck size={18} />, label: 'Users' }
-          ].map(item => (
-            <button 
-              key={item.id}
-              onClick={() => setActiveView(item.id as AdminView)}
-              className={`flex items-center space-x-3 w-full p-4 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all ${activeView === item.id ? 'bg-white/10 text-[#FB8500]' : 'text-white/40 hover:bg-white/5'}`}
-            >
-              {item.icon} <span>{item.label}</span>
-            </button>
+        <div className="space-y-10 flex-grow">
+          {navGroups.map(group => (
+            <div key={group.label}>
+              <h5 className="text-[9px] font-black uppercase text-white/20 tracking-[0.3em] mb-4 pl-4">{group.label}</h5>
+              <div className="space-y-1">
+                {group.items.map(item => (
+                  <button 
+                    key={item.id}
+                    onClick={() => setActiveView(item.id as AdminView)}
+                    className={`flex items-center space-x-4 w-full p-4 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all ${activeView === item.id ? 'bg-[#FB8500] text-white' : 'text-white/40 hover:bg-white/5'}`}
+                  >
+                    <item.Icon size={14} /> <span>{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           ))}
-        </nav>
-        <button onClick={() => navigate('/')} className="flex items-center space-x-3 w-full p-4 text-red-400 font-bold text-[10px] uppercase tracking-widest mt-auto hover:bg-red-500/10 rounded-xl">
-          <LogOut size={18} /> <span>Logout</span>
+        </div>
+        <button onClick={() => navigate('/')} className="mt-12 flex items-center space-x-4 p-4 text-red-400 font-black text-[10px] uppercase tracking-widest hover:bg-red-500/10 rounded-xl">
+          <LogOut size={14} /> <span>Exit Console</span>
         </button>
       </aside>
 
-      {/* MAIN CONTENT */}
-      <main className="ml-64 flex-grow p-12">
-        <header className="mb-12">
-          <h1 className="text-4xl font-black text-[#0A2463] uppercase tracking-tighter">
-            Admin: {activeView.charAt(0).toUpperCase() + activeView.slice(1)}
-          </h1>
-          <p className="text-gray-400 font-bold text-[10px] uppercase tracking-widest mt-1 tracking-[0.2em]">Management Terminal</p>
+      <main className="ml-72 flex-grow p-16">
+        <header className="flex justify-between items-end mb-16">
+          <div>
+            <h1 className="text-4xl font-black text-[#0A2463] uppercase tracking-tighter">Master Terminal</h1>
+            <p className="text-gray-400 font-bold text-[10px] uppercase tracking-widest mt-2 tracking-[0.2em]">NX Organization Admin Panel</p>
+          </div>
+          <div className="flex items-center space-x-4">
+            <button className="relative w-12 h-12 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center text-gray-400 hover:text-[#0A2463] transition-colors">
+              <Bell size={20} />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+          </div>
         </header>
 
         {renderContent()}
@@ -180,4 +190,5 @@ const AdminPanel = () => {
   );
 };
 
+import { Calendar, Rocket } from 'lucide-react';
 export default AdminPanel;
