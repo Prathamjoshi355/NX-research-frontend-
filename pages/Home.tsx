@@ -1,167 +1,256 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Shield, ArrowRight, CheckCircle, Target, BookOpen, Microscope, Globe, Briefcase, Zap, Trophy, Users } from 'lucide-react';
-import { Section, Card, Button } from '../components/Common';
-import { DOMAINS, HOW_IT_WORKS } from '../constants';
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { 
+  Globe, 
+  Briefcase, 
+  BookOpen, 
+  Users, 
+  Zap, 
+  ArrowRight, 
+  Trophy, 
+  Microscope,
+  Video
+} from "lucide-react";
+import { Section, Card, Button } from "../components/Common";
+
+interface DomainCardProps {
+  name: string;
+  desc: string;
+  path: string;
+  img: string;
+  videoUrl: string;
+  className?: string;
+}
+
+const DomainCard: React.FC<DomainCardProps> = ({ name, desc, path, img, videoUrl, className = "" }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(e => console.log("Video playback blocked"));
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  return (
+    <Link 
+      to={path}
+      className={`relative group overflow-hidden rounded-[3rem] aspect-square md:aspect-video w-full cursor-pointer transition-all duration-500 shadow-xl ${className}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Static Image */}
+      <img 
+        src={img} 
+        alt={name}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+      />
+
+      {/* Background Video */}
+      <video 
+        ref={videoRef}
+        muted 
+        loop 
+        playsInline
+        className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 z-0 ${isHovered ? 'opacity-100 blur-[6px] scale-105' : 'opacity-100'}`}
+      >
+        <source src={videoUrl} type="video/mp4" />
+      </video>
+
+      {/* Overlay for Contrast */}
+      <div className={`absolute inset-0 bg-black/60 transition-opacity duration-100 z-20 ${isHovered ? 'opacity-30' : 'opacity-10'}`}></div>
+
+      {/* Content Overlay */}
+      <div className={`absolute inset-0 flex flex-col items-center justify-center p-8 text-center transition-all duration-500 z-30 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter mb-4 text-shadow-lg">
+          {name}
+        </h3>
+        <p className="text-white/80 font-medium text-sm md:text-base max-w-xs uppercase tracking-widest leading-tight">
+          {desc}
+        </p>
+        <div className="mt-6 w-12 h-1 bg-[#FB8500] rounded-full"></div>
+      </div>
+
+      {/* Name visible when NOT hovered (Optional, but looks clean) */}
+      {!isHovered && (
+        <div className="absolute bottom-10 left-10 z-20">
+          <h3 className="text-xl font-black text-white uppercase tracking-tighter text-shadow-lg bg-[#0A2463]/80 px-4 py-1 rounded-lg">
+            {name}
+          </h3>
+        </div>
+      )}
+    </Link>
+  );
+};
 
 const Home = () => {
+  const [index, setIndex] = useState(0);
+  const texts = [
+    "NX Research",
+    "Student-Powered Applied Research",
+    "Where Students Become Researchers",
+    "Build • Test • Solve • Deploy"
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % texts.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div className="animate-in fade-in duration-500">
+    <div className="animate-in fade-in duration-700">
+      
+      {/* ================================================= */}
       {/* SECTION 1: HERO */}
-      <Section className="text-center pt-32 pb-44">
-        <h1 className="text-6xl md:text-9xl font-black text-[#0A2463] mb-8 leading-[0.85] tracking-tighter">
-          Student-Powered <br /> Applied Research
-        </h1>
-        <p className="text-xl md:text-2xl text-[#1E1E1E] max-w-3xl mx-auto mb-14 leading-relaxed font-semibold">
-          We build independent problem-solvers through student-driven research, innovation and real-world projects.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-6">
-          <Link to="/summit"><Button size="lg" className="h-20 px-12 rounded-[2rem] text-xl">Join Workshop</Button></Link>
-          <Link to="/login"><Button size="lg" variant="outline" className="h-20 px-12 rounded-[2rem] text-xl">Apply Now</Button></Link>
+      {/* ================================================= */}
+      <section className="relative h-[92vh] flex items-center justify-center overflow-hidden bg-black">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-[2]"></div>
+        <div className="absolute inset-0 z-[1] opacity-50">
+        <video src="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1769957661/jige_xz8rn1.mp4" 
+        muted 
+        loop 
+        playsInline
+        className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 z-0 `}></video>
         </div>
-      </Section>
 
-      {/* SECTION 2: ABOUT SUMMARY */}
-      <Section gray className="py-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-          <div>
-            <h2 className="text-4xl font-black text-[#0A2463] uppercase tracking-tighter mb-8">Our Vision & Mission</h2>
-            <p className="text-xl text-gray-600 font-medium mb-8 leading-relaxed">
-              NX Research is a student-initiative driven organization where students lead research and projects, while mentors provide guidance to build real-world solutions.
-            </p>
-            <Link to="/about">
-              <Button variant="ghost" className="font-black p-0 group">
-                LEARN ABOUT VIRTUAL CAMPUS <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" />
-              </Button>
-            </Link>
+        <div className="relative z-10 text-center max-w-6xl px-6">
+          <div className="mb-6 inline-flex items-center px-4 py-1.5 rounded-full bg-[#FB8500]/10 border border-[#FB8500]/30 text-[#FB8500] text-[10px] font-black uppercase tracking-[0.3em]">
+            India's Elite Student Research Org
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <Card className="bg-white p-10 text-center border-none shadow-xl rounded-[3rem]">
-              <Target className="mx-auto mb-4 text-[#FB8500]" />
-              <h4 className="font-black text-xs uppercase tracking-widest">Purpose</h4>
-            </Card>
-            <Card className="bg-[#0A2463] p-10 text-center text-white border-none shadow-xl rounded-[3rem]">
-              <Shield className="mx-auto mb-4 text-[#FB8500]" />
-              <h4 className="font-black text-xs uppercase tracking-widest">Integrity</h4>
-            </Card>
+          
+          <div className="h-[160px] md:h-[240px] flex items-center justify-center mb-8 overflow-hidden">
+            <h1 className="text-2xl md:text-6xl lg:text-7xl font-black text-white leading-[0.85] tracking-tighter text-shadow-lg">
+              <span key={index} className="block animate-heroText whitespace-pre-wrap px-4">
+                {texts[index]}
+              </span>
+            </h1>
           </div>
-        </div>
-      </Section>
 
-      {/* SECTION 3: RESEARCH DOMAINS */}
-      <Section>
-        <div className="flex justify-between items-end mb-16">
-          <h2 className="text-4xl font-black text-[#0A2463] uppercase tracking-tighter">Applied Research</h2>
-          <div className="flex space-x-4">
-            <Link to="/government" className="text-xs font-black uppercase tracking-widest text-gray-400 hover:text-[#FB8500]">Government</Link>
-            <Link to="/private" className="text-xs font-black uppercase tracking-widest text-gray-400 hover:text-[#FB8500]">Private</Link>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <Card className="p-12 bg-[#F8F9FA] rounded-[4rem] border-none group hover:bg-[#0A2463] transition-colors duration-500">
-            <Globe className="text-[#FB8500] w-12 h-12 mb-8" />
-            <h3 className="text-3xl font-black text-[#0A2463] group-hover:text-white mb-6 uppercase tracking-tighter">Gov Research</h3>
-            <p className="text-gray-500 group-hover:text-blue-100 mb-8 font-medium">Applied research for national-level problem statements with govt collaboration.</p>
-            <Link to="/government"><Button variant="outline" className="group-hover:bg-white group-hover:text-[#0A2463]">Explore</Button></Link>
-          </Card>
-          <Card className="p-12 bg-[#F8F9FA] rounded-[4rem] border-none group hover:bg-[#FB8500] transition-colors duration-500">
-            <Briefcase className="text-[#0A2463] w-12 h-12 mb-8 group-hover:text-white" />
-            <h3 className="text-3xl font-black text-[#0A2463] group-hover:text-white mb-6 uppercase tracking-tighter">Industry Research</h3>
-            <p className="text-gray-500 group-hover:text-orange-50 mb-8 font-medium">Solving real industry problems for startups and enterprises.</p>
-            <Link to="/private"><Button variant="outline" className="group-hover:bg-[#0A2463] group-hover:text-white border-white">Explore</Button></Link>
-          </Card>
-        </div>
-      </Section>
+          <p className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto mb-14 leading-relaxed font-medium">
+            We build independent problem-solvers through student-driven research and real-world implementation.
+          </p>
 
-      {/* SECTION 4: STUDENT LEARNING POWER */}
-      <Section gray>
+        </div>
+      </section>
+
+      {/* ================================================= */}
+      {/* SECTION 2: DOMAINS (Simplified Custom Grid) */}
+      {/* ================================================= */}
+      <Section className="py-24 bg-white overflow-hidden">
         <div className="text-center mb-20">
-          <h2 className="text-4xl font-black text-[#0A2463] uppercase tracking-tighter mb-4">Learning Power</h2>
-          <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">Learn how to learn • Mastery Tracks • Credits System</p>
+          <h2 className="text-5xl font-black text-[#0A2463] uppercase tracking-tighter mb-4 leading-none">Our Domains</h2>
+          <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">Innovation Ecosystem • Hover to Explore</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            { title: 'Philosophy', desc: 'Thinking patterns over memorization.', icon: BookOpen },
-            { title: 'Mentorship', desc: '1:1 and Many:1 guidance models.', icon: Users },
-            { title: 'Credits', desc: 'Proof of work based currency.', icon: Zap },
-          ].map(item => (
-            <Card key={item.title} className="p-10 bg-white border-none shadow-sm rounded-[3rem]">
-              <item.icon className="text-[#FB8500] mb-6" />
-              <h4 className="text-xl font-black text-[#0A2463] mb-4 uppercase">{item.title}</h4>
-              <p className="text-sm font-medium text-gray-500 leading-relaxed">{item.desc}</p>
-            </Card>
-          ))}
-        </div>
-        <div className="text-center mt-12">
-          <Link to="/learning-power"><Button variant="secondary" className="rounded-2xl">View Learning Roadmap</Button></Link>
-        </div>
-      </Section>
 
-      {/* SECTION 5: LIVE CHALLENGES */}
-      <Section className="bg-[#0A2463] text-white">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
-          <h2 className="text-4xl font-black uppercase tracking-tighter">Live Research Challenges</h2>
-          <Link to="/challenges"><Button variant="primary">Apply to Join Challenge</Button></Link>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <Card className="bg-white/5 border-white/10 p-10 rounded-[3rem]">
-            <h4 className="text-[#FB8500] font-black text-xs uppercase tracking-widest mb-4">Government</h4>
-            <h3 className="text-2xl font-bold mb-4">Traffic Management AI for Smart Cities</h3>
-            <p className="text-blue-100/60 text-sm mb-6">Partner: Dept of Transport</p>
-            <div className="flex justify-between items-center border-t border-white/10 pt-6">
-              <span className="text-xs font-black uppercase">Deadline: 15 Mar</span>
-              <Button size="sm">Participate</Button>
-            </div>
-          </Card>
-          <Card className="bg-white/5 border-white/10 p-10 rounded-[3rem]">
-            <h4 className="text-[#FB8500] font-black text-xs uppercase tracking-widest mb-4">Industry</h4>
-            <h3 className="text-2xl font-bold mb-4">Low-Cost Drone Delivery Prototypes</h3>
-            <p className="text-blue-100/60 text-sm mb-6">Partner: SwiftLogistics Inc.</p>
-            <div className="flex justify-between items-center border-t border-white/10 pt-6">
-              <span className="text-xs font-black uppercase">Deadline: 20 Mar</span>
-              <Button size="sm">Participate</Button>
-            </div>
-          </Card>
-        </div>
-      </Section>
-
-      {/* SECTION 6: OUTCOMES & IMPACT */}
-      <Section>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-          <div>
-            <h2 className="text-4xl font-black text-[#0A2463] uppercase tracking-tighter mb-8">Outcomes & Impact</h2>
-            <div className="space-y-8">
-              {[
-                { label: 'Prototypes Built', val: '45+' },
-                { label: 'Research Reports', val: '120+' },
-                { label: 'Student Employment', val: '95%' }
-              ].map(stat => (
-                <div key={stat.label} className="flex justify-between items-end border-b-2 border-gray-50 pb-4">
-                  <span className="text-sm font-black text-gray-400 uppercase tracking-widest">{stat.label}</span>
-                  <span className="text-3xl font-black text-[#0A2463]">{stat.val}</span>
-                </div>
-              ))}
-            </div>
+        <div className="flex flex-col space-y-10 max-w-7xl mx-auto">
+          {/* Row 1: NX Meet (Centered) */}
+          <div className="flex justify-center">
+            <DomainCard 
+              name="NX Meet" 
+              desc="Startup & Innovation Summit connecting students, mentors, and investors."
+              path="/summit"
+              img="https://images.unsplash.com/photo-1540575861501-7ad05823c95b?auto=format&fit=crop&q=80&w=1000"
+              videoUrl="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1769957661/jige_xz8rn1.mp4"
+              className="md:max-w-3xl"
+            />
           </div>
-          <Card className="bg-gray-50 border-none p-16 rounded-[4rem]">
-            <Trophy className="text-[#FB8500] w-16 h-16 mb-8" />
-            <h3 className="text-2xl font-black text-[#0A2463] mb-4 uppercase">Success Stories</h3>
-            <p className="text-gray-500 font-medium mb-8 italic">"Building the smart grid prototype at NX Research gave me the practical edge no classroom could."</p>
-            <Link to="/impact"><Button variant="outline">View All Outcomes</Button></Link>
-          </Card>
+
+          {/* Row 2: 3 Columns (Gov, Private, Initiative) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 px-4">
+            <DomainCard 
+              name="Government Research" 
+              desc="Solving national infrastructure and public sector challenges."
+              path="/government"
+              img="https://images.unsplash.com/photo-1521791136064-7986c295944c?auto=format&fit=crop&q=80&w=1000"
+              videoUrl="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1769957661/jige_xz8rn1.mp4"
+            />
+            <DomainCard 
+              name="Private Research" 
+              desc="Driving Industry R&D and high-stakes technical architecture."
+              path="/private"
+              img="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1000"
+              videoUrl="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1769957661/jige_xz8rn1.mp4"
+            />
+            <DomainCard 
+              name="Student Initiative" 
+              desc="Student-led problem identification and solution building."
+              path="/initiative"
+              img="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1000"
+              videoUrl="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1769957661/jige_xz8rn1.mp4"
+            />
+          </div>
+
+          {/* Row 3: 2 Columns (Power, Startup) */}
+          <div className="flex flex-col md:flex-row justify-center gap-10 px-4 md:px-0">
+            <DomainCard 
+              name="Power Empowerment" 
+              desc="Building technical, thinking, and research capability."
+              path="/power"
+              img="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1000"
+              videoUrl="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1769957661/jige_xz8rn1.mp4"
+              className="md:w-1/2 md:max-w-xl"
+            />
+            <DomainCard 
+              name="Startup Support" 
+              desc="Incubation and technical R&D support for high-potential ventures."
+              path="/challenges"
+              img="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1000"
+              videoUrl="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1769957661/jige_xz8rn1.mp4"
+              className="md:w-1/2 md:max-w-xl"
+            />
+          </div>
         </div>
       </Section>
 
-      {/* SECTION 7: JOIN US */}
-      <Section gray className="text-center">
-        <h2 className="text-5xl font-black text-[#0A2463] mb-16 tracking-tighter uppercase">Join NX Research</h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {['Student', 'Researcher', 'Mentor', 'Startup', 'Company'].map(role => (
-            <Link key={role} to="/login" className="bg-white p-8 rounded-[2rem] shadow-sm hover:scale-105 transition-transform group">
-              <h4 className="text-xs font-black text-[#0A2463] uppercase tracking-widest group-hover:text-[#FB8500]">{role}</h4>
-            </Link>
+      {/* ================================================= */}
+      {/* SECTION 6: IMPACT SNAPSHOT */}
+      {/* ================================================= */}
+      <Section className="py-32">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {[
+            { label: 'Research Reports', value: '150+', icon: Microscope },
+            { label: 'Live Prototypes', value: '45+', icon: Zap },
+            { label: 'Expert Mentors', value: '80+', icon: Users },
+            { label: 'Student Growth', value: '98%', icon: Trophy }
+          ].map((stat, i) => (
+            <div key={i} className="text-center p-10 bg-[#F8F9FA] rounded-[3rem]">
+              <stat.icon className="mx-auto mb-4 text-[#FB8500]" size={24} />
+              <h4 className="text-4xl font-black text-[#0A2463] mb-2">{stat.value}</h4>
+              <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">{stat.label}</p>
+            </div>
           ))}
+        </div>
+      </Section>
+
+      {/* ================================================= */}
+      {/* SECTION 7: FOOTER CTA */}
+      {/* ================================================= */}
+      <Section className="bg-[black] text-white py-40 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[white]/5 pointer-events-none"></div>
+        <div className="relative z-10">
+          <h2 className="text-5xl md:text-7xl font-black mb-10 tracking-tighter uppercase leading-none">
+            Ready to Build <br /> the Future?
+          </h2>
+          <p className="text-xl text-blue-100/20 max-w-xl mx-auto mb-16 font-medium">
+            Join the organization where students don't just learn—they lead and deploy.
+          </p>
+          <Link to="/login">
+            <Button size="lg" className="h-20 px-20 rounded-3xl text-xl shadow-3xl shadow-black/20 font-black uppercase tracking-[0.2em]">
+              Get Started
+            </Button>
+          </Link>
         </div>
       </Section>
     </div>

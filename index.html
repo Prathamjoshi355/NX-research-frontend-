@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
       :root {
         --research-blue: #0A2463;
@@ -39,8 +39,19 @@
       .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
       .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
       
-      /* Active Link Styles */
-      .active-link { color: var(--innovation-orange); font-weight: 700; border-bottom: 2px solid var(--innovation-orange); }
+      @keyframes heroText {
+        0% { transform: translateY(30px); opacity: 0; filter: blur(8px); }
+        15% { transform: translateY(0); opacity: 1; filter: blur(0); }
+        85% { transform: translateY(0); opacity: 1; filter: blur(0); }
+        100% { transform: translateY(-30px); opacity: 0; filter: blur(8px); }
+      }
+      .animate-heroText {
+        animation: heroText 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+
+      .text-shadow-lg {
+        text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      }
     </style>
     <script type="importmap">
 {
@@ -56,11 +67,9 @@
   }
 }
 </script>
-  <link rel="stylesheet" href="/index.css">
-</head>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="index.tsx"></script>
-  <script type="module" src="/index.tsx"></script>
-</body>
+  </body>
 </html>
