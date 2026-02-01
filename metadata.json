@@ -1,0 +1,8 @@
+{
+  "name": "NX Research",
+  "description": "A student-powered applied research organization focused on innovation, real-world projects, and independent problem-solving.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

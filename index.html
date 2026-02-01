@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NX Research | Multi-Page Research Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --research-blue: #0A2463;
+        --innovation-orange: #FB8500;
+        --neutral-gray: #F8F9FA;
+        --strong-charcoal: #1E1E1E;
+        --credibility-green: #06A77D;
+        --attention-gold: #FFB703;
+        --clear-red: #D62828;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        color: var(--strong-charcoal);
+        background-color: #FFFFFF;
+        overflow-x: hidden;
+      }
+      .bg-research-blue { background-color: var(--research-blue); }
+      .text-research-blue { color: var(--research-blue); }
+      .bg-innovation-orange { background-color: var(--innovation-orange); }
+      .text-innovation-orange { color: var(--innovation-orange); }
+      .bg-neutral-gray { background-color: var(--neutral-gray); }
+      
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: var(--neutral-gray); }
+      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+      .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+      .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+      
+      /* Active Link Styles */
+      .active-link { color: var(--innovation-orange); font-weight: 700; border-bottom: 2px solid var(--innovation-orange); }
+    </style>
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.11.2?deps=react@18.2.0",
+    "lucide-react": "https://esm.sh/lucide-react@0.244.0?deps=react@18.2.0",
+    "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/"
+  }
+}
+</script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
