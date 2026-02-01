@@ -237,13 +237,13 @@ const Home = () => {
       {/* ================================================= */}
       {/* SECTION 7: FOOTER CTA */}
       {/* ================================================= */}
-      <Section className="bg-[black] text-white py-40 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[white]/5 pointer-events-none"></div>
+      <Section className="bg-[Gray] text-white py-10 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[gray] pointer-events-none"></div>
         <div className="relative z-10">
-          <h2 className="text-5xl md:text-7xl font-black mb-10 tracking-tighter uppercase leading-none">
+          <h2 className="text-5xl md:text-7xl font-black mb-10 tracking-tighter uppercase leading-tight">
             Ready to Build <br /> the Future?
           </h2>
-          <p className="text-xl text-blue-100/20 max-w-xl mx-auto mb-16 font-medium">
+          <p className="text-xl text-black-46/20 max-w-xl mx-auto mb-16 font-medium">
             Join the organization where students don't just learn—they lead and deploy.
           </p>
           <Link to="/login">
