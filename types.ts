@@ -1,4 +1,4 @@
-
+import React from 'react';
 export enum UserRole {
   GUEST = 'GUEST',
   MEMBER = 'MEMBER',
@@ -25,4 +25,20 @@ export interface User {
   name: string;
   email: string;
   role: UserRole;
+}
+
+export interface ResearchArea {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+}
+
+export interface FeatureItem {
+  title: string;
+  icon: React.ReactNode;
+}
+
+export enum FormType {
+  STUDENT = 'STUDENT',
+  COMPANY = 'COMPANY'
 }
