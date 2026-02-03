@@ -1,8 +1,9 @@
 
 import React from 'react';
+import { X } from 'lucide-react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
 }
@@ -15,19 +16,20 @@ export const Button: React.FC<ButtonProps> = ({
   className = '', 
   ...props 
 }) => {
-  const baseStyles = "inline-flex items-center justify-center font-semibold rounded-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed";
+  const baseStyles = "inline-flex items-center justify-center font-bold rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-[10px]";
   
   const variants = {
     primary: "bg-[#FB8500] text-white hover:bg-[#e67a00] shadow-sm",
     secondary: "bg-[#0A2463] text-white hover:bg-[#081d50] shadow-sm",
-    outline: "border-2 border-[#FB8500] text-[#FB8500] hover:bg-[#FB8500] hover:text-white",
-    ghost: "text-[#1E1E1E] hover:bg-gray-100"
+    outline: "border-2 border-gray-100 text-[#0A2463] hover:border-[#FB8500] hover:text-[#FB8500]",
+    ghost: "text-[#1E1E1E] hover:bg-gray-100",
+    danger: "bg-red-500 text-white hover:bg-red-600 shadow-sm"
   };
 
   const sizes = {
-    sm: "px-4 py-2 text-sm",
-    md: "px-6 py-3 text-base",
-    lg: "px-8 py-4 text-lg"
+    sm: "px-4 py-2",
+    md: "px-6 py-3",
+    lg: "px-8 py-4"
   };
 
   return (
@@ -40,20 +42,21 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-// Updated Section to spread props like 'id' to the underlying section element
-export const Section = ({ 
+// Fixed: Wrapped Section with React.forwardRef to allow access to the underlying DOM element via ref
+export const Section = React.forwardRef<HTMLElement, { 
+  children: React.ReactNode, 
+  className?: string, 
+  dark?: boolean, 
+  gray?: boolean 
+} & React.HTMLAttributes<HTMLElement>>(({ 
   children, 
   className = '', 
   dark = false, 
   gray = false,
   ...props 
-}: { 
-  children: React.ReactNode, 
-  className?: string, 
-  dark?: boolean, 
-  gray?: boolean 
-} & React.HTMLAttributes<HTMLElement>) => (
+}, ref) => (
   <section 
+    ref={ref}
     className={`py-16 md:py-24 px-6 ${dark ? 'bg-[#0A2463] text-white' : gray ? 'bg-[#F8F9FA]' : 'bg-white'} ${className}`}
     {...props}
   >
@@ -61,9 +64,8 @@ export const Section = ({
       {children}
     </div>
   </section>
-);
+));
 
-// Updated Card to accept and spread HTML attributes, allowing props like onClick to work correctly
 export const Card = ({ 
   children, 
   className = '', 
@@ -73,18 +75,18 @@ export const Card = ({
   className?: string 
 } & React.HTMLAttributes<HTMLDivElement>) => (
   <div 
-    className={`bg-white border border-gray-100 rounded-xl p-6 card-hover ${className}`}
+    className={`bg-white border border-gray-100 rounded-[2.5rem] p-8 card-hover shadow-sm ${className}`}
     {...props}
   >
     {children}
   </div>
 );
 
-export const Input = ({ label, ...props }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) => (
-  <div className="mb-4">
-    <label className="block text-sm font-semibold text-[#1E1E1E] mb-1.5">{label}</label>
+export const Input = ({ label, className = "", ...props }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) => (
+  <div className={`mb-4 ${className}`}>
+    {label && <label className="block text-[10px] font-black uppercase text-gray-400 mb-1.5 tracking-widest pl-1">{label}</label>}
     <input 
-      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#FB8500] focus:border-[#FB8500] outline-none transition-all"
+      className="w-full px-5 py-3.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-[#FB8500] focus:border-[#FB8500] outline-none transition-all font-bold text-sm bg-gray-50/50"
       {...props}
     />
   </div>
@@ -92,12 +94,12 @@ export const Input = ({ label, ...props }: { label: string } & React.InputHTMLAt
 
 export const Select = ({ label, options, ...props }: { label: string, options: string[] } & React.SelectHTMLAttributes<HTMLSelectElement>) => (
   <div className="mb-4">
-    <label className="block text-sm font-semibold text-[#1E1E1E] mb-1.5">{label}</label>
+    {label && <label className="block text-[10px] font-black uppercase text-gray-400 mb-1.5 tracking-widest pl-1">{label}</label>}
     <select 
-      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#FB8500] focus:border-[#FB8500] outline-none transition-all bg-white"
+      className="w-full px-5 py-3.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-[#FB8500] focus:border-[#FB8500] outline-none transition-all font-bold text-sm bg-gray-50/50"
       {...props}
     >
-      <option value="">Select an option</option>
+      <option value="">Select Option</option>
       {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
     </select>
   </div>
@@ -105,9 +107,9 @@ export const Select = ({ label, options, ...props }: { label: string, options: s
 
 export const Textarea = ({ label, ...props }: { label: string } & React.TextareaHTMLAttributes<HTMLTextAreaElement>) => (
   <div className="mb-4">
-    <label className="block text-sm font-semibold text-[#1E1E1E] mb-1.5">{label}</label>
+    {label && <label className="block text-[10px] font-black uppercase text-gray-400 mb-1.5 tracking-widest pl-1">{label}</label>}
     <textarea 
-      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#FB8500] focus:border-[#FB8500] outline-none transition-all min-h-[100px]"
+      className="w-full px-5 py-3.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-[#FB8500] focus:border-[#FB8500] outline-none transition-all font-bold text-sm bg-gray-50/50 min-h-[120px]"
       {...props}
     />
   </div>
@@ -115,13 +117,42 @@ export const Textarea = ({ label, ...props }: { label: string } & React.Textarea
 
 export const Badge = ({ status }: { status: string }) => {
   const colors: Record<string, string> = {
-    'Approved': 'bg-[#06A77D] text-white',
-    'Pending': 'bg-[#FFB703] text-black',
-    'Rejected': 'bg-[#D62828] text-white'
+    'Approved': 'bg-green-100 text-green-700',
+    'Pending': 'bg-yellow-100 text-yellow-700',
+    'Rejected': 'bg-red-100 text-red-700',
+    'Completed': 'bg-blue-100 text-blue-700'
   };
   return (
-    <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider ${colors[status] || 'bg-gray-200 text-gray-700'}`}>
+    <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${colors[status] || 'bg-gray-100 text-gray-500'}`}>
       {status}
     </span>
   );
 };
+
+export const Modal = ({ isOpen, onClose, title, children }: { isOpen: boolean, onClose: () => void, title: string, children: React.ReactNode }) => {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300">
+      <div className="bg-white rounded-[3rem] w-full max-w-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+        <div className="p-10 border-b border-gray-50 flex justify-between items-center">
+          <h2 className="text-2xl font-black text-[#0A2463] uppercase tracking-tighter">{title}</h2>
+          <button onClick={onClose} className="p-3 rounded-2xl hover:bg-gray-50 transition-colors text-gray-400"><X size={20} /></button>
+        </div>
+        <div className="p-10 max-h-[70vh] overflow-y-auto">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const Switch = ({ label, checked, onChange }: { label: string, checked: boolean, onChange: (val: boolean) => void }) => (
+  <label className="flex items-center justify-between cursor-pointer group py-2">
+    <span className="text-xs font-black uppercase text-[#0A2463] tracking-widest">{label}</span>
+    <div className="relative">
+      <input type="checkbox" className="sr-only" checked={checked} onChange={(e) => onChange(e.target.checked)} />
+      <div className={`block w-12 h-7 rounded-full transition-colors ${checked ? 'bg-[#FB8500]' : 'bg-gray-200'}`}></div>
+      <div className={`absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition-transform ${checked ? 'translate-x-5' : 'translate-x-0'}`}></div>
+    </div>
+  </label>
+);
