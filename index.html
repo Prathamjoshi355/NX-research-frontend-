@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NX Research | Multi-Page Research Portal</title>
+    <title>NX Research | Elite Applied Research Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,20 +25,44 @@
         background-color: #FFFFFF;
         overflow-x: hidden;
       }
-      .bg-research-blue { background-color: var(--research-blue); }
-      .text-research-blue { color: var(--research-blue); }
-      .bg-innovation-orange { background-color: var(--innovation-orange); }
-      .text-innovation-orange { color: var(--innovation-orange); }
-      .bg-neutral-gray { background-color: var(--neutral-gray); }
       
+      /* Smooth Scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Custom Scrollbar */
       ::-webkit-scrollbar { width: 8px; }
       ::-webkit-scrollbar-track { background: var(--neutral-gray); }
       ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
       ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-      .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-      .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+      /* Utility Classes */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .shadow-3xl {
+        box-shadow: 0 35px 60px -15px rgba(10, 36, 99, 0.15);
+      }
+
+      .card-hover { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease; }
+      .card-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(10, 36, 99, 0.1); }
       
+      .oval-node {
+        border-radius: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+      }
+
+      /* Animations */
       @keyframes heroText {
         0% { transform: translateY(30px); opacity: 0; filter: blur(8px); }
         15% { transform: translateY(0); opacity: 1; filter: blur(0); }
@@ -49,9 +73,52 @@
         animation: heroText 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       }
 
+      @keyframes drawLine {
+        from { scale: 0 1; transform-origin: left; }
+        to { scale: 1 1; transform-origin: left; }
+      }
+      .animate-draw {
+        animation: drawLine 2s ease-out forwards;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      .animate-float {
+        animation: float 4s ease-in-out infinite;
+      }
+
       .text-shadow-hero {
         text-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.4);
       }
+
+      /* Entrance Animations (Fallback for Tailwind missing plugin) */
+      .animate-in {
+        animation-duration: 0.6s;
+        animation-fill-mode: both;
+      }
+      .fade-in {
+        animation-name: fadeIn;
+      }
+      .zoom-in {
+        animation-name: zoomIn;
+      }
+      .slide-in-from-bottom-12 {
+        animation-name: slideInFromBottom;
+      }
+      .slide-in-from-top-12 {
+        animation-name: slideInFromTop;
+      }
+      .slide-in-from-right {
+        animation-name: slideInFromRight;
+      }
+
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+      @keyframes slideInFromBottom { from { transform: translateY(48px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+      @keyframes slideInFromTop { from { transform: translateY(-48px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+      @keyframes slideInFromRight { from { transform: translateX(48px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     </style>
     <script type="importmap">
 {
