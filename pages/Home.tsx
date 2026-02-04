@@ -212,7 +212,7 @@ const Home = () => {
           How we transfer Knowledge into capability?
         </h2>
 
-        <div className="min-h-screen w-full bg-[#F8F9FA] flex flex-col items-center justify-center p-8">
+        <div className="min-h-screen w-full flex flex-col items-center justify-center p-8">
 
       {/* Timeline with sequential animations */}
       <div className="relative w-full max-w-7xl h-[400px] flex items-center">
