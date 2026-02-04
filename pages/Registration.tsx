@@ -3,16 +3,16 @@ import React, { useState } from 'react';
 import { Step, FormData, INITIAL_FORM_DATA } from '../FCCtypes';
 import Sidebar from '../components/Sidebar';
 import StepIndicator from '../components/StepIndicator';
-import { 
-  ChevronDown, 
-  ChevronUp, 
-  Plus, 
-  Trash2, 
-  GraduationCap, 
-  Rocket, 
-  Briefcase, 
-  Users, 
-  Layout, 
+import {
+  ChevronDown,
+  ChevronUp,
+  Plus,
+  Trash2,
+  GraduationCap,
+  Rocket,
+  Briefcase,
+  Users,
+  Layout,
   CreditCard,
   Target,
   Trophy,
@@ -50,20 +50,20 @@ const Registration = () => {
   };
 
   const togglePlacement = (id: string) => {
-    setSelectedPlacements(prev => 
+    setSelectedPlacements(prev =>
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
     );
   };
 
   const renderPromotionDetails = () => (
     <div className="mt-6 space-y-4 animate-in slide-in-from-top-4 duration-500">
-      <div className="bg-[#0A2463] rounded-[2.5rem] p-8 text-white relative overflow-hidden shadow-3xl">
+      <div className="bg-[#1F2D2B] rounded-[2.5rem] p-8 text-white relative overflow-hidden shadow-3xl">
         <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
           <Megaphone size={140} />
         </div>
-        
+
         <div className="flex items-center gap-4 mb-8">
-          <div className="w-12 h-12 bg-[#FB8500] rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/20">
+          <div className="w-12 h-12 bg-[#3FB998] rounded-2xl flex items-center justify-center shadow-lg shadow-teal-500/20">
             <Trophy size={24} className="text-white" />
           </div>
           <div>
@@ -77,23 +77,21 @@ const Registration = () => {
           {MARKETING_PLACEMENTS.map((pkg) => {
             const isSelected = selectedPlacements.includes(pkg.id);
             return (
-              <div 
-                key={pkg.id} 
+              <div
+                key={pkg.id}
                 onClick={() => togglePlacement(pkg.id)}
-                className={`group flex items-center justify-between p-5 rounded-2xl border transition-all cursor-pointer ${
-                  isSelected 
-                    ? 'bg-white/10 border-[#FB8500] shadow-lg shadow-black/20' 
-                    : 'bg-white/5 border-white/10 hover:border-white/20'
-                }`}
+                className={`group flex items-center justify-between p-5 rounded-2xl border transition-all cursor-pointer ${isSelected
+                  ? 'bg-white/10 border-[#3FB998] shadow-lg shadow-black/20'
+                  : 'bg-white/5 border-white/10 hover:border-white/20'
+                  }`}
               >
                 <div className="flex items-center gap-4">
-                  <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${
-                    isSelected ? 'bg-[#FB8500] border-[#FB8500]' : 'border-white/20'
-                  }`}>
+                  <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${isSelected ? 'bg-[#3FB998] border-[#3FB998]' : 'border-white/20'
+                    }`}>
                     {isSelected && <Check size={14} className="text-white" strokeWidth={4} />}
                   </div>
                   <div>
-                    <p className={`text-xs font-black uppercase tracking-tight italic transition-colors ${isSelected ? 'text-[#FB8500]' : 'text-white'}`}>
+                    <p className={`text-xs font-black uppercase tracking-tight italic transition-colors ${isSelected ? 'text-[#3FB998]' : 'text-white'}`}>
                       {pkg.title}
                     </p>
                     <p className="text-[9px] text-blue-100/40 font-medium italic mt-0.5">{pkg.desc}</p>
@@ -108,7 +106,7 @@ const Registration = () => {
         </div>
 
         <div className="bg-white/5 rounded-2xl p-5 border border-white/5 flex items-start gap-4">
-          <Info size={18} className="text-[#FB8500] shrink-0 mt-0.5" />
+          <Info size={18} className="text-[#3FB998] shrink-0 mt-0.5" />
           <p className="text-[10px] text-blue-100/60 font-medium italic leading-relaxed">
             Fees listed above are per slot for the entire duration of the summit. Revenue generated scales the <span className="text-white font-bold">NX Innovation Fund</span> to empower young researchers.
           </p>
@@ -118,7 +116,7 @@ const Registration = () => {
           <div className="flex items-center gap-2">
             <span className="text-[9px] font-black uppercase tracking-[0.4em] text-blue-300/40">NX_PROTOCOL_MARKET_v1.0</span>
           </div>
-          <p className="text-[10px] font-black uppercase text-[#FB8500] tracking-widest italic">
+          <p className="text-[10px] font-black uppercase text-[#3FB998] tracking-widest italic">
             Total Selected: {selectedPlacements.length}
           </p>
         </div>
@@ -136,13 +134,13 @@ const Registration = () => {
                 <p>We'll send you important updates regarding the summit schedule, networking sessions, and logistic protocols via your registered credentials.</p>
                 <div className="h-px bg-slate-100 my-6" />
                 <label className="flex items-center gap-3 cursor-pointer group">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     checked={formData.receiveNotifications}
                     onChange={(e) => handleInputChange('receiveNotifications', e.target.checked)}
-                    className="w-5 h-5 rounded border-slate-300 text-[#FB8500] focus:ring-[#FB8500] accent-[#FB8500]"
+                    className="w-5 h-5 rounded border-slate-300 text-[#3FB998] focus:ring-[#3FB998] accent-[#3FB998]"
                   />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-[#0A2463] group-hover:text-[#FB8500] transition-colors">I wish to receive research notifications</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[#1F2D2B] group-hover:text-[#3FB998] transition-colors">I wish to receive research notifications</span>
                 </label>
               </div>
             </CollapsibleSection>
@@ -155,13 +153,13 @@ const Registration = () => {
               </div>
               <div className="p-8 bg-slate-50 border-t border-slate-100">
                 <label className="flex items-center gap-3 cursor-pointer group">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     checked={formData.agreedToTerms}
                     onChange={(e) => handleInputChange('agreedToTerms', e.target.checked)}
-                    className="w-5 h-5 rounded border-slate-300 text-[#0A2463] focus:ring-[#0A2463] accent-[#0A2463]"
+                    className="w-5 h-5 rounded border-slate-300 text-[#1F2D2B] focus:ring-[#1F2D2B] accent-[#1F2D2B]"
                   />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-[#0A2463] group-hover:text-[#FB8500] transition-colors">I accept the Research Integrity Protocol</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[#1F2D2B] group-hover:text-[#3FB998] transition-colors">I accept the Research Integrity Protocol</span>
                 </label>
               </div>
             </CollapsibleSection>
@@ -181,8 +179,8 @@ const Registration = () => {
               <Input label="Gender" value={formData.gender} onChange={v => handleInputChange('gender', v)} />
               <div className="space-y-2">
                 <label className="text-[9px] font-black uppercase text-gray-400 tracking-widest mb-1 block pl-1">Salutation</label>
-                <select 
-                  className="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#FB8500] outline-none transition-all font-bold text-xs"
+                <select
+                  className="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#3FB998] outline-none transition-all font-bold text-xs"
                   value={formData.pronoun}
                   onChange={(e) => handleInputChange('pronoun', e.target.value)}
                 >
@@ -217,11 +215,10 @@ const Registration = () => {
                   <button
                     key={cat.id}
                     onClick={() => handleInputChange('category', cat.id)}
-                    className={`flex flex-col items-center gap-4 p-8 rounded-[2.5rem] border-2 transition-all duration-500 ${
-                      isSelected ? 'border-[#FB8500] bg-orange-50/20 text-[#0A2463] shadow-xl' : 'border-slate-50 bg-white hover:border-[#0A2463] text-slate-400'
-                    }`}
+                    className={`flex flex-col items-center gap-4 p-8 rounded-[2.5rem] border-2 transition-all duration-500 ${isSelected ? 'border-[#3FB998] bg-[#3FB998]/10 text-[#1F2D2B] shadow-xl' : 'border-slate-50 bg-white hover:border-[#1F2D2B] text-slate-400'
+                      }`}
                   >
-                    <Icon className={`w-12 h-12 transition-transform ${isSelected ? 'scale-110 text-[#FB8500]' : ''}`} />
+                    <Icon className={`w-12 h-12 transition-transform ${isSelected ? 'scale-110 text-[#3FB998]' : ''}`} />
                     <span className="font-black uppercase tracking-[0.2em] text-[10px]">{cat.label}</span>
                   </button>
                 );
@@ -242,15 +239,15 @@ const Registration = () => {
                   <Input label="Graduation Year" />
                 </div>
                 <div className="bg-slate-50/50 p-8 rounded-[2.5rem] border border-slate-100 space-y-6">
-                  <p className="font-black text-[#0A2463] uppercase text-[10px] tracking-widest">Enrollment Mode</p>
+                  <p className="font-black text-[#1F2D2B] uppercase text-[10px] tracking-widest">Enrollment Mode</p>
                   <div className="flex gap-8">
                     <label className="flex items-center gap-2 cursor-pointer group">
-                      <input type="radio" name="registrationType" className="w-4 h-4 accent-[#FB8500]" />
-                      <span className="text-[10px] font-black uppercase text-slate-400 group-hover:text-[#0A2463]">Independent</span>
+                      <input type="radio" name="registrationType" className="w-4 h-4 accent-[#3FB998]" />
+                      <span className="text-[10px] font-black uppercase text-slate-400 group-hover:text-[#1F2D2B]">Independent</span>
                     </label>
                     <label className="flex items-center gap-2 cursor-pointer group">
-                      <input type="radio" name="registrationType" className="w-4 h-4 accent-[#FB8500]" defaultChecked />
-                      <span className="text-[10px] font-black uppercase text-slate-400 group-hover:text-[#0A2463]">Alliance / Group</span>
+                      <input type="radio" name="registrationType" className="w-4 h-4 accent-[#3FB998]" defaultChecked />
+                      <span className="text-[10px] font-black uppercase text-slate-400 group-hover:text-[#1F2D2B]">Alliance / Group</span>
                     </label>
                   </div>
                 </div>
@@ -269,7 +266,7 @@ const Registration = () => {
                       <label className="text-[9px] font-black uppercase text-gray-400 tracking-widest mb-1 block pl-1">Stage</label>
                       <div className="flex rounded-xl overflow-hidden border border-slate-200 bg-white">
                         {['IDEA', 'MVP', 'SCALE'].map(stage => (
-                          <button key={stage} className="flex-1 py-4 text-[10px] font-black hover:bg-slate-50 transition-colors border-r last:border-0 uppercase italic tracking-tighter text-[#0A2463]">
+                          <button key={stage} className="flex-1 py-4 text-[10px] font-black hover:bg-slate-50 transition-colors border-r last:border-0 uppercase italic tracking-tighter text-[#1F2D2B]">
                             {stage}
                           </button>
                         ))}
@@ -277,26 +274,26 @@ const Registration = () => {
                     </div>
                   )}
                 </div>
-                
+
                 {/* Promotion Toggle with Dynamic List */}
                 <div className="p-8 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm transition-all hover:shadow-lg overflow-hidden">
                   <div className="flex items-center justify-between mb-2">
                     <div className="space-y-1">
-                      <p className="font-black text-[#0A2463] uppercase text-xs tracking-tight italic">Promotion Listing</p>
-                      <p className="text-[9px] text-[#FB8500] font-black uppercase tracking-widest">Reserve your strategic marketing nodes</p>
+                      <p className="font-black text-[#1F2D2B] uppercase text-xs tracking-tight italic">Promotion Listing</p>
+                      <p className="text-[9px] text-[#3FB998] font-black uppercase tracking-widest">Reserve your strategic marketing nodes</p>
                     </div>
                     <ToggleButton active={showPromoList} onClick={() => setShowPromoList(!showPromoList)} />
                   </div>
                   {showPromoList && renderPromotionDetails()}
                 </div>
 
-                <div className="p-8 bg-orange-50/50 rounded-[2.5rem] border border-orange-100 flex items-start gap-4">
-                  <div className="p-3 bg-white rounded-2xl text-[#FB8500] shadow-sm"><Zap size={20} /></div>
+                <div className="p-8 bg-[#3FB998]/10 rounded-[2.5rem] border border-[#3FB998]/20 flex items-start gap-4">
+                  <div className="p-3 bg-white rounded-2xl text-[#3FB998] shadow-sm"><Zap size={20} /></div>
                   <div className="space-y-2">
-                    <p className="text-xs text-[#0A2463] font-bold italic leading-relaxed">
+                    <p className="text-xs text-[#1F2D2B] font-bold italic leading-relaxed">
                       "If you have specific standee designs or brand posters, please dispatch them via secure mail for verification."
                     </p>
-                    <p className="text-[9px] font-black uppercase text-[#FB8500] tracking-widest">Registry@nxresearch.org</p>
+                    <p className="text-[9px] font-black uppercase text-[#3FB998] tracking-widest">Registry@nxresearch.org</p>
                   </div>
                 </div>
               </div>
@@ -310,7 +307,7 @@ const Registration = () => {
           <div className="space-y-8 animate-in slide-in-from-right-8 duration-500">
             <CollapsibleSection title="Strategic Interests" defaultOpen>
               <div className="p-8 space-y-6">
-                <p className="font-black text-[#0A2463] uppercase text-[10px] tracking-widest">Which are your core objectives?</p>
+                <p className="font-black text-[#1F2D2B] uppercase text-[10px] tracking-widest">Which are your core objectives?</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[
                     'Elite Networking',
@@ -319,19 +316,19 @@ const Registration = () => {
                     'R&D Collaboration',
                     'Domain Exposure'
                   ].map((interest) => (
-                    <label key={interest} className="flex items-center gap-3 p-5 rounded-2xl border border-slate-50 bg-slate-50/30 hover:bg-white hover:border-[#FB8500] transition-all cursor-pointer group">
-                      <input 
-                        type="checkbox" 
-                        className="w-5 h-5 rounded border-slate-300 accent-[#FB8500]"
+                    <label key={interest} className="flex items-center gap-3 p-5 rounded-2xl border border-slate-50 bg-slate-50/30 hover:bg-white hover:border-[#3FB998] transition-all cursor-pointer group">
+                      <input
+                        type="checkbox"
+                        className="w-5 h-5 rounded border-slate-300 accent-[#3FB998]"
                         checked={formData.interests.includes(interest)}
                         onChange={(e) => {
-                          const newInterests = e.target.checked 
+                          const newInterests = e.target.checked
                             ? [...formData.interests, interest]
                             : formData.interests.filter(i => i !== interest);
                           handleInputChange('interests', newInterests);
                         }}
                       />
-                      <span className="text-[10px] font-black uppercase text-slate-500 group-hover:text-[#0A2463] tracking-widest">{interest}</span>
+                      <span className="text-[10px] font-black uppercase text-slate-500 group-hover:text-[#1F2D2B] tracking-widest">{interest}</span>
                     </label>
                   ))}
                 </div>
@@ -342,7 +339,7 @@ const Registration = () => {
               <div className="p-8 space-y-6">
                 {formData.socialNetworks.map((net, idx) => (
                   <div key={idx} className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end group animate-in slide-in-from-top-2">
-                    <Input 
+                    <Input
                       label="Registry Platform"
                       placeholder="e.g. LinkedIn"
                       value={net.platform}
@@ -353,7 +350,7 @@ const Registration = () => {
                       }}
                     />
                     <div className="relative">
-                      <Input 
+                      <Input
                         label="Portfolio / URL"
                         placeholder="https://..."
                         value={net.url}
@@ -364,7 +361,7 @@ const Registration = () => {
                         }}
                       />
                       {idx > 0 && (
-                        <button 
+                        <button
                           onClick={() => {
                             const newNets = formData.socialNetworks.filter((_, i) => i !== idx);
                             handleInputChange('socialNetworks', newNets);
@@ -377,9 +374,9 @@ const Registration = () => {
                     </div>
                   </div>
                 ))}
-                <button 
+                <button
                   onClick={() => handleInputChange('socialNetworks', [...formData.socialNetworks, { platform: '', url: '' }])}
-                  className="flex items-center gap-2 px-6 py-6 rounded-2xl border-2 border-dashed border-slate-200 text-slate-400 hover:border-[#FB8500] hover:text-[#FB8500] transition-all w-full justify-center group"
+                  className="flex items-center gap-2 px-6 py-6 rounded-2xl border-2 border-dashed border-slate-200 text-slate-400 hover:border-[#3FB998] hover:text-[#3FB998] transition-all w-full justify-center group"
                 >
                   <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" />
                   <span className="font-black uppercase tracking-[0.2em] text-[9px]">Add Strategic Registry</span>
@@ -393,18 +390,18 @@ const Registration = () => {
         return (
           <CollapsibleSection title="Verification Checkout" defaultOpen>
             <div className="p-12 space-y-8 flex flex-col items-center justify-center text-center">
-              <div className="w-24 h-24 bg-orange-50 text-[#FB8500] rounded-full flex items-center justify-center shadow-xl shadow-orange-100 animate-float">
+              <div className="w-24 h-24 bg-[#3FB998]/10 text-[#3FB998] rounded-full flex items-center justify-center shadow-xl shadow-teal-100 animate-float">
                 <CreditCard className="w-12 h-12" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-3xl font-black text-[#0A2463] uppercase tracking-tighter italic">Secure Gateway</h3>
+                <h3 className="text-3xl font-black text-[#1F2D2B] uppercase tracking-tighter italic">Secure Gateway</h3>
                 <p className="text-slate-500 font-medium italic">Process your enrollment verification to finalize your seat.</p>
               </div>
               <div className="w-full max-w-sm space-y-4">
                 {['Secure Card Portal', 'Bank Intelligence Transfer', 'Mobile Node Wallet'].map(method => (
-                  <button key={method} className="w-full p-6 text-left border-2 border-slate-50 rounded-2xl hover:border-[#FB8500] hover:bg-white bg-slate-50/30 transition-all flex justify-between items-center group">
-                    <span className="font-black text-[10px] uppercase tracking-widest text-slate-400 group-hover:text-[#0A2463]">{method}</span>
-                    <ChevronDown className="w-4 h-4 text-slate-200 group-hover:text-[#FB8500]" />
+                  <button key={method} className="w-full p-6 text-left border-2 border-slate-50 rounded-2xl hover:border-[#3FB998] hover:bg-white bg-slate-50/30 transition-all flex justify-between items-center group">
+                    <span className="font-black text-[10px] uppercase tracking-widest text-slate-400 group-hover:text-[#1F2D2B]">{method}</span>
+                    <ChevronDown className="w-4 h-4 text-slate-200 group-hover:text-[#3FB998]" />
                   </button>
                 ))}
               </div>
@@ -420,16 +417,16 @@ const Registration = () => {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-[#F8F9FA]">
       <Sidebar currentStep={currentStep} />
-      
+
       <main className="flex-1 overflow-y-auto px-6 md:px-12 py-12 lg:py-20">
         <div className="max-w-4xl mx-auto">
           <header className="mb-16 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
-              <ShieldCheck className="text-[#FB8500]" size={18} />
+              <ShieldCheck className="text-[#3FB998]" size={18} />
               <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Operational Security v4.0.2</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-black text-[#0A2463] uppercase tracking-tighter italic leading-none mb-4">Summit Enrollment.</h1>
-            <p className="text-slate-500 font-medium italic opacity-70">Complete your strategic profile to access the Founder Circle Connect.</p>
+            <h1 className="text-4xl md:text-6xl font-black text-[#1F2D2B] uppercase tracking-tighter italic leading-none mb-4">Summit Enrollment.</h1>
+            <p className="text-slate-500 font-medium italic opacity-70">Complete your strategic profile to access the Founders's Circle Connect.</p>
           </header>
 
           <StepIndicator currentStep={currentStep} />
@@ -440,26 +437,25 @@ const Registration = () => {
 
           <div className="sticky bottom-8 z-20">
             <div className="flex justify-between items-center bg-white/80 backdrop-blur-xl p-8 rounded-[3rem] border border-slate-100 shadow-3xl shadow-blue-900/10">
-              <button 
+              <button
                 onClick={prevStep}
                 disabled={currentStep === Step.AGREEMENTS}
-                className="px-8 py-4 rounded-xl font-black text-[10px] uppercase text-slate-400 hover:text-[#0A2463] disabled:opacity-0 transition-all tracking-widest flex items-center gap-2"
+                className="px-8 py-4 rounded-xl font-black text-[10px] uppercase text-slate-400 hover:text-[#1F2D2B] disabled:opacity-0 transition-all tracking-widest flex items-center gap-2"
               >
                 <ArrowLeft size={14} /> Back
               </button>
 
-              <button 
+              <button
                 onClick={currentStep === Step.PAYMENT ? () => alert("Enrollment Provisioned") : nextStep}
                 disabled={currentStep === Step.AGREEMENTS && !formData.agreedToTerms}
-                className={`px-12 h-16 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] shadow-xl transition-all hover:-translate-y-1 active:scale-95 flex items-center gap-3 ${
-                  currentStep === Step.PAYMENT ? 'bg-[#06A77D] text-white' : 'bg-[#0A2463] text-white'
-                }`}
+                className={`px-12 h-16 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] shadow-xl transition-all hover:-translate-y-1 active:scale-95 flex items-center gap-3 ${currentStep === Step.PAYMENT ? 'bg-[#3FB998] text-white' : 'bg-[#1F2D2B] text-white'
+                  }`}
               >
                 {currentStep === Step.PAYMENT ? 'Finalize Enrollment' : 'Continue Step'} <ArrowRight size={14} />
               </button>
             </div>
           </div>
-          
+
           <p className="mt-20 text-center text-[9px] font-black text-gray-300 uppercase tracking-[0.5em] italic">
             NX Research Organization • Recruitment Protocol_Stable
           </p>
@@ -474,13 +470,13 @@ const CollapsibleSection: React.FC<{ title: string, children: React.ReactNode, d
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
     <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden transition-all duration-300 mb-6">
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex justify-between items-center p-8 bg-white hover:bg-slate-50/50 transition-colors border-b border-slate-50"
       >
         <div className="flex items-center gap-4">
-          <div className={`w-1.5 h-6 rounded-full transition-colors ${isOpen ? 'bg-[#FB8500]' : 'bg-slate-200'}`} />
-          <span className="text-sm font-black text-[#0A2463] uppercase tracking-widest italic">{title}</span>
+          <div className={`w-1.5 h-6 rounded-full transition-colors ${isOpen ? 'bg-[#3FB998]' : 'bg-slate-200'}`} />
+          <span className="text-sm font-black text-[#1F2D2B] uppercase tracking-widest italic">{title}</span>
         </div>
         {isOpen ? <ChevronUp className="w-4 h-4 text-slate-300" /> : <ChevronDown className="w-4 h-4 text-slate-300" />}
       </button>
@@ -494,11 +490,11 @@ const CollapsibleSection: React.FC<{ title: string, children: React.ReactNode, d
 const Input: React.FC<{ label: string, type?: string, value?: string, onChange?: (v: string) => void, placeholder?: string }> = ({ label, type = 'text', value, onChange, placeholder }) => (
   <div className="space-y-2">
     <label className="text-[9px] font-black uppercase text-gray-400 tracking-widest mb-1 block pl-1">{label}</label>
-    <input 
+    <input
       type={type}
       value={value}
       onChange={(e) => onChange?.(e.target.value)}
-      className="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#FB8500] focus:bg-white outline-none transition-all font-bold text-xs text-[#0A2463] placeholder:text-slate-300"
+      className="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#3FB998] focus:bg-white outline-none transition-all font-bold text-xs text-[#1F2D2B] placeholder:text-slate-300"
       placeholder={placeholder || `Specify ${label.toLowerCase()}...`}
     />
   </div>
@@ -506,9 +502,9 @@ const Input: React.FC<{ label: string, type?: string, value?: string, onChange?:
 
 const ToggleButton: React.FC<{ active: boolean, onClick: () => void }> = ({ active, onClick }) => {
   return (
-    <button 
+    <button
       onClick={onClick}
-      className={`relative w-12 h-6 rounded-full transition-colors duration-300 p-1 ${active ? 'bg-[#06A77D]' : 'bg-slate-200'}`}
+      className={`relative w-12 h-6 rounded-full transition-colors duration-300 p-1 ${active ? 'bg-[#3FB998]' : 'bg-slate-200'}`}
     >
       <div className={`w-4 h-4 bg-white rounded-full shadow-md transition-transform duration-300 ${active ? 'translate-x-6' : 'translate-x-0'}`} />
     </button>

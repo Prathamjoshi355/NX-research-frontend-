@@ -13,22 +13,22 @@ const Mentors = () => {
 
   return (
     <div className="animate-in fade-in duration-500">
-      <Section className="text-center pt-32 pb-44 bg-[#0A2463] text-white">
+      <Section className="text-center pt-32 pb-44 bg-[#1F2D2B] text-white">
         <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter uppercase">Mentors & Research Leaders</h1>
-        <p className="text-xl md:text-2xl text-blue-200/60 max-w-3xl mx-auto mb-12 font-medium">Expert guidance for student-led innovation.</p>
-        <Button size="lg" className="bg-[#FB8500] text-white h-16 px-12 rounded-full border-none" onClick={() => document.getElementById('become-mentor')?.scrollIntoView({ behavior: 'smooth' })}>Become a Mentor</Button>
+        <p className="text-xl md:text-2xl text-[#8FA6A1] max-w-3xl mx-auto mb-12 font-medium">Expert guidance for student-led innovation.</p>
+        <Button size="lg" className="bg-[#3FB998] text-white h-16 px-12 rounded-full border-none" onClick={() => document.getElementById('become-mentor')?.scrollIntoView({ behavior: 'smooth' })}>Become a Mentor</Button>
       </Section>
 
       <Section gray>
-        <h2 className="text-3xl font-black text-[#0A2463] mb-12 uppercase tracking-tighter text-center">Elite Research Network</h2>
+        <h2 className="text-3xl font-black text-[#1F2D2B] mb-12 uppercase tracking-tighter text-center">Elite Research Network</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {mentorList.map((mentor, i) => (
             <Card key={i} className="p-8 bg-white border-none shadow-sm flex flex-col items-center text-center group">
-              <div className="w-20 h-20 bg-gray-100 rounded-3xl mb-6 flex items-center justify-center text-[#0A2463] group-hover:bg-[#0A2463] group-hover:text-white transition-colors">
+              <div className="w-20 h-20 bg-gray-100 rounded-3xl mb-6 flex items-center justify-center text-[#1F2D2B] group-hover:bg-[#1F2D2B] group-hover:text-white transition-colors">
                 <Users size={32} />
               </div>
-              <h3 className="font-black text-lg text-[#0A2463] uppercase tracking-tight mb-1">{mentor.name}</h3>
-              <p className="text-[10px] font-black uppercase tracking-widest text-[#FB8500] mb-4">{mentor.domain}</p>
+              <h3 className="font-black text-lg text-[#1F2D2B] uppercase tracking-tight mb-1">{mentor.name}</h3>
+              <p className="text-[10px] font-black uppercase tracking-widest text-[#3FB998] mb-4">{mentor.domain}</p>
               <div className="flex items-center space-x-2 text-xs font-bold text-gray-400 mb-6">
                 <Star size={14} className="text-yellow-400 fill-yellow-400" />
                 <span>{mentor.rating}</span>
@@ -43,7 +43,7 @@ const Mentors = () => {
 
       <Section id="become-mentor">
         <div className="max-w-3xl mx-auto bg-white border-2 border-gray-100 rounded-[60px] p-16 shadow-2xl">
-          <h2 className="text-4xl font-black text-[#0A2463] mb-12 uppercase text-center tracking-tighter">Become a Mentor</h2>
+          <h2 className="text-4xl font-black text-[#1F2D2B] mb-12 uppercase text-center tracking-tighter">Become a Mentor</h2>
           <form className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Input label="Full Name" placeholder="e.g. Dr. John Doe" />

@@ -6,7 +6,7 @@ import { Zap, Users, Target } from 'lucide-react';
 const StudentLearning = () => (
   <div className="animate-in slide-in-from-bottom duration-700">
     <Section className="pt-32 pb-44 text-center">
-      <h1 className="text-7xl font-black text-[#0A2463] uppercase tracking-tighter mb-8">Student Learning Power</h1>
+      <h1 className="text-7xl font-black text-[#1F2D2B] uppercase tracking-tighter mb-8">Student Learning Power</h1>
       <p className="text-xl text-gray-500 font-bold uppercase tracking-widest">Learn How to Learn • Independent Thinking • Mastery</p>
     </Section>
     <Section gray className="py-32">
@@ -17,18 +17,18 @@ const StudentLearning = () => (
           { title: 'Time-Based tracks', desc: 'Move through concepts at the speed of your curiosity.' }
         ].map(item => (
           <Card key={item.title} className="bg-white border-none p-12 rounded-[4rem] text-center shadow-sm">
-            <h3 className="text-xl font-black text-[#0A2463] uppercase mb-4">{item.title}</h3>
-            <p className="text-gray-400 font-medium text-sm">{item.desc}</p>
+            <h3 className="text-xl font-black text-[#1F2D2B] uppercase mb-4">{item.title}</h3>
+            <p className="text-[#8FA6A1] font-medium text-sm">{item.desc}</p>
           </Card>
         ))}
       </div>
     </Section>
     <Section className="py-32 text-center">
-      <h2 className="text-4xl font-black text-[#0A2463] mb-12 uppercase tracking-tighter">Learning Credits System</h2>
-      <Card className="max-w-2xl mx-auto p-16 bg-[#FB8500] text-white rounded-[4rem] border-none">
+      <h2 className="text-4xl font-black text-[#1F2D2B] mb-12 uppercase tracking-tighter">Learning Credits System</h2>
+      <Card className="max-w-2xl mx-auto p-16 bg-[#3FB998] text-white rounded-[4rem] border-none">
         <Zap className="mx-auto mb-8 w-16 h-16" />
         <p className="text-2xl font-black mb-4 uppercase">Proof of Work = Currency</p>
-        <p className="text-orange-50 font-medium">Earn credits by completing research modules, publishing reports, and building prototypes.</p>
+        <p className="text-white/90 font-medium">Earn credits by completing research modules, publishing reports, and building prototypes.</p>
       </Card>
     </Section>
   </div>
