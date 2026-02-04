@@ -15,6 +15,8 @@ import PrivateResearch from './pages/PrivateResearch';
 import StudentInitiative from './pages/StudentInitiative';
 import PowerEmpowerment from './pages/PowerEmpowerment';
 import Login from './pages/Login';
+import Registration from './pages/Registration';
+import Dashboard from './pages/Dashboard';
 import StudentDashboard from './pages/StudentDashboard';
 import MentorDashboard from './pages/MentorDashboard';
 import CompanyDashboard from './pages/CompanyDashboard';
@@ -33,6 +35,7 @@ const App: React.FC = () => {
     <Router>
       <ScrollToTop />
       <Routes>
+        {/* Landing Pages with Header/Footer */}
         <Route path="/" element={<><Header /><Home /><Footer /></>} />
         <Route path="/about" element={<><Header /><About /><Footer /></>} />
         <Route path="/learning-power" element={<><Header /><StudentLearning /><Footer /></>} />
@@ -45,12 +48,14 @@ const App: React.FC = () => {
         <Route path="/initiative" element={<><Header /><StudentInitiative /><Footer /></>} />
         <Route path="/power" element={<><Header /><PowerEmpowerment /><Footer /></>} />
         <Route path="/login" element={<><Header /><Login /><Footer /></>} />
+        <Route path="/registration" element={<Registration />} />
 
-        {/* Dashboards */}
+        {/* Dashboards - No Header/Footer (Self-contained Layouts) */}
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/student" element={<StudentDashboard />} />
         <Route path="/dashboard/mentor" element={<MentorDashboard />} />
         <Route path="/dashboard/company" element={<CompanyDashboard />} />
-        <Route path="/admin" element={<AdminPanel/>} />
+        <Route path="/admin" element={<AdminPanel />} />
       </Routes>
     </Router>
   );

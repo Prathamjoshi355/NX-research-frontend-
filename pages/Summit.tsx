@@ -1,11 +1,14 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Section, Card, Button, Input, Select } from '../components/Common';
+import { useNavigate } from 'react-router-dom';
 import { 
   CheckCircle, X, Users, Rocket, Wallet, HeartHandshake, 
   ShieldCheck, Volume2, VolumeX, Calendar, ArrowRight,
   ChevronRight, PlayCircle, Trophy, Target, Sparkles,
   Layers, MapPin, Star
 } from 'lucide-react';
+
 
 // Internal helper components for the Matrix design
 const SectionHeader = ({ badge, title, subtitle }: { badge: string; title: string; subtitle: string }) => (
@@ -30,7 +33,7 @@ const CornerBrackets = () => (
 );
 
 const Summit = () => {
-  const [formType, setFormType] = useState<string | null>(null);
+  const navigate = useNavigate();
   const [isMuted, setIsMuted] = useState(true);
   const [isPip, setIsPip] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
@@ -133,6 +136,10 @@ const Summit = () => {
     }
   };
 
+  const handleRegisterClick = () => {
+    navigate('/registration');
+  };
+
   return (
     <div className="animate-in fade-in duration-700 bg-white">
       
@@ -165,7 +172,7 @@ const Summit = () => {
           </p>
 
           <div className="flex justify-center">
-            <Button size="lg" className="h-16 md:h-20 px-12 md:px-20 rounded-[2rem] shadow-2xl shadow-[#FB8500]/30 font-black uppercase tracking-[0.2em] text-sm hover:scale-105 active:scale-95 transition-all" onClick={() => document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button size="lg" className="h-16 md:h-20 px-12 md:px-20 rounded-[2rem] shadow-2xl shadow-[#FB8500]/30 font-black uppercase tracking-[0.2em] text-sm hover:scale-105 active:scale-95 transition-all" onClick={handleRegisterClick}>
               Register Now
             </Button>
           </div>
@@ -296,6 +303,7 @@ const Summit = () => {
                 <div className="pt-8">
                   <Button 
                     fullWidth
+                    onClick={activeSummitData?.status === 'Upcoming' ? handleRegisterClick : undefined}
                     className={`h-20 rounded-[2rem] text-xs font-black uppercase tracking-[0.3em] shadow-xl transition-all ${activeSummitData?.status === 'Upcoming' ? 'bg-[#0A2463]' : 'bg-[#FB8500]'}`}
                   >
                     {activeSummitData?.status === 'Upcoming' ? 'Secure Your Seat' : 'View Impact Report'}
@@ -309,42 +317,6 @@ const Summit = () => {
         </div>
       </Section>
 
-      {/* SECTION: REGISTRATION */}
-      <Section gray id="register" className="py-24 md:py-32 border-t border-gray-100">
-        <h2 className="text-4xl md:text-7xl font-black text-[#0A2463] mb-16 uppercase tracking-tighter text-center italic">Ready to Lead?</h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16 max-w-5xl mx-auto px-4">
-          {['Student', 'Startup', 'Investor', 'Sponsor', 'Organizer'].map(type => (
-            <Button 
-              key={type} 
-              variant={formType === type ? 'primary' : 'outline'} 
-              onClick={() => setFormType(type)} 
-              className={`h-16 md:h-20 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${formType === type ? 'scale-105 shadow-xl bg-[#FB8500] border-none text-white' : 'hover:border-[#0A2463]/20'}`}
-            >
-              I am a {type}
-            </Button>
-          ))}
-        </div>
-
-        {formType && (
-          <div className="bg-white border border-gray-100 rounded-[3rem] p-10 md:p-16 shadow-3xl max-w-3xl mx-auto relative animate-in zoom-in duration-300">
-            <button onClick={() => setFormType(null)} className="absolute top-8 right-8 p-2 text-gray-400 hover:text-[#FB8500] transition-colors"><X /></button>
-            <h3 className="text-3xl font-black text-[#0A2463] mb-12 uppercase text-center tracking-tight italic">{formType} Application</h3>
-            <form className="space-y-6">
-              {formType === 'Student' && <><Input label="Full Name" /><Input label="Institution" /><Input label="Major/Degree" /></>}
-              {formType === 'Startup' && <><Input label="Startup Name" /><Input label="Founder Name" /><Select label="Current Stage" options={['Ideation', 'MVP', 'Seed', 'Series A+']} /></>}
-              {formType === 'Investor' && <><Input label="Name" /><Input label="Portfolio/Fund Name" /><Input label="Investment Range" /></>}
-              {formType === 'Sponsor' && <><Input label="Company Name" /><Input label="Partnership Goal" /></>}
-              {formType === 'Organizer' && <><Input label="Name" /><Input label="Prior Experience" /></>}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input label="Phone Number" />
-                <Input label="Email Address" type="email" />
-              </div>
-              <Button fullWidth size="lg" className="rounded-2xl h-16 text-lg font-black uppercase tracking-widest shadow-2xl mt-8">Submit Registration</Button>
-            </form>
-          </div>
-        )}
-      </Section>
-
       {/* FOOTER CTA */}
       <Section className="bg-[#0A2463] text-white py-32 md:py-48 text-center relative overflow-hidden">
         <div className="relative z-10 px-6">
@@ -354,7 +326,7 @@ const Summit = () => {
           <p className="text-xl md:text-3xl text-blue-100/70 max-w-2xl mx-auto mb-16 font-medium italic">
             FCC 3.o is coming soon. Don't miss the opportunity to meet India's most innovative student founders.
           </p>
-          <Button size="lg" className="h-20 md:h-28 px-16 md:px-32 rounded-full text-xl md:text-3xl shadow-3xl shadow-black/40 font-black uppercase tracking-[0.2em] bg-[#FB8500] hover:bg-white hover:text-[#0A2463]">
+          <Button size="lg" className="h-20 md:h-28 px-16 md:px-32 rounded-full text-xl md:text-3xl shadow-3xl shadow-black/40 font-black uppercase tracking-[0.2em] bg-[#FB8500] hover:bg-white hover:text-[#0A2463]" onClick={handleRegisterClick}>
             Join FCC 3.o Waitlist
           </Button>
         </div>
@@ -366,4 +338,4 @@ const Summit = () => {
   );
 };
 
-export default Summit;  
+export default Summit;

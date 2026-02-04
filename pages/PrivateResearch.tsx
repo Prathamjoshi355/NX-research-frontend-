@@ -29,7 +29,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { Section, Button, Input, Select, Textarea } from '../components/Common';
-import { FormType } from '../types';
+import { FormType } from '../PrivateResearchtypes';
 
 const PrivateResearch: React.FC = () => {
   const [activeTab, setActiveTab] = useState<FormType>(FormType.STUDENT);

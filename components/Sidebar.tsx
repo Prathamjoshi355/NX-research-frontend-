@@ -1,0 +1,72 @@
+
+import React from 'react';
+import { Step } from '../FCCtypes';
+import { CheckCircle, Circle } from 'lucide-react';
+
+interface SidebarProps {
+  currentStep: Step;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ currentStep }) => {
+  const stepsList = [
+    { id: Step.AGREEMENTS, label: 'Protocols' },
+    { id: Step.PERSONAL_INFO, label: 'Identity' },
+    { id: Step.SELECT_CATEGORY, label: 'Category' },
+    { id: Step.CATEGORY_DETAILS, label: 'Track Details' },
+    { id: Step.ADDITIONAL_INFO, label: 'Network' },
+    { id: Step.PAYMENT, label: 'Verification' },
+  ];
+
+  return (
+    <div className="bg-[#0A2463] w-full md:w-80 min-h-screen p-10 hidden lg:flex flex-col sticky top-0 border-r border-white/5 shadow-2xl">
+      <div className="flex items-center gap-4 mb-20">
+        <div className="w-10 h-10 bg-[#FB8500] rounded-xl flex items-center justify-center font-black text-white text-xl">N</div>
+        <div>
+          <h2 className="text-white font-black uppercase text-sm tracking-tighter italic leading-none">NX Research</h2>
+          <p className="text-[8px] font-black text-white/30 uppercase tracking-[0.3em] mt-1">Enrollment Node</p>
+        </div>
+      </div>
+
+      <div className="space-y-12 flex-grow">
+        <p className="text-[9px] font-black text-white/20 uppercase tracking-[0.4em] mb-8">Registration Path</p>
+        <ul className="space-y-8">
+          {stepsList.map((step, idx) => {
+            const isActive = currentStep === step.id;
+            const isCompleted = currentStep > step.id;
+            
+            return (
+              <li key={idx} className="flex items-center gap-6 group">
+                <div className="relative flex items-center justify-center">
+                  {isCompleted ? (
+                    <CheckCircle className="w-5 h-5 text-[#06A77D]" />
+                  ) : isActive ? (
+                    <div className="w-5 h-5 rounded-full border-2 border-[#FB8500] flex items-center justify-center">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#FB8500] animate-pulse" />
+                    </div>
+                  ) : (
+                    <Circle className="w-5 h-5 text-white/10 group-hover:text-white/20 transition-colors" />
+                  )}
+                  {idx !== stepsList.length - 1 && (
+                    <div className={`absolute top-5 left-1/2 -translate-x-1/2 w-px h-8 ${isCompleted ? 'bg-[#06A77D]/30' : 'bg-white/5'}`} />
+                  )}
+                </div>
+                <span className={`text-[10px] font-black uppercase tracking-widest transition-all ${isActive ? 'text-white translate-x-1' : isCompleted ? 'text-white/60' : 'text-white/20'}`}>
+                  {step.label}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <div className="mt-auto pt-10 border-t border-white/5">
+        <div className="flex items-center gap-3">
+           <div className="w-2 h-2 rounded-full bg-[#06A77D] animate-pulse" />
+           <span className="text-[8px] font-black text-white/30 uppercase tracking-[0.5em]">NX_SECURE_AUTH</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;
