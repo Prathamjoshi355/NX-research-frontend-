@@ -5,7 +5,7 @@ import { ArrowRight, CheckCircle } from 'lucide-react';
 
 const StudentInitiative = () => (
   <div className="animate-in slide-in-from-left duration-500">
-    <Section className="text-center pt-32 pb-44 bg-[#3FB998] text-white">
+    <Section className="text-center pt-32 pb-44 bg-[#034880] text-white">
       <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter uppercase">Student Initiative Program</h1>
       <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-12 font-medium">Students lead. Mentors guide. Research happens.</p>
       <Button size="lg" variant="secondary" className="h-16 px-12 rounded-full shadow-2xl">Apply as Student Researcher</Button>

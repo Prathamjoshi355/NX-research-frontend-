@@ -335,7 +335,7 @@ const PrivateResearch: React.FC = () => {
       <Section id="apply" className="py-24 md:py-32 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-[#1F2D2B] mb-6 uppercase tracking-tighter italic">Get Started With NX Research</h2>
+            <h2 className="text-4xl font-black text-[#1F2D2B] mb-6 uppercase tracking-tighter italic">Get Started</h2>
             <div className="w-24 h-2 bg-[#3FB998] mx-auto rounded-full"></div>
           </div>
 
@@ -430,9 +430,6 @@ const PrivateResearch: React.FC = () => {
               )}
             </div>
           </div>
-          <p className="text-center mt-12 text-slate-400 font-black uppercase tracking-[0.3em] text-[10px]">
-            &copy; {new Date().getFullYear()} NX Research Organization | Data is Confidential & Secure
-          </p>
         </div>
       </Section>
     </div>
