@@ -40,7 +40,7 @@ export const NX_DOMAINS = [
   {
     id: 'private',
     title: 'Private Research',
-    description: 'Solution development for startups and companies.',
+    description: 'Solution development for startups and Acompanies.',
     Icon: Briefcase,
     path: '/private'
   },
@@ -188,5 +188,56 @@ export const COURSES: Course[] = [
   // Career
   { id: 'resume-mock', name: 'Resume + Mock Interviews', category: Category.CareerPrep, pricing: { fixed: 5000 } },
   { id: 'placement-track', name: 'Complete Placement Track', category: Category.CareerPrep, pricing: { fixed: 13000 } }
+
+];
+export const COLORS = {
+  researchBlue: '#0A2463',
+  innovationOrange: '#FB8500',
+  pureWhite: '#FFFFFF',
+  neutralGray: '#F8F9FA',
+  strongCharcoal: '#1E1E1E',
+  credibilityGreen: '#06A77D',
+  attentionGold: '#FFB703',
+  clearRed: '#D62828'
+};
+
+export interface ProcessStep {
+  id: number;
+  title: string;
+  icon: string;
+  color: string;
+  description: string;
+}
+
+export const PROCESS_STEPS: ProcessStep[] = [
+  {
+    id: 1,
+    title: 'Awareness',
+    icon: 'Brain',
+    color: COLORS.researchBlue,
+    description: 'Initial discovery and understanding of core concepts.'
+  },
+  {
+    id: 2,
+    title: 'Skill Activation',
+    icon: 'Lightbulb',
+    color: COLORS.innovationOrange,
+    description: 'Igniting curiosity by turning basic theory into real-world practice.'
+  },
+  {
+    id: 3,
+    title: 'Real Learning',
+    icon: 'ClipboardCheck',
+    color: COLORS.attentionGold,
+    description: 'Applying knowledge to solve complex, real-world problems.'
+  },
+  {
+    id: 4,
+    title: 'Growth',
+    icon: 'TrendingUp',
+    color: COLORS.credibilityGreen,
+    description: 'Achieving mastery and sustainable professional evolution.'
+  }
+
 ];
 

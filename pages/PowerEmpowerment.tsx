@@ -41,7 +41,6 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen">
 
-
       {view === 'home' ? (
         <>
           <Hero onExplore={scrollToCourses} onApply={navigateToApply} />

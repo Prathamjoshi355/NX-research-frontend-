@@ -14,6 +14,8 @@ import {
   CheckCircle
 } from "lucide-react";
 import { Section, Card, Button } from "../components/Common";
+import { PROCESS_STEPS, COLORS } from '../constants';
+import TimelineStep from '../components/TimelineStep';
 
 interface DomainCardProps {
   name: string;
@@ -210,57 +212,37 @@ const Home = () => {
           How we transfer Knowledge into capability?
         </h2>
 
-        <div className="relative max-w-5xl mx-auto px-4">
-          {/* Connector Lines (Desktop) */}
-          <div className="hidden md:block absolute inset-0 pointer-events-none">
-            <svg className="w-full h-full" viewBox="0 0 1000 400" fill="none">
-              {/* Horizontal line */}
-              <path d="M250 150 H750" stroke="#E5E7EB" strokeWidth="2" strokeDasharray="8 4" />
-              {/* Vertical lines to nodes */}
-              <path d="M250 100 V150" stroke="#E5E7EB" strokeWidth="2" />
-              <path d="M750 100 V150" stroke="#E5E7EB" strokeWidth="2" />
-              <path d="M500 150 V250" stroke="#E5E7EB" strokeWidth="2" />
-              <path d="M500 150 V300" stroke="#E5E7EB" strokeWidth="2" className="opacity-0" />
-              {/* Complex flow visual */}
-              <path d="M250 150 V300" stroke="#E5E7EB" strokeWidth="2" />
-              <path d="M750 150 V300" stroke="#E5E7EB" strokeWidth="2" />
-            </svg>
-          </div>
+        <div className="min-h-screen w-full bg-[#F8F9FA] flex flex-col items-center justify-center p-8">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 md:gap-y-32 gap-x-20 relative z-10">
-            {/* Step 1 */}
-            <div className="flex justify-center md:justify-start">
-              <div className="w-56 h-32 md:w-64 md:h-40 rounded-[100%] border-4 border-[#1F2D2B] bg-white flex flex-col items-center justify-center p-6 shadow-xl card-hover">
-                <span className="text-[#3FB998] font-black text-2xl mb-1">1</span>
-                <span className="font-black text-[#1F2D2B] uppercase text-xs tracking-widest text-center">Foundational Knowledge</span>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="flex justify-center md:justify-end">
-              <div className="w-56 h-32 md:w-64 md:h-40 rounded-[100%] border-4 border-[#1F2D2B] bg-white flex flex-col items-center justify-center p-6 shadow-xl card-hover">
-                <span className="text-[#3FB998] font-black text-2xl mb-1">3</span>
-                <span className="font-black text-[#1F2D2B] uppercase text-xs tracking-widest text-center">Strategic Research</span>
-              </div>
-            </div>
-
-            {/* Step 2 */}
-            <div className="flex justify-center md:justify-start">
-              <div className="w-56 h-32 md:w-64 md:h-40 rounded-[100%] border-4 border-[#3FB998] bg-white flex flex-col items-center justify-center p-6 shadow-xl card-hover">
-                <span className="text-[#1F2D2B] font-black text-2xl mb-1">2</span>
-                <span className="font-black text-[#1F2D2B] uppercase text-xs tracking-widest text-center">Applied Prototype</span>
-              </div>
-            </div>
-
-            {/* Step 4 */}
-            <div className="flex justify-center md:justify-end">
-              <div className="w-56 h-32 md:w-64 md:h-40 rounded-[100%] border-4 border-[#3FB998] bg-white flex flex-col items-center justify-center p-6 shadow-xl card-hover">
-                <span className="text-[#1F2D2B] font-black text-2xl mb-1">4</span>
-                <span className="font-black text-[#1F2D2B] uppercase text-xs tracking-widest text-center">Deployed Capability</span>
-              </div>
-            </div>
-          </div>
+      {/* Timeline with sequential animations */}
+      <div className="relative w-full max-w-7xl h-[400px] flex items-center">
+        
+        {/* Horizontal Main Axis - The "Lead" Line */}
+        <div className="absolute left-0 right-0 h-1 overflow-hidden">
+          <svg width="100%" height="4" className="w-full">
+            <line 
+              x1="0" y1="2" x2="100%" y2="2" 
+              stroke="#E2E8F0" 
+              strokeWidth="4" 
+              strokeLinecap="round"
+              className="animate-draw"
+            />
+          </svg>
         </div>
+
+        {/* Steps appear one-by-one */}
+        <div className="flex w-full justify-between items-center relative h-full px-12">
+          {PROCESS_STEPS.map((step, index) => (
+            <TimelineStep 
+              key={step.id} 
+              step={step} 
+              index={index} 
+              isTop={index % 2 === 0} 
+            />
+          ))}
+        </div>
+      </div>
+    </div>
       </Section>
 
       {/* SECTION: WHAT WE HAVE? */}
