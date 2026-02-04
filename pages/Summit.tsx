@@ -156,7 +156,7 @@ const Summit = () => {
 
         <div className="relative z-10 text-center max-w-6xl px-6">
           <div className="mb-6 md:mb-12 inline-flex items-center px-6 py-2 rounded-full bg-[#3FB998]/20 border border-[#3FB998]/40 text-[#3FB998] text-[10px] md:text-xs font-black uppercase tracking-[0.4em] backdrop-blur-md">
-            Founder Circle Connect (FCC)
+            Founders's Circle Connect (FCC)
           </div>
 
           <div className="h-[120px] md:h-[280px] flex items-center justify-center mb-8 md:mb-12 overflow-hidden">
@@ -188,7 +188,7 @@ const Summit = () => {
                 What is <span className="text-[#3FB998]">FCC</span>?
               </h2>
               <p className="text-xl md:text-2xl text-[#4A5D5A] leading-relaxed font-medium">
-                Founder Circle Connect (FCC) is NX Research's flagship innovation meet. It's more than just a summit; it's an entry-based ecosystem where students, startup founders, mentors, and investors meet on an equal platform.
+                Founders's Circle Connect (FCC) is NX Research's flagship innovation meet. It's more than just a summit; it's an entry-based ecosystem where students, startup founders, mentors, and investors meet on an equal platform.
               </p>
             </div>
 
