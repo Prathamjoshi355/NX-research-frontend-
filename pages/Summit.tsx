@@ -44,7 +44,7 @@ const Summit = () => {
   const [activeSummit, setActiveSummit] = useState('fcc-1');
 
   const heroTexts = [
-    "Founder Circle Connect",
+    "Founders's Circle Connect",
     "Where Ideas Meet Capital",
     "The Elite Founder Network",
     "Connect • Pitch • Scale"

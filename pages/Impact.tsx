@@ -11,7 +11,6 @@ const Impact = () => {
         <h1 className="text-6xl md:text-8xl font-black text-[#1F2D2B] mb-8 leading-[0.85] tracking-tighter uppercase">Outcomes & Impact</h1>
         <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-14 leading-relaxed font-semibold">Measuring real-world solutions and student transformation.</p>
       </Section>
-
       <Section gray className="py-24">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {IMPACT_METRICS.map((stat, i) => (

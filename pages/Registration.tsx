@@ -420,14 +420,7 @@ const Registration = () => {
 
       <main className="flex-1 overflow-y-auto px-6 md:px-12 py-12 lg:py-20">
         <div className="max-w-4xl mx-auto">
-          <header className="mb-16 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
-              <ShieldCheck className="text-[#3FB998]" size={18} />
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Operational Security v4.0.2</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-black text-[#1F2D2B] uppercase tracking-tighter italic leading-none mb-4">Summit Enrollment.</h1>
-            <p className="text-slate-500 font-medium italic opacity-70">Complete your strategic profile to access the Founders's Circle Connect.</p>
-          </header>
+          
 
           <StepIndicator currentStep={currentStep} />
 

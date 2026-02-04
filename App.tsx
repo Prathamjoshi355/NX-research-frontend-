@@ -48,7 +48,7 @@ const App: React.FC = () => {
         <Route path="/initiative" element={<><Header /><StudentInitiative /><Footer /></>} />
         <Route path="/power" element={<><Header /><PowerEmpowerment /><Footer /></>} />
         <Route path="/login" element={<><Header /><Login /><Footer /></>} />
-        <Route path="/registration" element={<Registration />} />
+        <Route path="/registration" element={<><Header /><Registration /><Footer /></>} />
 
         {/* Dashboards - No Header/Footer (Self-contained Layouts) */}
         <Route path="/dashboard" element={<Dashboard />} />

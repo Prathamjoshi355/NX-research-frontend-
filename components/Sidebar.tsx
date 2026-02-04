@@ -19,13 +19,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentStep }) => {
 
   return (
     <div className="bg-[#0A2463] w-full md:w-80 min-h-screen p-10 hidden lg:flex flex-col sticky top-0 border-r border-white/5 shadow-2xl">
-      <div className="flex items-center gap-4 mb-20">
-        <div className="w-10 h-10 bg-[#FB8500] rounded-xl flex items-center justify-center font-black text-white text-xl">N</div>
-        <div>
-          <h2 className="text-white font-black uppercase text-sm tracking-tighter italic leading-none">NX Research</h2>
-          <p className="text-[8px] font-black text-white/30 uppercase tracking-[0.3em] mt-1">Enrollment Node</p>
-        </div>
-      </div>
+      
 
       <div className="space-y-12 flex-grow">
         <p className="text-[9px] font-black text-white/20 uppercase tracking-[0.4em] mb-8">Registration Path</p>
