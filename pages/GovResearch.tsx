@@ -92,8 +92,14 @@ const GovResearch = () => {
 
       {/* HERO SECTION */}
       <section className="relative h-[65vh] md:h-[75vh] flex items-center justify-center overflow-hidden bg-[#F8F9FA]">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F8F9FA] via-transparent to-white z-[2]"></div>
-
+       
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1770310168/a1aa7b69-6607-483b-949a-73279ce788f2.png"
+            alt="Research Hero"
+            className="w-full h-full object-cover brightness-50  "
+          />
+        </div>
         <div className="relative z-10 text-center max-w-5xl px-6">
           <div className="mb-6 md:mb-8 inline-flex items-center px-4 py-1.5 rounded-full bg-[#1F2D2B]/10 border border-[#1F2D2B]/20 text-[#1F2D2B] text-[9px] font-black uppercase tracking-[0.3em] animate-in slide-in-from-top-12">
             Independent Applied Research Hub

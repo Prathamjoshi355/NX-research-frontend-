@@ -9,33 +9,26 @@ interface StepIndicatorProps {
 
 const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep }) => {
   const icons = [
-    { icon: FileText, label: 'Rules  ', step: Step.AGREEMENTS },
-    { icon: User, label: 'personal Info', step: Step.PERSONAL_INFO },
+    { icon: FileText, label: 'Agreements', step: Step.AGREEMENTS },
+    { icon: User, label: 'Personal Info', step: Step.PERSONAL_INFO },
     { icon: LayoutGrid, label: 'Category', step: Step.SELECT_CATEGORY },
-    { icon: Info, label: 'Professional', step: Step.CATEGORY_DETAILS },
-    { icon: Share2, label: 'Social Media ', step: Step.ADDITIONAL_INFO },
-    { icon: CreditCard, label: 'Bill', step: Step.PAYMENT },
+    { icon: Info, label: 'Details', step: Step.CATEGORY_DETAILS },
+    { icon: CreditCard, label: 'Payment', step: Step.PAYMENT },
   ];
 
   return (
-    <div className="flex justify-between items-center mb-16 max-w-4xl mx-auto px-4 relative overflow-x-auto no-scrollbar py-4">
-      <div className="absolute top-10 left-10 right-10 h-0.5 bg-slate-100 -z-0"></div>
+    <div className="flex justify-between items-center mb-12 max-w-2xl mx-auto px-4">
       {icons.map((item, idx) => {
         const Icon = item.icon;
-        const isCurrent = currentStep === item.step;
-        const isPast = currentStep > item.step;
-        const isActive = isCurrent || isPast;
-        
+        const isActive = currentStep >= item.step;
         return (
-          <div key={idx} className="flex flex-col items-center gap-3 group cursor-default relative z-10 shrink-0">
-            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 border-4 ${
-              isCurrent ? 'bg-[#0A2463] text-white border-white shadow-xl scale-110' : 
-              isPast ? 'bg-[#06A77D] text-white border-white shadow-lg' : 
-              'bg-white text-slate-300 border-slate-50'
+          <div key={idx} className="flex flex-col items-center gap-2 group cursor-default">
+            <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 ${
+              isActive ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 scale-110' : 'bg-slate-100 text-slate-400'
             }`}>
               <Icon className="w-6 h-6" />
             </div>
-            <span className={`text-[8px] uppercase font-black tracking-[0.3em] transition-colors ${isActive ? 'text-[#0A2463]' : 'text-slate-300'}`}>
+            <span className={`text-[10px] uppercase font-bold tracking-widest ${isActive ? 'text-indigo-600' : 'text-slate-400'}`}>
               {item.label}
             </span>
           </div>

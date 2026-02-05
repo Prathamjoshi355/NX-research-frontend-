@@ -1,4 +1,4 @@
-
+export type ModalType = 'connect' | 'join' | null;
 export enum Category {
   Programming = 'Programming & Languages',
   AdvancedTech = 'Advanced Tech Domains',
@@ -36,4 +36,8 @@ export interface ApplicationFormData {
   learningMode: string;
   links: string;
   seriousConfirmation: boolean;
+}
+export interface Message {
+  role: 'user' | 'model';
+  text: string;
 }

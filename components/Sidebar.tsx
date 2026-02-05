@@ -9,51 +9,41 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ currentStep }) => {
   const stepsList = [
-    { id: Step.AGREEMENTS, label: 'Rules  ' },
-    { id: Step.PERSONAL_INFO, label: 'personal Info' },
-    { id: Step.SELECT_CATEGORY, label: 'Category' },
-    { id: Step.CATEGORY_DETAILS, label: 'Professional' },
-    { id: Step.ADDITIONAL_INFO, label: 'Social Media' },
-    { id: Step.PAYMENT, label: 'Bill' },
+    { id: Step.AGREEMENTS, label: 'Registration Notification' },
+    { id: Step.AGREEMENTS, label: 'Privacy & Terms' },
+    { id: Step.PERSONAL_INFO, label: 'Personal Information' },
+    { id: Step.SELECT_CATEGORY, label: 'Select Category' },
+    { id: Step.CATEGORY_DETAILS, label: 'Additional Information' },
+    { id: Step.ADDITIONAL_INFO, label: 'Online Influence & Network' },
+    { id: Step.PAYMENT, label: 'Payment' },
   ];
 
   return (
-    <div className="bg-[#0A2463] w-full md:w-80 min-h-screen p-10 hidden lg:flex flex-col sticky top-0 border-r border-white/5 shadow-2xl">
-      
-
-      <div className="space-y-12 flex-grow">
-        <p className="text-[9px] font-black text-white/20 uppercase tracking-[0.4em] mb-8">Registration Path</p>
-        <ul className="space-y-8">
-          {stepsList.map((step, idx) => {
-            const isActive = currentStep === step.id;
-            const isCompleted = currentStep > step.id;
-            
-            return (
-              <li key={idx} className="flex items-center gap-6 group">
-                <div className="relative flex items-center justify-center">
-                  {isCompleted ? (
-                    <CheckCircle className="w-5 h-5 text-[#06A77D]" />
-                  ) : isActive ? (
-                    <div className="w-5 h-5 rounded-full border-2 border-[#FB8500] flex items-center justify-center">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#FB8500] animate-pulse" />
-                    </div>
-                  ) : (
-                    <Circle className="w-5 h-5 text-white/10 group-hover:text-white/20 transition-colors" />
-                  )}
-                  {idx !== stepsList.length - 1 && (
-                    <div className={`absolute top-5 left-1/2 -translate-x-1/2 w-px h-8 ${isCompleted ? 'bg-[#06A77D]/30' : 'bg-white/5'}`} />
-                  )}
+    <div className="bg-white border-r border-slate-200 w-80 min-h-screen p-8 hidden lg:block sticky top-0">
+      <h2 className="text-xl font-bold text-slate-900 mb-8 uppercase tracking-wider">Registration Progress</h2>
+      <ul className="space-y-6">
+        {stepsList.map((step, idx) => {
+          const isActive = currentStep === step.id;
+          const isCompleted = currentStep > step.id;
+          
+          return (
+            <li key={idx} className="flex items-center gap-4">
+              {isCompleted ? (
+                <CheckCircle className="w-5 h-5 text-indigo-600" />
+              ) : isActive ? (
+                <div className="w-5 h-5 rounded-full border-2 border-indigo-600 flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-indigo-600" />
                 </div>
-                <span className={`text-[10px] font-black uppercase tracking-widest transition-all ${isActive ? 'text-white translate-x-1' : isCompleted ? 'text-white/60' : 'text-white/20'}`}>
-                  {step.label}
-                </span>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-
-     
+              ) : (
+                <Circle className="w-5 h-5 text-slate-300" />
+              )}
+              <span className={`text-sm font-medium ${isActive ? 'text-indigo-600 font-bold' : isCompleted ? 'text-slate-900' : 'text-slate-400'}`}>
+                {step.label}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 };

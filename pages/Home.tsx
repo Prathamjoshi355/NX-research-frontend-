@@ -26,7 +26,7 @@ interface DomainCardProps {
   className?: string;
 }
 
-const DomainCard: React.FC<DomainCardProps> = ({ name, desc, path, img, videoUrl, className = "" }) => {
+const DomainCard: React.FC<DomainCardProps> = ({ name, desc, path, img,videoUrl,className ="" }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -67,7 +67,7 @@ const DomainCard: React.FC<DomainCardProps> = ({ name, desc, path, img, videoUrl
         <source src={videoUrl} type="video/mp4" />
       </video>
       <div className={`absolute inset-0 bg-black/50 transition-opacity duration-500 z-20 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
-      <div className={`absolute inset-0 flex flex-col items-center justify-center p-8 text-center transition-all duration-500 z-30 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      <div className={`absolute inset-0 flex flex-col items-center justify-center p-8 text-center transition-all duration-400 z-30 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter mb-4">
           {name}
         </h3>
@@ -140,11 +140,6 @@ const Home = () => {
                 Join Summit
               </Button>
             </Link>
-            <Link to="/login">
-              <Button size="lg" variant="outline" className="h-16 px-12 rounded-2xl text-white border-white/40 hover:bg-white hover:text-[#1F2D2B] font-black uppercase tracking-widest text-sm backdrop-blur-sm">
-                Apply Now
-              </Button>
-            </Link>
           </div>
         </div>
       </section>
@@ -156,7 +151,7 @@ const Home = () => {
           <p className="text-[#8FA6A1] font-bold uppercase tracking-widest text-xs">Innovation Ecosystem • Hover to Explore</p>
         </div>
 
-        <div className="flex flex-col space-y-10 max-w-7xl mx-auto">
+        <div className="flex flex-col space-y-15 max-w-7xl mx-auto">
           <div className="flex justify-center">
             <DomainCard
               name="FCC Summit "
@@ -164,7 +159,7 @@ const Home = () => {
               path="/summit"
               img="https://images.unsplash.com/photo-1540575861501-7ad05823c95b?auto=format&fit=crop&q=80&w=1000"
               videoUrl="https://assets.mixkit.co/videos/preview/mixkit-business-people-walking-in-a-hallway-4433-large.mp4"
-              className="md:max-w-3xl"
+              className="md:max-w-5xl md:max-h-40"
             />
           </div>
 
@@ -206,18 +201,17 @@ const Home = () => {
         </div>
       </Section>
 
-      {/* SECTION: KNOWLEDGE TRANSFER FLOW CHART */}
+     
       <Section className="py-32 bg-[#F8F9FA] text-center overflow-hidden">
         <h2 className="text-4xl font-black text-[#1F2D2B] uppercase tracking-tighter mb-20 leading-tight">
           How we transfer Knowledge into capability?
         </h2>
 
-        <div className="min-h-screen w-full flex flex-col items-center justify-center p-8">
+        <div className="min-h w-full flex flex-col items-center justify-center ">
 
-      {/* Timeline with sequential animations */}
-      <div className="relative w-full max-w-7xl h-[400px] flex items-center">
-        
-        {/* Horizontal Main Axis - The "Lead" Line */}
+      
+      <div className="relative w-full max-w-7xl h-[400px] flex items-center ">  
+      
         <div className="absolute left-0 right-0 h-1 overflow-hidden">
           <svg width="100%" height="4" className="w-full">
             <line 
@@ -230,7 +224,7 @@ const Home = () => {
           </svg>
         </div>
 
-        {/* Steps appear one-by-one */}
+      
         <div className="flex w-full justify-between items-center relative h-full px-12">
           {PROCESS_STEPS.map((step, index) => (
             <TimelineStep 
@@ -243,10 +237,10 @@ const Home = () => {
         </div>
       </div>
     </div>
-      </Section>
+   </Section>
 
-      {/* SECTION: WHAT WE HAVE? */}
-      <Section className="py-32 text-center bg-white">
+   
+      <Section className="py-10 text-center bg-white">
         <h2 className="text-4xl font-black text-[#1F2D2B] uppercase tracking-tighter mb-20 leading-tight">
           What we have?
         </h2>
@@ -262,7 +256,7 @@ const Home = () => {
               <div className="mb-6 p-4 bg-[#F7FAF9] rounded-3xl group-hover:bg-[#3FB998] group-hover:text-white transition-all duration-300">
                 <stat.icon size={28} />
               </div>
-              <h4 className="text-5xl font-black text-[#1F2D2B] mb-3 tracking-tighter">{stat.num}</h4>
+              <h4 className="text-5xl font-black text-[#1F2D2B] mb-4 tracking-tighter">{stat.num}</h4>
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#8FA6A1] group-hover:text-[#1F2D2B] transition-colors">
                 {stat.label}
               </p>
@@ -272,20 +266,16 @@ const Home = () => {
       </Section>
 
       {/* FOOTER CTA */}
-      <Section className="bg-[#1F2D2B] text-white py-40 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[#3FB998]/5 pointer-events-none"></div>
+      <Section className="bg-[#1F2D2B] text-white py-4 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[#3FB978] pointer-events-none"></div>
         <div className="relative z-10 px-6">
-          <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter uppercase leading-none">
+          <h2 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter uppercase leading-none">
             Ready to Build <br /> the Future?
           </h2>
-          <p className="text-xl text-blue-100/60 max-w-xl mx-auto mb-16 font-medium">
+          <p className="text-xl text-blue-100/6 max-w-xl mx-auto mb-16 font-medium">
             Join the organization where students don't just learn—they lead and deploy.
           </p>
-          <Link to="/login">
-            <Button size="lg" className="h-20 px-20 rounded-3xl text-xl shadow-3xl shadow-black/20 font-black uppercase tracking-[0.2em]">
-              Get Started
-            </Button>
-          </Link>
+         
         </div>
       </Section>
     </div>

@@ -9,12 +9,17 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onExplore, onApply }) => {
   return (
     <section className="relative overflow-hidden pt-32 pb-20 lg:pt-48 lg:pb-32 bg-[#F7FAF9]">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#A9E2D2]/30 rounded-full blur-[100px] opacity-50"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#3FB998]/20 rounded-full blur-[100px] opacity-50"></div>
-      </div>
+      
+       <div className="absolute inset-0 z-0">
+          <img
+            src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1770310168/a1aa7b69-6607-483b-949a-73279ce788f2.png"
+            alt="Research Hero"
+            className="w-full h-full object-cover brightness-50  "
+          />
+        </div>
+      
 
-      <div className="container mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto text-center">
         <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-[#1F2D2B] mb-6 leading-tight">
           Build Skills. Build Research.<br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3FB998] to-[#66C2A5]">Build Your Career.</span>
@@ -37,6 +42,7 @@ export const Hero: React.FC<HeroProps> = ({ onExplore, onApply }) => {
           </button>
         </div>
       </div>
+      
     </section>
   );
 };

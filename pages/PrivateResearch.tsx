@@ -30,6 +30,9 @@ import {
 } from 'lucide-react';
 import { Section, Button, Input, Select, Textarea } from '../components/Common';
 import { FormType } from '../PrivateResearchtypes';
+import ConnectModal from '../components/ConnectModal';
+import JoinModal from '../components/JoinModal';
+import { ModalType } from '../types';
 
 const PrivateResearch: React.FC = () => {
   const [activeTab, setActiveTab] = useState<FormType>(FormType.STUDENT);
@@ -38,6 +41,11 @@ const PrivateResearch: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoSectionRef = useRef<HTMLElement>(null);
 
+ const [modal, setModal] = useState<ModalType>(null);
+
+  const handleConnect = () => setModal('connect');
+  const handleJoin = () => setModal('join');
+  const closeModal = () => setModal(null);
   const forCompanies = [
     { icon: <Rocket className="text-[#3FB998]" />, title: "Startups & Growing Businesses" },
     { icon: <Cpu className="text-[#3FB998]" />, title: "Tech & Product Companies" },
@@ -117,16 +125,15 @@ const PrivateResearch: React.FC = () => {
   };
 
   return (
-    <div className="animate-in fade-in duration-700">
+    <div className="animate-in fade-in duration-900">
       {/* Hero Section */}
-      <section className="relative pt-24 pb-20 md:pt-40 md:pb-40 overflow-hidden px-4">
+      <section className="relative pt-10 pb-20 md:pt-40 md:pb-40 overflow-hidden px-2">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=1920"
+            src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1770310168/a1aa7b69-6607-483b-949a-73279ce788f2.png"
             alt="Research Hero"
-            className="w-full h-full object-cover opacity-10 grayscale"
+            className="w-full h-full object-cover brightness-50  "
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white via-white/90 to-white"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto text-center">
@@ -139,21 +146,29 @@ const PrivateResearch: React.FC = () => {
             to deliver secure, data-driven solutions through applied research and innovation.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 px-4">
-            <Button size="lg" className="w-full sm:w-auto px-12 h-16 rounded-xl bg-[#1F2D2B] text-white font-black uppercase tracking-widest text-xs">
+         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+            <button 
+              onClick={handleConnect}
+              className="w-full sm:w-auto bg-[#3FB998] text-white px-8 py-5 rounded-xl font-bold hover:shadow-xl transition-all transform hover:scale-105 uppercase text-sm tracking-widest min-w-[280px]"
+            >
               Connect for Research
-            </Button>
-            <Button size="lg" className="w-full sm:w-auto px-12 h-16 rounded-xl bg-[#3FB998] text-white font-black uppercase tracking-widest text-xs">
+            </button>
+            <button 
+              onClick={handleJoin}
+              className="w-full sm:w-auto bg-[#3FB998] text-white px-8 py-5 rounded-xl font-bold hover:shadow-xl transition-all transform hover:scale-105 uppercase text-sm tracking-widest min-w-[280px]"
+            >
               Join as Researcher
-            </Button>
+            </button>
           </div>
         </div>
       </section>
+      {modal === 'connect' && <ConnectModal onClose={closeModal} />}
+      {modal === 'join' && <JoinModal onClose={closeModal} />}
 
       {/* NEW SECTION: Description + Video (PiP) */}
-      <Section ref={videoSectionRef} className="py-20 md:py-32">
+      <Section ref={videoSectionRef} className="py-20 md:py-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 items-center">
-          <div className="animate-in slide-in-from-left duration-700">
+          <div className="animate-in slide-in-from-left duration-100">
             <h2 className="text-3xl md:text-5xl font-black text-[#1F2D2B] uppercase tracking-tighter mb-8 leading-tight italic">
               Applied <br className="hidden md:block" /> Intelligence.
             </h2>
@@ -332,106 +347,7 @@ const PrivateResearch: React.FC = () => {
       </section>
 
       {/* Application Form */}
-      <Section id="apply" className="py-24 md:py-32 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-[#1F2D2B] mb-6 uppercase tracking-tighter italic">Get Started</h2>
-            <div className="w-24 h-2 bg-[#3FB998] mx-auto rounded-full"></div>
-          </div>
-
-          <div className="bg-white rounded-[3rem] shadow-3xl border border-slate-100 overflow-hidden animate-in zoom-in-95">
-            {/* Tabs */}
-            <div className="flex">
-              <button
-                onClick={() => setActiveTab(FormType.STUDENT)}
-                className={`flex-1 py-8 font-black text-xs md:text-sm uppercase tracking-[0.3em] transition-all ${activeTab === FormType.STUDENT ? 'bg-[#1F2D2B] text-white shadow-inner' : 'bg-[#F7FAF9] text-[#1F2D2B] hover:bg-[#EEF4F2]'}`}
-              >
-                Join as Student
-              </button>
-              <button
-                onClick={() => setActiveTab(FormType.COMPANY)}
-                className={`flex-1 py-8 font-black text-xs md:text-sm uppercase tracking-[0.3em] transition-all ${activeTab === FormType.COMPANY ? 'bg-[#3FB998] text-white shadow-inner' : 'bg-[#F7FAF9] text-[#1F2D2B] hover:bg-[#EEF4F2]'}`}
-              >
-                Connect as Company
-              </button>
-            </div>
-
-            <div className="p-10 md:p-20">
-              {activeTab === FormType.STUDENT ? (
-                <form className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4" onSubmit={(e) => e.preventDefault()}>
-                  <div className="md:col-span-2">
-                    <h3 className="text-[#3FB998] font-black uppercase text-[11px] tracking-[0.3em] mb-8 border-b border-[#EEF4F2] pb-4 italic">Student Enrollment Portal</h3>
-                  </div>
-
-                  <Input label="Full Name" placeholder="e.g. John Doe" required />
-                  <Input label="City" placeholder="e.g. New York" required />
-
-                  <div className="md:col-span-2">
-                    <Input label="College / Background" placeholder="e.g. University of Technology / Computer Science" required />
-                  </div>
-
-                  <Select label="Domain of interest" options={['Market Research', 'Data Science', 'AI/Tech Engineering', 'Business Strategy']} required />
-                  <Select label="Experience level" options={['Beginner (Student)', 'Intermediate (Active)', 'Advanced (Expert)']} required />
-
-                  <Input label="Skills" placeholder="e.g. Python, SQL, Market Analysis" required />
-                  <Input label="Availability (hours/week)" type="number" placeholder="e.g. 15" required />
-
-                  <div className="md:col-span-2 mt-4">
-                    <label className="block text-[10px] font-black uppercase text-gray-400 mb-2 tracking-widest pl-1">Upload Resume (PDF)</label>
-                    <div className="relative group cursor-pointer">
-                      <input
-                        type="file"
-                        accept=".pdf"
-                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                        required
-                      />
-                      <div className="w-full px-4 py-10 rounded-2xl bg-[#F7FAF9] border-2 border-dashed border-[#EEF4F2] group-hover:border-[#3FB998] transition-all flex flex-col items-center justify-center gap-3">
-                        <Upload className="text-[#8FA6A1] group-hover:text-[#3FB998] transition-colors" size={32} />
-                        <span className="text-[#8FA6A1] text-[10px] font-black uppercase tracking-widest">Click to upload or drag & drop</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="md:col-span-2 mt-4">
-                    <Textarea label="Why do you want to join NX Research?" placeholder="Tell us about your motivation..." required />
-                  </div>
-
-                  <div className="md:col-span-2 mt-10">
-                    <Button type="submit" fullWidth size="lg" className="h-20 rounded-2xl text-[13px] font-black uppercase tracking-[0.3em] shadow-2xl hover:scale-[1.02] active:scale-[0.98]">
-                      Apply Now
-                    </Button>
-                  </div>
-                </form>
-              ) : (
-                <form className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4" onSubmit={(e) => e.preventDefault()}>
-                  <div className="md:col-span-2">
-                    <h3 className="text-[#1F2D2B] font-black uppercase text-[11px] tracking-[0.3em] mb-8 border-b border-[#EEF4F2] pb-4 italic">🏢 Corporate Solutions Gateway</h3>
-                  </div>
-
-                  <Input label="Name" placeholder="Jane Smith" required />
-                  <Input label="Company Name" placeholder="TechCorp Inc." required />
-
-                  <Input label="Industry type" placeholder="e.g. FinTech, Healthcare, Retail" required />
-                  <Select label="Research need" options={['Market Analysis', 'Product Architecture', 'AI Engineering', 'Operational Growth', 'Other']} required />
-
-                  <Input label="Email" type="email" placeholder="jane@company.com" required />
-                  <Input label="Phone" type="tel" placeholder="+1 234 567 890" required />
-
-                  <div className="md:col-span-2 mt-4">
-                    <Textarea label="Briefly explain your challenge" placeholder="Describe the research project or problem..." required />
-                  </div>
-
-                  <div className="md:col-span-2 mt-10">
-                    <Button type="submit" variant="secondary" fullWidth size="lg" className="h-20 rounded-2xl text-[13px] font-black uppercase tracking-[0.3em] shadow-2xl hover:scale-[1.02] active:scale-[0.98]">
-                      Request Consultation
-                    </Button>
-                  </div>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-      </Section>
+      
     </div>
   );
 };
