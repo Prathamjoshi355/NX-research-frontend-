@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { OverviewIcon, JourneyIcon, ResearchIcon, ChallengeIcon, MentorshipIcon, CreditsIcon, ProofIcon, LogoutIcon } from './Icons';
-import { SidebarItem as SidebarItemType } from '../types';
+import { OverviewIcon, JourneyIcon, ResearchIcon, ChallengeIcon, MentorshipIcon, CreditsIcon, ProofIcon, LogoutIcon } from './StudentIcons';
+import { SidebarItem as SidebarItemType } from '../Studenttypes';
 
 const sidebarItems: SidebarItemType[] = [
   { id: 'overview', label: 'OVERVIEW', icon: <OverviewIcon /> },

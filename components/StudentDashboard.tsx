@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Activity, Student } from '../types';
+import { Activity, Student } from '../Studenttypes';
 import MentorChat from './MentorChat';
 
 const activities: Activity[] = [
