@@ -1,90 +1,71 @@
 
 import React, { useState } from 'react';
-import {
-  LayoutDashboard, BookOpen, Microscope, Trophy, Users, Zap,
-  Calendar, User, LogOut, ChevronRight, CheckCircle, Clock
-} from 'lucide-react';
-import { Card, Badge, Button, Input } from '../components/Common';
-import { useNavigate } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
+import Dashboard from '../components/StudentDashboard';
+import LearningJourney from '../components/LearningJourney';
+import ResearchProjects from '../components/ResearchProjects';
+import Challenges from '../components/StudentChallenges';
+import Mentorship from '../components/Mentorship';
+import LearningCredits from '../components/LearningCredits';
+import OutputsAndProof from '../components/OutputsAndProof';
 
-type View = 'overview' | 'learning' | 'projects' | 'challenges' | 'mentorship' | 'credits' | 'outputs';
-
-const StudentDashboard = () => {
-  const [activeView, setActiveView] = useState<View>('overview');
-  const navigate = useNavigate();
-
-  const sidebarItems = [
-    { id: 'overview', label: 'Overview', Icon: LayoutDashboard },
-    { id: 'learning', label: 'Learning Journey', Icon: BookOpen },
-    { id: 'projects', label: 'Research Projects', Icon: Microscope },
-    { id: 'challenges', label: 'Challenges', Icon: Trophy },
-    { id: 'mentorship', label: 'Mentorship', Icon: Users },
-    { id: 'credits', label: 'Learning Credits', Icon: Zap },
-    { id: 'outputs', label: 'Outputs & Proof', Icon: CheckCircle },
-  ];
+const StudentDashboard: React.FC = () => {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const renderContent = () => {
-    switch (activeView) {
-      case 'learning':
-        return (
-          <div className="space-y-8 animate-in fade-in">
-            <h2 className="text-3xl font-black text-[#1F2D2B] uppercase tracking-tighter">My Learning Journey</h2>
-            <Card className="p-10 bg-[#1F2D2B] text-white border-none rounded-[3rem]">
-              <div className="flex justify-between items-start mb-12">
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">Active Track: Applied AI</h3>
-                  <p className="text-blue-200/60 font-bold text-xs uppercase tracking-widest">Progress: 65% Complete</p>
-                </div>
-                <Badge status="Approved" />
-              </div>
-              <div className="space-y-4">
-                {[
-                  { title: 'Neural Nets Foundations', status: 'Completed' },
-                  { title: 'Data Processing Pipelines', status: 'In Progress' },
-                  { title: 'Model Deployment', status: 'Locked' }
-                ].map(mod => (
-                  <div key={mod.title} className="flex justify-between items-center bg-white/5 p-6 rounded-2xl border border-white/10">
-                    <span className="font-bold">{mod.title}</span>
-                    <span className="text-[10px] font-black uppercase tracking-widest opacity-60">{mod.status}</span>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </div>
-        );
+    switch (activeTab) {
       case 'overview':
+        return <Dashboard onMenuClick={() => setIsSidebarOpen(true)} />;
+      case 'journey':
+        return <LearningJourney onMenuClick={() => setIsSidebarOpen(true)} />;
+      case 'research':
+        return <ResearchProjects onMenuClick={() => setIsSidebarOpen(true)} />;
+      case 'challenges':
+        return <Challenges onMenuClick={() => setIsSidebarOpen(true)} />;
+      case 'mentorship':
+        return <Mentorship onMenuClick={() => setIsSidebarOpen(true)} />;
+      case 'credits':
+        return <LearningCredits onMenuClick={() => setIsSidebarOpen(true)} />;
+      case 'proof':
+        return <OutputsAndProof onMenuClick={() => setIsSidebarOpen(true)} />;
       default:
         return (
-          <div className="space-y-12 animate-in fade-in">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="bg-[#3FB998] text-white p-8 border-none rounded-[2.5rem]">
-                <p className="text-[10px] font-black uppercase tracking-widest mb-2 opacity-80">Learning Credits</p>
-                <h4 className="text-4xl font-black">1,240</h4>
-              </Card>
-              <Card className="bg-white p-8 border-none shadow-sm rounded-[2.5rem]">
-                <p className="text-[10px] font-black uppercase tracking-widest mb-2 text-gray-400">Active Projects</p>
-                <h4 className="text-4xl font-black text-[#1F2D2B]">03</h4>
-              </Card>
-              <Card className="bg-white p-8 border-none shadow-sm rounded-[2.5rem]">
-                <p className="text-[10px] font-black uppercase tracking-widest mb-2 text-gray-400">Next Session</p>
-                <h4 className="text-xl font-black text-[#1F2D2B]">Today, 4:00 PM</h4>
-              </Card>
-            </div>
+          <div className="flex-1 flex flex-col items-center justify-center bg-slate-50 p-6 relative overflow-hidden">
+            {/* Soft background glow for attractiveness */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+            
+            <div className="relative z-10 text-center p-10 md:p-16 bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] max-w-xl border border-white w-full">
+              {/* Mobile Menu Toggle for Placeholder Pages */}
+              <button 
+                onClick={() => setIsSidebarOpen(true)}
+                className="md:hidden absolute top-8 left-8 p-2.5 bg-slate-50 rounded-xl shadow-sm text-[#0a1532] border border-slate-100 active:scale-95 transition-transform"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
 
-            <div>
-              <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest mb-6">Recent Activity</h3>
-              <div className="space-y-4">
-                <Card className="flex items-center justify-between p-6 bg-white border-none shadow-sm">
-                  <div className="flex items-center space-x-4">
-                    <div className="bg-blue-50 p-3 rounded-xl text-[#1F2D2B]"><CheckCircle size={20} /></div>
-                    <div>
-                      <p className="font-black text-[#1F2D2B] text-sm uppercase">Assignment Submitted</p>
-                      <p className="text-xs text-gray-400 font-bold uppercase">Urban Waste AI Challenge</p>
-                    </div>
-                  </div>
-                  <span className="text-[10px] font-black text-gray-300 uppercase">2h ago</span>
-                </Card>
+              <div className="w-20 h-20 md:w-24 md:h-24 bg-orange-50 rounded-[2rem] flex items-center justify-center mx-auto mb-8 shadow-sm">
+                <svg className="w-10 h-10 md:w-12 md:h-12 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
               </div>
+
+              <h2 className="text-3xl md:text-4xl font-black text-[#0a1532] mb-4 uppercase tracking-tight font-outfit">
+                Under Development
+              </h2>
+              
+              <p className="text-sm md:text-lg text-slate-500 mb-10 leading-relaxed px-4">
+                The <span className="font-black text-[#0a1532] uppercase">{activeTab.replace('_', ' ')}</span> module is being optimized with AI integrations.
+              </p>
+
+              <button 
+                onClick={() => setActiveTab('overview')}
+                className="w-full sm:w-auto px-10 py-4 bg-[#0a1532] text-white rounded-2xl font-black tracking-[0.2em] text-[10px] md:text-xs hover:bg-[#14234a] hover:shadow-xl hover:shadow-blue-900/10 active:scale-95 transition-all uppercase"
+              >
+                Return to Overview
+              </button>
             </div>
           </div>
         );
@@ -92,39 +73,15 @@ const StudentDashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F7FAF9]">
-      <aside className="w-72 bg-[#1F2D2B] text-white p-8 flex flex-col fixed h-full z-10 border-r border-white/5">
-        <div className="mb-16 flex items-center space-x-3">
-          <div className="w-10 h-10 bg-[#3FB998] rounded-xl flex items-center justify-center font-black text-xl">N</div>
-          <span className="font-black text-2xl tracking-tighter uppercase">NX Portal</span>
-        </div>
-        <nav className="space-y-2 flex-grow">
-          {sidebarItems.map(item => (
-            <button
-              key={item.id}
-              onClick={() => setActiveView(item.id as View)}
-              className={`flex items-center space-x-4 w-full p-5 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${activeView === item.id ? 'bg-white text-[#1F2D2B] shadow-2xl scale-105' : 'text-white/40 hover:bg-white/5'}`}
-            >
-              <item.Icon size={18} /> <span>{item.label}</span>
-            </button>
-          ))}
-        </nav>
-        <button onClick={() => navigate('/')} className="mt-auto flex items-center space-x-4 p-5 text-red-400 font-black text-xs uppercase tracking-widest hover:bg-red-500/10 rounded-2xl">
-          <LogOut size={18} /> <span>Logout</span>
-        </button>
-      </aside>
-
-      <main className="ml-72 flex-grow p-16">
-        <header className="flex justify-between items-end mb-16">
-          <div>
-            <h1 className="text-4xl font-black text-[#1F2D2B] uppercase tracking-tighter">Student Portal</h1>
-            <p className="text-gray-400 font-bold text-xs uppercase tracking-widest mt-2">Welcome back, Aakash • Track: AI/ML</p>
-          </div>
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center text-[#3FB998]"><User size={20} /></div>
-          </div>
-        </header>
-
+    <div className="flex h-screen bg-white overflow-hidden font-outfit">
+      <Sidebar 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        isOpen={isSidebarOpen} 
+        onClose={() => setIsSidebarOpen(false)}
+      />
+      
+      <main className="flex-1 relative flex flex-col min-w-0 bg-white">
         {renderContent()}
       </main>
     </div>
