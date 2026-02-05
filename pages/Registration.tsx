@@ -131,7 +131,7 @@ const Registration = () => {
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <CollapsibleSection title="Registration Notifications" defaultOpen>
               <div className="p-8 space-y-4 text-slate-600 leading-relaxed font-medium italic">
-                <p>We'll send you important updates regarding the summit schedule, networking sessions, and logistic protocols via your registered credentials.</p>
+                <p>We'll send you important updates regarding the summit schedule, networking sessions, and logistic Terms & Conditions  via your registered credentials.</p>
                 <div className="h-px bg-slate-100 my-6" />
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <input
@@ -147,7 +147,7 @@ const Registration = () => {
 
             <CollapsibleSection title="Privacy and Operational Terms" defaultOpen>
               <div className="p-8 space-y-4 text-slate-500 leading-relaxed font-medium italic max-h-60 overflow-y-auto scrollbar-thin">
-                <p>1. **Data Security**: By registering for the FCC Summit, you agree to our Research Integrity Protocols. We protect your R&D data using NX_SECURE end-to-end encryption.</p>
+                <p>1. **Data Security**: By registering for the FCC Summit, you agree to our Research Integrity Terms & Conditions . We protect your R&D data using NX_SECURE end-to-end encryption.</p>
                 <p>2. **Code of Conduct**: Participants must maintain professional research standards. Plagiarism or unprofessional conduct leads to immediate revocation of entry.</p>
                 <p>3. **Media Release**: You grant NX Research permission to use event media for educational and promotional outreach.</p>
               </div>
@@ -174,11 +174,11 @@ const Registration = () => {
               <Input label="Last Name" value={formData.lastName} onChange={v => handleInputChange('lastName', v)} />
               <Input label="Primary Email" type="email" value={formData.personalEmail} onChange={v => handleInputChange('personalEmail', v)} />
               <Input label="Professional Email" type="email" value={formData.professionalEmail} onChange={v => handleInputChange('professionalEmail', v)} />
-              <Input label="Strategic Contact" value={formData.personalContact} onChange={v => handleInputChange('personalContact', v)} />
+              <Input label="Contact" value={formData.personalContact} onChange={v => handleInputChange('personalContact', v)} />
               <Input label="Official Contact" value={formData.professionalContact} onChange={v => handleInputChange('professionalContact', v)} />
               <Input label="Gender" value={formData.gender} onChange={v => handleInputChange('gender', v)} />
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-gray-400 tracking-widest mb-1 block pl-1">Salutation</label>
+                <label className="text-[9px] font-black uppercase text-gray-400 tracking-widest mb-1 block pl-1">Pronoun</label>
                 <select
                   className="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#3FB998] outline-none transition-all font-bold text-xs"
                   value={formData.pronoun}
@@ -199,14 +199,13 @@ const Registration = () => {
 
       case Step.SELECT_CATEGORY:
         const categories = [
-          { id: 'STUDENT', label: 'Researcher', icon: GraduationCap },
+          { id: 'STUDENT', label: 'STUDENT', icon: GraduationCap },
           { id: 'STARTUP', label: 'Founder', icon: Rocket },
           { id: 'INVESTOR', label: 'Investor', icon: Briefcase },
-          { id: 'ORGANIZER', label: 'Stakeholder', icon: Users },
-          { id: 'TECH_CONTENT_CREATOR', label: 'Core Partner', icon: Layout },
+          { id: 'ORGANIZER', label: 'Organizer', icon: Users },
         ];
         return (
-          <CollapsibleSection title="Enrollment Category" defaultOpen>
+          <CollapsibleSection title="Category" defaultOpen>
             <div className="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {categories.map((cat) => {
                 const Icon = cat.icon;
@@ -230,26 +229,16 @@ const Registration = () => {
       case Step.CATEGORY_DETAILS:
         if (formData.category === 'STUDENT') {
           return (
-            <CollapsibleSection title="Mastery Track Details" defaultOpen>
+            <CollapsibleSection title="Professional Info" defaultOpen>
               <div className="p-8 space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <Input label="Academic Institution" />
-                  <Input label="Degree Program" />
-                  <Input label="Core Specialty" />
-                  <Input label="Graduation Year" />
+                  <Input label="Academic Institution Name" />
+                  <Input label="Degree Program " />
+                  <Input label="Branch " />
+                  <Input label="Year of Graduation" />
                 </div>
                 <div className="bg-slate-50/50 p-8 rounded-[2.5rem] border border-slate-100 space-y-6">
-                  <p className="font-black text-[#1F2D2B] uppercase text-[10px] tracking-widest">Enrollment Mode</p>
-                  <div className="flex gap-8">
-                    <label className="flex items-center gap-2 cursor-pointer group">
-                      <input type="radio" name="registrationType" className="w-4 h-4 accent-[#3FB998]" />
-                      <span className="text-[10px] font-black uppercase text-slate-400 group-hover:text-[#1F2D2B]">Independent</span>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer group">
-                      <input type="radio" name="registrationType" className="w-4 h-4 accent-[#3FB998]" defaultChecked />
-                      <span className="text-[10px] font-black uppercase text-slate-400 group-hover:text-[#1F2D2B]">Alliance / Group</span>
-                    </label>
-                  </div>
+                  
                 </div>
               </div>
             </CollapsibleSection>
@@ -275,7 +264,7 @@ const Registration = () => {
                   )}
                 </div>
 
-                {/* Promotion Toggle with Dynamic List */}
+                {/* Promotion Toggle with Dynamic List
                 <div className="p-8 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm transition-all hover:shadow-lg overflow-hidden">
                   <div className="flex items-center justify-between mb-2">
                     <div className="space-y-1">
@@ -285,9 +274,9 @@ const Registration = () => {
                     <ToggleButton active={showPromoList} onClick={() => setShowPromoList(!showPromoList)} />
                   </div>
                   {showPromoList && renderPromotionDetails()}
-                </div>
+                </div> */}
 
-                <div className="p-8 bg-[#3FB998]/10 rounded-[2.5rem] border border-[#3FB998]/20 flex items-start gap-4">
+                {/* <div className="p-8 bg-[#3FB998]/10 rounded-[2.5rem] border border-[#3FB998]/20 flex items-start gap-4">
                   <div className="p-3 bg-white rounded-2xl text-[#3FB998] shadow-sm"><Zap size={20} /></div>
                   <div className="space-y-2">
                     <p className="text-xs text-[#1F2D2B] font-bold italic leading-relaxed">
@@ -295,7 +284,7 @@ const Registration = () => {
                     </p>
                     <p className="text-[9px] font-black uppercase text-[#3FB998] tracking-widest">Registry@nxresearch.org</p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </CollapsibleSection>
           );
@@ -418,17 +407,17 @@ const Registration = () => {
     <div className="min-h-screen flex flex-col lg:flex-row bg-[#F8F9FA]">
       <Sidebar currentStep={currentStep} />
 
-      <main className="flex-1 overflow-y-auto px-6 md:px-12 py-12 lg:py-20">
+      <main className="flex-1 overflow-y-auto px-6 md:px-12 py-12 lg:py-10">
         <div className="max-w-4xl mx-auto">
           
 
           <StepIndicator currentStep={currentStep} />
 
-          <div className="min-h-[600px] mb-12">
+          <div className="min-h-[200px] mb-12">
             {renderStepContent()}
           </div>
 
-          <div className="sticky bottom-8 z-20">
+          <div className="bottom-8 z-20">
             <div className="flex justify-between items-center bg-white/80 backdrop-blur-xl p-8 rounded-[3rem] border border-slate-100 shadow-3xl shadow-blue-900/10">
               <button
                 onClick={prevStep}
@@ -449,9 +438,7 @@ const Registration = () => {
             </div>
           </div>
 
-          <p className="mt-20 text-center text-[9px] font-black text-gray-300 uppercase tracking-[0.5em] italic">
-            NX Research Organization • Recruitment Protocol_Stable
-          </p>
+         
         </div>
       </main>
     </div>

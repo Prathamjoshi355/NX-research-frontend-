@@ -12,7 +12,7 @@ export interface FormData {
   receiveNotifications: boolean;
 
   // Step 2: Personal Info
-  firstName: string;
+  firstName: string ;
   lastName: string;
   personalEmail: string;
   professionalEmail: string;
@@ -24,7 +24,7 @@ export interface FormData {
   state: string;
 
   // Step 3: Category
-  category: Category | null;
+  category: Category;
 
   // Step 4: Category Specifics
   studentInfo?: {
@@ -39,7 +39,7 @@ export interface FormData {
   };
   startupInfo?: {
     name: string;
-    stage: 'IDEA' | 'MVP' | 'REVENUE' | null;
+    stage: 'IDEA' | 'MVP' | 'REVENUE' ;
     memberCount: number;
     industry: string;
     wantsPromotion: boolean;

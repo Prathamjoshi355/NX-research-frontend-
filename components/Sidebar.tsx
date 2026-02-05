@@ -9,12 +9,12 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ currentStep }) => {
   const stepsList = [
-    { id: Step.AGREEMENTS, label: 'Protocols' },
-    { id: Step.PERSONAL_INFO, label: 'Identity' },
+    { id: Step.AGREEMENTS, label: 'Rules  ' },
+    { id: Step.PERSONAL_INFO, label: 'personal Info' },
     { id: Step.SELECT_CATEGORY, label: 'Category' },
-    { id: Step.CATEGORY_DETAILS, label: 'Track Details' },
-    { id: Step.ADDITIONAL_INFO, label: 'Network' },
-    { id: Step.PAYMENT, label: 'Verification' },
+    { id: Step.CATEGORY_DETAILS, label: 'Professional' },
+    { id: Step.ADDITIONAL_INFO, label: 'Social Media' },
+    { id: Step.PAYMENT, label: 'Bill' },
   ];
 
   return (
@@ -53,12 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentStep }) => {
         </ul>
       </div>
 
-      <div className="mt-auto pt-10 border-t border-white/5">
-        <div className="flex items-center gap-3">
-           <div className="w-2 h-2 rounded-full bg-[#06A77D] animate-pulse" />
-           <span className="text-[8px] font-black text-white/30 uppercase tracking-[0.5em]">NX_SECURE_AUTH</span>
-        </div>
-      </div>
+     
     </div>
   );
 };

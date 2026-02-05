@@ -9,12 +9,12 @@ interface StepIndicatorProps {
 
 const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep }) => {
   const icons = [
-    { icon: FileText, label: 'Protocols', step: Step.AGREEMENTS },
-    { icon: User, label: 'Identity', step: Step.PERSONAL_INFO },
+    { icon: FileText, label: 'Rules  ', step: Step.AGREEMENTS },
+    { icon: User, label: 'personal Info', step: Step.PERSONAL_INFO },
     { icon: LayoutGrid, label: 'Category', step: Step.SELECT_CATEGORY },
-    { icon: Info, label: 'Track', step: Step.CATEGORY_DETAILS },
-    { icon: Share2, label: 'Network', step: Step.ADDITIONAL_INFO },
-    { icon: CreditCard, label: 'Verification', step: Step.PAYMENT },
+    { icon: Info, label: 'Professional', step: Step.CATEGORY_DETAILS },
+    { icon: Share2, label: 'Social Media ', step: Step.ADDITIONAL_INFO },
+    { icon: CreditCard, label: 'Bill', step: Step.PAYMENT },
   ];
 
   return (
