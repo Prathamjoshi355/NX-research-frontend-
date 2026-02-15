@@ -57,7 +57,7 @@ const Home = () => {
     <div className="animate-in fade-in duration-700">
 
       {/* SECTION 1: HERO (10-Second Clarity Focus) */}
-      <section className="relative h-[92vh] flex items-center justify-center overflow-hidden bg-[#0A1211]">
+      <section className="relative h-[97vh] flex items-center justify-center overflow-hidden bg-[#0A1211]">
         <div className="absolute inset-0 bg-gradient-to-b from-[#1F2D2B]/90 via-transparent to-[#0A1211] z-[2]"></div>
         <div className="absolute inset-0 z-[1] opacity-40">
           <img
