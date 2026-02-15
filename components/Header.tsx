@@ -39,7 +39,7 @@ const Header = () => {
             </Link>
           ))}
           <Link to="/login">
-            <Button size="sm">Join Now</Button>
+            <Button size="sm">login</Button>
           </Link>
         </div>
 

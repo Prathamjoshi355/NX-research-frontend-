@@ -1,202 +1,332 @@
 
 import React, { useState } from 'react';
-import {
-  LayoutDashboard, Users, BookOpen, Globe, Briefcase, Trophy,
-  Settings, LogOut, CheckCircle, Clock, Plus, Filter, UserCheck,
-  Mail, ShieldCheck, PieChart, FileText, Bell, Lock
+import { 
+  Bell,
+  Menu
 } from 'lucide-react';
-import { Card, Badge, Button, Input } from '../components/Common';
-import { useNavigate } from 'react-router-dom';
+import Sidebar from '../components/AdminSidebar';
+import UsersAndRoles from '../components/UsersAndRoles';
+import Onboarding from '../components/Onboarding';
+import LearningSystem from '../components/LearningSystem';
+import GovResearch from '../components/GovResearch';
+import IndustryResearch from '../components/IndustryResearch';
+import Challenges from '../components/Challenges';
+import Mentors from '../components/Mentors';
+import Startups from '../components/Startups';
+import Events from '../components/Events';
+import Impact from '../components/Impact';
+import Settings from '../components/Settings';
+import NotificationPanel from '../components/NotificationPanel';
+import DashboardTerminal from '../components/DashboardTerminal';
+import { Student, GovEntity, IndustryEntity, Challenge, ChallengeSubmission, Mentor, Startup, NXEvent, OrgSettings, Notification } from '../Admintypes';
 
-type AdminView = 'master' | 'users' | 'learning' | 'govt' | 'industry' | 'challenges' | 'mentors' | 'startups' | 'events' | 'onboarding' | 'outcomes' | 'settings';
+const initialNotifications: Notification[] = [
+  { id: '1', type: 'SYSTEM', title: 'Registry Sync', message: 'Core terminal registry synchronized with cloud nodes.', time: '2m ago', read: false },
+  { id: '2', type: 'SUCCESS', title: 'Asset Verified', message: 'New Gov Researcher access granted for Dr. Aris Thorne.', time: '14m ago', read: false },
+  { id: '3', type: 'ALERT', title: 'Login Attempt', message: 'Unauthorized entry attempt blocked from internal IP.', time: '1h ago', read: true },
+];
 
-const AdminPanel = () => {
-  const [activeView, setActiveView] = useState<AdminView>('master');
-  const navigate = useNavigate();
+// Fix: Explicitly type initialActivity to match DashboardTerminal's status union type
+const initialActivity: { id: string; type: string; title: string; time: string; status: 'Success' | 'Warning' | 'Info' }[] = [
+  { id: 'act-1', type: 'STUDENT REGISTRY', title: 'New Onboarding: STU-9942', time: '4m ago', status: 'Info' },
+  { id: 'act-2', type: 'SECURITY PROTOCOL', title: 'Handshake Success: NODE-04', time: '12m ago', status: 'Success' },
+  { id: 'act-3', type: 'GOV RESEARCH', title: 'Project Update: Chronos Alpha', time: '1h ago', status: 'Info' },
+  { id: 'act-4', type: 'VENTURE ALERT', title: 'Health Drop: Nexus Biolabs', time: '2h ago', status: 'Warning' },
+  { id: 'act-5', type: 'SYSTEM CORE', title: 'Daily Backup Completed', time: '4h ago', status: 'Success' },
+];
 
-  const navGroups = [
-    {
-      label: 'Core', items: [
-        { id: 'master', label: 'Dashboard', Icon: LayoutDashboard },
-        { id: 'users', label: 'Users & Roles', Icon: Users },
-        { id: 'onboarding', label: 'Onboarding', Icon: UserCheck }
-      ]
+const initialVentureProjects = [
+  { name: 'NEXUS BIOLABS', health: 68, team: 'Dr. Seth', type: 'BIO-GENETICS' },
+  { name: 'CHRONOS ALPHA', health: 92, team: 'A. Thorne', type: 'QUANTUM' },
+  { name: 'URBAN WASTE AI', health: 45, team: 'S. Chen', type: 'GOV-TECH' },
+  { name: 'NEURAL LINK', health: 81, team: 'M. Wright', type: 'CYBERNETICS' },
+];
+
+const initialStudents: Student[] = [
+  {
+    id: 'STU-9921',
+    name: 'Aaryan Kapoor',
+    email: 'aaryan.k@nx-edu.com',
+    loginTime: 'Today, 09:15 AM',
+    totalSpent: '$1,450',
+    avatar: 'AK',
+    courses: [
+      {
+        id: 'C1',
+        name: 'Advanced Quantum Computing',
+        mentor: 'Dr. Aris Thorne',
+        startDate: 'Aug 15, 2023',
+        endDate: 'Nov 20, 2023',
+        schedule: 'Mon, Wed 10:00 - 12:00',
+        price: '$500',
+        status: 'Completed',
+        progress: 100
+      }
+    ]
+  }
+];
+
+const initialGovEntities: GovEntity[] = [
+  {
+    id: 'GOV-2210',
+    type: 'RESEARCHER',
+    name: 'Dr. Aris Thorne',
+    email: 'thorne.a@nx-labs.io',
+    status: 'Security Cleared',
+    department: 'NX-QUANTUM',
+    joinDate: 'Jan 2023',
+    avatar: 'AT',
+    submissionData: {
+      researchFocus: 'Topological Qubits & Error Correction',
+      clearanceLevel: 'Level 6 (Strategic)',
+      labAccess: 'Core Omega 4'
     },
-    {
-      label: 'Systems', items: [
-        { id: 'learning', label: 'Learning System', Icon: BookOpen },
-        { id: 'govt', label: 'Gov Research', Icon: Globe },
-        { id: 'industry', label: 'Industry Research', Icon: Briefcase },
-        { id: 'challenges', label: 'Challenges', Icon: Trophy }
-      ]
-    },
-    {
-      label: 'Community', items: [
-        { id: 'mentors', label: 'Mentors', Icon: ShieldCheck },
-        { id: 'startups', label: 'Startups', Icon: Rocket },
-        { id: 'events', label: 'Events', Icon: Calendar }
-      ]
-    },
-    {
-      label: 'Platform', items: [
-        { id: 'outcomes', label: 'Impact', Icon: PieChart },
-        { id: 'settings', label: 'Settings', Icon: Settings }
-      ]
+    assignedProjects: ['Project Chronos', 'Neural Link Alpha']
+  }
+];
+
+const initialIndustryEntities: IndustryEntity[] = [
+  {
+    id: 'IND-8842',
+    type: 'PARTNER',
+    name: 'Sarah Chen',
+    email: 'chen.s@nx-systems.io',
+    company: 'Quantum Matrix Corp',
+    status: 'Contracted',
+    contractValue: '₹2.4 Cr',
+    joinedDate: 'Feb 2024',
+    avatar: 'SC',
+    intelData: {
+      primaryStack: 'Q# / Python',
+      partnershipTier: 'Platinum',
+      ipPortfolio: '12 Patents pending'
     }
+  }
+];
+
+const initialMentors: Mentor[] = [
+  {
+    id: 'M-1',
+    name: 'Dr. Aris Thorne',
+    email: 'thorne.a@nx-research.gov',
+    avatar: 'AT',
+    specialty: 'Quantum Computing',
+    status: 'Active',
+    assignedStudentIds: ['STU-9921'],
+    bio: 'Lead researcher at NX Labs specializing in topological qubits.',
+    rating: 4.9
+  }
+];
+
+const initialChallenges: Challenge[] = [
+  {
+    id: 'CH-1',
+    title: 'URBAN WASTE AI',
+    status: 'APPROVED',
+    endsDate: '25 MAR',
+    prize: '₹50,000',
+    theme: 'GOV',
+    description: 'Optimize waste management routes using real-time sensor data.'
+  }
+];
+
+const initialStartups: Startup[] = [
+  {
+    id: 'S-1',
+    name: 'NEXUS BIOLABS',
+    industry: 'BIO-GENETICS',
+    founder: 'Dr. Vikram Seth',
+    teamLeads: ['Aaryan Kapoor', 'Sarah Chen'],
+    status: 'Working',
+    launchDate: 'MAY 2024',
+    description: 'Developing low-cost synthetic proteins for rapid tissue regeneration.',
+    funding: '₹2.5Cr',
+    avatar: 'NB',
+    progress: 68
+  }
+];
+
+const initialEvents: NXEvent[] = [
+  {
+    id: 'EV-401',
+    name: 'AI ETHICS SUMMIT',
+    date: '22 APR 2024',
+    time: '09:00 AM',
+    day: 'Monday',
+    venue: 'MAIN AUDITORIUM, NX LABS',
+    term: 'FULL-DAY INTENSIVE',
+    swag: 'PREMIUM HOODIES, TECH PACKS',
+    connectionsMade: 450,
+    attendees: 320,
+    status: 'Upcoming',
+    avatar: 'AE'
+  }
+];
+
+const defaultSettings: OrgSettings = {
+  orgName: 'NX ORGANIZATION',
+  orgSlogan: 'Accelerating the convergence of quantum intelligence and human synthetic biology.',
+  adminEmail: 'admin.alpha@nx-labs.io',
+  maintenanceMode: false,
+  twoFactorAuth: true,
+  notificationPreferences: {
+    systemAlerts: true,
+    studentActivity: false,
+    eventRegistrations: true
+  },
+  syncFrequency: 'Real-time'
+};
+
+const AdminPanel: React.FC = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+  
+  const [students, setStudents] = useState(initialStudents);
+  const [mentors, setMentors] = useState(initialMentors);
+  const [challenges, setChallenges] = useState(initialChallenges);
+  const [startups, setStartups] = useState(initialStartups);
+  const [events, setEvents] = useState(initialEvents);
+  const [submissions, setSubmissions] = useState([]);
+  const [govEntities, setGovEntities] = useState(initialGovEntities);
+  const [industryEntities, setIndustryEntities] = useState(initialIndustryEntities);
+  const [settings, setSettings] = useState(defaultSettings);
+  const [notifications, setNotifications] = useState(initialNotifications);
+
+  const handleAddEvent = (event) => setEvents([...events, event]);
+  const handleUpdateEvent = (updated) => setEvents(events.map(e => e.id === updated.id ? updated : e));
+  const handleDeleteEvent = (id) => setEvents(events.filter(e => e.id !== id));
+
+  const stats = [
+    { label: 'ACTIVE STUDENTS', value: students.length, color: 'text-[#1E1E1E]', trend: '+12%' },
+    { label: 'PORTFOLIO STARTUPS', value: startups.length, color: 'text-[#FB8500]', trend: '+4' },
+    { label: 'SCHEDULED EVENTS', value: events.length, color: 'text-[#06A77D]', trend: 'Active' },
+    { label: 'OPEN CHALLENGES', value: challenges.length, color: 'text-[#0A2463]', trend: 'Approved' },
   ];
 
-  const renderContent = () => {
-    switch (activeView) {
-      case 'users':
-        return (
-          <div className="space-y-8 animate-in slide-in-from-right">
-            <div className="flex justify-between items-center">
-              <h2 className="text-3xl font-black text-[#1F2D2B] uppercase tracking-tighter">User Management</h2>
-              <div className="flex space-x-4">
-                <Button size="sm" variant="outline">Export CSV</Button>
-                <Button size="sm"><Plus size={16} /> Invite User</Button>
-              </div>
-            </div>
-            <Card className="p-0 border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white">
-              <div className="p-8 border-b border-gray-50 flex space-x-4">
-                <Input label="" placeholder="Search users..." className="mb-0 flex-grow" />
-                <div className="flex items-center bg-gray-50 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400">
-                  <Filter size={14} /> Filter
-                </div>
-              </div>
-              <table className="w-full text-left">
-                <thead className="bg-gray-50/50 text-[10px] font-black uppercase tracking-widest text-gray-400">
-                  <tr>
-                    <th className="px-10 py-5">User</th>
-                    <th className="px-10 py-5">Role</th>
-                    <th className="px-10 py-5">Status</th>
-                    <th className="px-10 py-5 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-50">
-                  {[
-                    { name: 'Aakash Kumar', email: 'aakash@nx.com', role: 'Student', status: 'Approved' },
-                    { name: 'Dr. Sarah', email: 'sarah@nx.com', role: 'Mentor', status: 'Pending' }
-                  ].map((user, i) => (
-                    <tr key={i} className="hover:bg-gray-50/20 transition-colors">
-                      <td className="px-10 py-8">
-                        <p className="font-black text-[#1F2D2B] uppercase text-sm">{user.name}</p>
-                        <p className="text-xs text-gray-400 font-bold">{user.email}</p>
-                      </td>
-                      <td className="px-10 py-8 text-[10px] font-black uppercase tracking-widest text-gray-400">{user.role}</td>
-                      <td className="px-10 py-8"><Badge status={user.status} /></td>
-                      <td className="px-10 py-8 text-right">
-                        <button className="text-[10px] font-black uppercase text-[#3FB998] tracking-widest hover:underline">Manage</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </Card>
-          </div>
-        );
-      case 'master':
-      default:
-        return (
-          <div className="space-y-12 animate-in fade-in">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {[
-                { label: 'Active Students', val: '1,280', color: '#1F2D2B' },
-                { label: 'Open Research', val: '32', color: '#3FB998' },
-                { label: 'Pending Apps', val: '45', color: '#A9E2D2' },
-                { label: 'Monthly Growth', val: '+12%', color: '#3FB998' }
-              ].map(stat => (
-                <Card key={stat.label} className="p-8 border-none shadow-sm rounded-[2.5rem] bg-white">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">{stat.label}</p>
-                  <h4 className="text-4xl font-black" style={{ color: stat.color }}>{stat.val}</h4>
-                </Card>
-              ))}
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-              <Card className="p-10 border-none shadow-xl rounded-[3rem] bg-white">
-                <h3 className="font-black text-[#1F2D2B] uppercase text-sm mb-8 tracking-tighter">Research Monitoring</h3>
-                <div className="space-y-6">
-                  {[
-                    { name: 'Urban Waste AI', type: 'Gov', status: '75%' },
-                    { name: 'Solar Grid Opt.', type: 'Industry', status: '40%' }
-                  ].map(proj => (
-                    <div key={proj.name} className="flex items-center space-x-6">
-                      <div className="flex-grow">
-                        <div className="flex justify-between mb-2">
-                          <span className="font-bold text-sm">{proj.name}</span>
-                          <span className="text-xs font-black opacity-40">{proj.status}</span>
-                        </div>
-                        <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
-                          <div className="bg-[#3FB998] h-full" style={{ width: proj.status }}></div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-              <Card className="p-10 border-none shadow-xl rounded-[3rem] bg-[#1F2D2B] text-white">
-                <h3 className="font-black uppercase text-sm mb-8 tracking-tighter">System Logs</h3>
-                <div className="space-y-4 font-mono text-[10px] opacity-60">
-                  <p> User [ID: 892] registered track: AI_ML</p>
-                  <p> Admin [ID: 001] approved 5 student_apps</p>
-                  <p> New research_call added: Transport_Dept</p>
-                </div>
-              </Card>
-            </div>
-          </div>
-        );
-    }
+  const getPageTitle = () => {
+    if (activeTab === 'dashboard') return 'MASTER TERMINAL';
+    if (activeTab === 'gov') return 'GOV RESEARCH';
+    if (activeTab === 'industry') return 'INDUSTRY HUB';
+    return activeTab.replace(/_/g, ' ').toUpperCase();
   };
 
-  return (
-    <div className="flex min-h-screen bg-[#F7FAF9]">
-      <aside className="w-72 bg-[#1F2D2B] text-white p-8 flex flex-col fixed h-full z-10 overflow-y-auto">
-        <div className="mb-12 flex items-center space-x-3">
-          <div className="w-8 h-8 bg-[#3FB998] rounded-lg flex items-center justify-center font-black">N</div>
-          <span className="font-black text-xl tracking-tighter uppercase">NX Admin</span>
-        </div>
-        <div className="space-y-10 flex-grow">
-          {navGroups.map(group => (
-            <div key={group.label}>
-              <h5 className="text-[9px] font-black uppercase text-white/20 tracking-[0.3em] mb-4 pl-4">{group.label}</h5>
-              <div className="space-y-1">
-                {group.items.map(item => (
-                  <button
-                    key={item.id}
-                    onClick={() => setActiveView(item.id as AdminView)}
-                    className={`flex items-center space-x-4 w-full p-4 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all ${activeView === item.id ? 'bg-[#3FB998] text-white' : 'text-white/40 hover:bg-white/5'}`}
-                  >
-                    <item.Icon size={14} /> <span>{item.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-        <button onClick={() => navigate('/')} className="mt-12 flex items-center space-x-4 p-4 text-red-400 font-black text-[10px] uppercase tracking-widest hover:bg-red-500/10 rounded-xl">
-          <LogOut size={14} /> <span>Exit Console</span>
-        </button>
-      </aside>
+  const unreadNotifsCount = notifications.filter(n => !n.read).length;
 
-      <main className="ml-72 flex-grow p-16">
-        <header className="flex justify-between items-end mb-16">
-          <div>
-            <h1 className="text-4xl font-black text-[#1F2D2B] uppercase tracking-tighter">Master Terminal</h1>
-            <p className="text-gray-400 font-bold text-[10px] uppercase tracking-widest mt-2 tracking-[0.2em]">NX Organization Admin Panel</p>
+  return (
+    <div className="flex min-h-screen bg-[#F8F9FA] text-[#1E1E1E] font-['Inter']">
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-[#0A2463]/30 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      <Sidebar 
+        isOpen={isSidebarOpen} 
+        activeTab={activeTab} 
+        setActiveTab={(id) => {
+          setActiveTab(id);
+          setIsSidebarOpen(false);
+        }} 
+      />
+
+      <NotificationPanel 
+        isOpen={isNotifOpen} 
+        onClose={() => setIsNotifOpen(false)}
+        notifications={notifications}
+        onMarkRead={(id) => setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n))}
+        onClearAll={() => setNotifications([])}
+      />
+
+      <main className="flex-1 p-6 md:p-12 lg:p-14 relative overflow-x-hidden">
+        <header className="flex justify-between items-start mb-10">
+          <div className="flex flex-col">
+            <button 
+              className="md:hidden mb-4 p-2 bg-white rounded-lg w-fit shadow-sm"
+              onClick={() => setIsSidebarOpen(true)}
+            >
+              <Menu size={24} className="text-[#0A2463]" />
+            </button>
+            <h1 className="text-6xl md:text-7xl font-[900] tracking-[-0.04em] text-[#0A2463] leading-none mb-3 uppercase">
+              {getPageTitle()}
+            </h1>
+            <p className="text-gray-400 text-[10px] md:text-xs font-bold tracking-[0.1em] uppercase">
+              {settings.orgSlogan.substring(0, 60)}...
+            </p>
           </div>
-          <div className="flex items-center space-x-4">
-            <button className="relative w-12 h-12 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center text-gray-400 hover:text-[#1F2D2B] transition-colors">
-              <Bell size={20} />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+          
+          <div className="flex items-center gap-4 pt-4">
+            <button 
+              onClick={() => setIsNotifOpen(true)}
+              className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-white border border-gray-100 rounded-[28px] relative transition-all hover:scale-105 shadow-sm group active:scale-95"
+            >
+              <Bell className="text-[#0A2463] group-hover:rotate-12 transition-transform" size={26} fill="currentColor" fillOpacity={0.1} />
+              {unreadNotifsCount > 0 && (
+                <span className="absolute top-4 right-4 w-5 h-5 bg-[#FB8500] border-2 border-white rounded-full flex items-center justify-center text-[9px] font-black text-white shadow-sm">
+                  {unreadNotifsCount}
+                </span>
+              )}
             </button>
           </div>
         </header>
 
-        {renderContent()}
+        <div className="max-w-[1400px]">
+          {activeTab === 'dashboard' ? (
+            <DashboardTerminal 
+              stats={stats} 
+              recentActivity={initialActivity} 
+              activeProjects={initialVentureProjects}
+            />
+          ) : (
+            <>
+              {activeTab === 'users' && <UsersAndRoles />}
+              {activeTab === 'onboarding' && <Onboarding />}
+              {activeTab === 'learning' && (
+                <LearningSystem 
+                  students={students} 
+                  onUpdateStudent={(s) => setStudents(prev => prev.map(curr => curr.id === s.id ? s : curr))} 
+                  onAddStudent={(s) => setStudents(prev => [s, ...prev])}
+                  onDeleteStudent={(id) => setStudents(prev => prev.filter(s => s.id !== id))}
+                />
+              )}
+              {activeTab === 'mentors' && <Mentors mentors={mentors} allStudents={students} onUpdateMentor={(m) => setMentors(prev => prev.map(curr => curr.id === m.id ? m : curr))} />}
+              {activeTab === 'startups' && <Startups startups={startups} onAddStartup={(s) => setStartups([...startups, s])} onUpdateStartup={(s) => setStartups(startups.map(curr => curr.id === s.id ? s : curr))} onDeleteStartup={(id) => setStartups(startups.filter(s => s.id !== id))} />}
+              {activeTab === 'events' && <Events events={events} onAddEvent={handleAddEvent} onUpdateEvent={handleUpdateEvent} onDeleteEvent={handleDeleteEvent} />}
+              {activeTab === 'impact' && <Impact />}
+              {activeTab === 'settings' && <Settings settings={settings} onUpdate={setSettings} />}
+              {activeTab === 'challenges' && (
+                <Challenges 
+                  challenges={challenges} 
+                  submissions={submissions}
+                  onAddChallenge={(c) => setChallenges([...challenges, c])}
+                  onUpdateChallenge={(c) => setChallenges(challenges.map(curr => curr.id === c.id ? c : curr))}
+                  onDeleteChallenge={(id) => setChallenges(challenges.filter(c => c.id !== id))}
+                  onUpdateSubmission={(sub) => setSubmissions(prev => prev.map(curr => curr.id === sub.id ? sub : curr))}
+                  onDeleteSubmission={(id) => setSubmissions(prev => prev.filter(s => s.id !== id))}
+                />
+              )}
+              {activeTab === 'gov' && (
+                <GovResearch 
+                  entities={govEntities} 
+                  onUpdateEntity={(e) => setGovEntities(prev => prev.map(curr => curr.id === e.id ? e : curr))} 
+                  onAddEntity={(e) => setGovEntities(prev => [e, ...prev])}
+                  onDeleteEntity={(id) => setGovEntities(prev => prev.filter(e => e.id !== id))}
+                />
+              )}
+              {activeTab === 'industry' && (
+                <IndustryResearch 
+                  entities={industryEntities} 
+                  onUpdate={(e) => setIndustryEntities(prev => prev.map(curr => curr.id === e.id ? e : curr))}
+                  onAdd={(e) => setIndustryEntities(prev => [e, ...prev])}
+                  onDelete={(id) => setIndustryEntities(prev => prev.filter(e => e.id !== id))}
+                />
+              )}
+            </>
+          )}
+        </div>
       </main>
     </div>
   );
-};
-
-import { Calendar, Rocket } from 'lucide-react';
+}
 export default AdminPanel;

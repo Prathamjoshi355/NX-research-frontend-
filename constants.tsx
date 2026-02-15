@@ -1,3 +1,4 @@
+
 // ================================
 // ICON IMPORTS
 // ================================
@@ -16,7 +17,7 @@ import {
 // TYPE IMPORTS
 // ================================
 
-import { Category, Course } from './types';
+import { Category, Course } from './typesEMP';
 
 // ================================
 // NX RESEARCH – DOMAINS & ECOSYSTEM
@@ -188,56 +189,27 @@ export const COURSES: Course[] = [
   // Career
   { id: 'resume-mock', name: 'Resume + Mock Interviews', category: Category.CareerPrep, pricing: { fixed: 5000 } },
   { id: 'placement-track', name: 'Complete Placement Track', category: Category.CareerPrep, pricing: { fixed: 13000 } }
-
 ];
-export const COLORS = {
-  researchBlue: '#0A2463',
-  innovationOrange: '#FB8500',
-  pureWhite: '#FFFFFF',
-  neutralGray: '#F8F9FA',
-  strongCharcoal: '#1E1E1E',
-  credibilityGreen: '#06A77D',
-  attentionGold: '#FFB703',
-  clearRed: '#D62828'
-};
 
+// Added ProcessStep interface to fix missing member errors in StepCard.tsx and TimelineStep.tsx
 export interface ProcessStep {
   id: number;
   title: string;
+  description: string;
   icon: string;
   color: string;
-  description: string;
 }
 
+// Added COLORS object to fix missing member errors in Home.tsx and StepCard.tsx
+export const COLORS = {
+  strongCharcoal: '#1F2D2B',
+  softGreen: '#3FB998',
+};
+
+// Added PROCESS_STEPS array to fix missing member error in Home.tsx
 export const PROCESS_STEPS: ProcessStep[] = [
-  {
-    id: 1,
-    title: 'Awareness',
-    icon: 'Brain',
-    color: COLORS.researchBlue,
-    description: 'Initial discovery and understanding of core concepts.'
-  },
-  {
-    id: 2,
-    title: 'Skill Activation',
-    icon: 'Lightbulb',
-    color: COLORS.innovationOrange,
-    description: 'Igniting curiosity by turning basic theory into real-world practice.'
-  },
-  {
-    id: 3,
-    title: 'Real Learning',
-    icon: 'ClipboardCheck',
-    color: COLORS.attentionGold,
-    description: 'Applying knowledge to solve complex, real-world problems.'
-  },
-  {
-    id: 4,
-    title: 'Growth',
-    icon: 'TrendingUp',
-    color: COLORS.credibilityGreen,
-    description: 'Achieving mastery and sustainable professional evolution.'
-  }
-
+  { id: 1, title: 'Knowledge Transfer', description: 'Moving from theory to applied research.', icon: 'Brain', color: '#3FB998' },
+  { id: 2, title: 'Concept Discovery', description: 'Identifying real-world problem statements.', icon: 'Lightbulb', color: '#FB8500' },
+  { id: 3, title: 'Technical Audit', description: 'Verification of methodologies and data.', icon: 'ClipboardCheck', color: '#0A2463' },
+  { id: 4, title: 'Ecosystem Growth', description: 'Deploying solutions to stakeholders.', icon: 'TrendingUp', color: '#1F2D2B' },
 ];
-

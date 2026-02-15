@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Rocket,
@@ -29,10 +30,9 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { Section, Button, Input, Select, Textarea } from '../components/Common';
-import { FormType } from '../PrivateResearchtypes';
 import ConnectModal from '../components/ConnectModal';
 import JoinModal from '../components/JoinModal';
-import { ModalType } from '../types';
+import { ModalType, FormType } from '../types';
 
 const PrivateResearch: React.FC = () => {
   const [activeTab, setActiveTab] = useState<FormType>(FormType.STUDENT);
@@ -41,11 +41,12 @@ const PrivateResearch: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoSectionRef = useRef<HTMLElement>(null);
 
- const [modal, setModal] = useState<ModalType>(null);
+  const [modal, setModal] = useState<ModalType>(null);
 
   const handleConnect = () => setModal('connect');
   const handleJoin = () => setModal('join');
   const closeModal = () => setModal(null);
+
   const forCompanies = [
     { icon: <Rocket className="text-[#3FB998]" />, title: "Startups & Growing Businesses" },
     { icon: <Cpu className="text-[#3FB998]" />, title: "Tech & Product Companies" },
@@ -125,229 +126,144 @@ const PrivateResearch: React.FC = () => {
   };
 
   return (
-    <div className="animate-in fade-in duration-900">
+    <div className="animate-in fade-in duration-900 bg-white">
       {/* Hero Section */}
-      <section className="relative pt-10 pb-20 md:pt-40 md:pb-40 overflow-hidden px-2">
-        <div className="absolute inset-0 z-0">
+      <section className="relative min-h-[100vh] flex flex-col items-center justify-center overflow-hidden bg-[#0A1211]">
+         {/* <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-[#0A1211] z-[2]"></div> */}
+        <div className="absolute inset-0 z-[1] opacity-50">
           <img
-            src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1770310168/a1aa7b69-6607-483b-949a-73279ce788f2.png"
+            src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1770321389/Priv._Home_w9tbte.jpg"
             alt="Research Hero"
-            className="w-full h-full object-cover brightness-50  "
+            className="w-full h-full object-cover grayscale brightness-[0.3]"
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-black text-[#1F2D2B] leading-[1.1] mb-6 tracking-tight uppercase">
-            Research That Solves <br className="hidden sm:block" />
-            <span className="text-[#3FB998]">Real Business Problems</span>
+        <div className="relative z-10 max-w-7xl mx-auto text-center px-6">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#3FB998]/10 border border-[#3FB998]/20 text-[#3FB998] text-[10px] font-black uppercase tracking-[0.3em] mb-8">
+            Strategic Industrial R&D
+          </div>
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-[#FFF0F0] leading-[0.9] mb-8 tracking-tighter uppercase italic">
+            Research That <br /> <span className="text-[#3FB998]">Solves Problems.</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-base md:text-xl text-[#4A5D5A] mb-8 md:mb-12 leading-relaxed px-2 font-medium">
-            NX Research partners with private industries and selected student researchers
-            to deliver secure, data-driven solutions through applied research and innovation.
+          <p className="max-w-2xl mx-auto text-lg md:text-2xl text-[#FFF0F0] mb-12 leading-relaxed font-medium italic opacity-80">
+            NX Research partners with private industries to deliver secure, 
+            data-driven solutions through student-led innovation.
           </p>
 
-         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8">
             <button 
               onClick={handleConnect}
-              className="w-full sm:w-auto bg-[#3FB998] text-white px-8 py-5 rounded-xl font-bold hover:shadow-xl transition-all transform hover:scale-105 uppercase text-sm tracking-widest min-w-[280px]"
+              className="w-full sm:w-auto bg-[#1F2D2B] text-white px-10 py-5 rounded-2xl font-black hover:shadow-2xl transition-all transform hover:scale-105 uppercase text-xs tracking-widest min-w-[280px]"
             >
               Connect for Research
             </button>
             <button 
               onClick={handleJoin}
-              className="w-full sm:w-auto bg-[#3FB998] text-white px-8 py-5 rounded-xl font-bold hover:shadow-xl transition-all transform hover:scale-105 uppercase text-sm tracking-widest min-w-[280px]"
+              className="w-full sm:w-auto bg-[#3FB998] text-white px-10 py-5 rounded-2xl font-black hover:shadow-2xl transition-all transform hover:scale-105 uppercase text-xs tracking-widest min-w-[280px]"
             >
               Join as Researcher
             </button>
           </div>
         </div>
       </section>
+
       {modal === 'connect' && <ConnectModal onClose={closeModal} />}
       {modal === 'join' && <JoinModal onClose={closeModal} />}
 
-      {/* NEW SECTION: Description + Video (PiP) */}
-      <Section ref={videoSectionRef} className="py-20 md:py-0">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 items-center">
-          <div className="animate-in slide-in-from-left duration-100">
-            <h2 className="text-3xl md:text-5xl font-black text-[#1F2D2B] uppercase tracking-tighter mb-8 leading-tight italic">
-              Applied <br className="hidden md:block" /> Intelligence.
+      {/* Video Workflow Section */}
+      <Section ref={videoSectionRef} className="py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div>
+            <h2 className="text-4xl md:text-6xl font-black text-[#1F2D2B] uppercase tracking-tighter mb-8 leading-tight italic">
+              Applied <br /> Intelligence.
             </h2>
-            <p className="text-lg md:text-xl text-[#4A5D5A] mb-8 font-medium leading-relaxed italic opacity-80">
-              Transforming complex industry challenges into scalable technological breakthroughs. We don't just research; we architect outcomes.
-            </p>
-            <div className="space-y-4 mb-10">
+            <div className="space-y-6 mb-12">
               {[
                 'Strategic problem identification and mapping',
                 'Rapid prototyping and iterative development',
                 'Secure R&D pipelines with elite oversight',
                 'Deployment-ready architectural benchmarks'
               ].map((point, idx) => (
-                <div key={idx} className="flex items-start space-x-4">
-                  <div className="bg-[#3FB998]/10 text-[#3FB998] p-2 rounded-lg shrink-0">
-                    <CheckCircle size={16} strokeWidth={3} />
+                <div key={idx} className="flex items-start space-x-5">
+                  <div className="bg-[#3FB998]/10 text-[#3FB998] p-2.5 rounded-xl shrink-0">
+                    <CheckCircle size={20} strokeWidth={3} />
                   </div>
-                  <p className="text-base md:text-lg text-gray-500 font-medium leading-relaxed italic opacity-90">
+                  <p className="text-lg md:text-xl text-[#4A5D5A] font-medium leading-relaxed italic opacity-90">
                     {point}
                   </p>
                 </div>
               ))}
             </div>
-            <Button variant="outline" className="h-14 px-8 rounded-xl border-2 border-[#1F2D2B] text-[#1F2D2B] group text-[10px] font-black uppercase tracking-widest hover:bg-[#1F2D2B] hover:text-white transition-all">
-              Explore Our Workflow <ArrowRight size={16} className="ml-3 group-hover:translate-x-2 transition-transform" />
+            <Button variant="outline" className="h-16 px-10 rounded-2xl border-2 border-[#1F2D2B] text-[#1F2D2B] group text-xs font-black uppercase tracking-widest hover:bg-[#1F2D2B] hover:text-white transition-all shadow-lg">
+              Explore Our Workflow <ArrowRight size={20} className="ml-3 group-hover:translate-x-2 transition-transform" />
             </Button>
           </div>
 
-          <div className="relative h-full flex items-center justify-center">
-            <div className={`${isPip ? 'fixed bottom-4 right-4 w-48 md:w-80 h-28 md:h-48 z-50 shadow-2xl animate-in slide-in-from-bottom-12 rounded-2xl overflow-hidden border border-[#3FB998]/40 bg-black' : 'relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 ease-in-out'}`}>
+          <div className="relative">
+            <div className={`${isPip ? 'fixed bottom-6 right-6 w-56 md:w-96 h-32 md:h-56 z-50 shadow-2xl animate-in slide-in-from-bottom-12 rounded-[2rem] overflow-hidden border border-[#3FB998]/40 bg-black' : 'relative w-full aspect-video rounded-[3rem] overflow-hidden shadow-3xl'}`}>
               <video
                 ref={videoRef}
                 autoPlay
                 muted={isMuted}
                 loop
                 playsInline
-                className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500"
+                className="w-full h-full object-cover"
               >
                 <source src="https://assets.mixkit.co/videos/preview/mixkit-business-people-walking-in-a-hallway-4433-large.mp4" type="video/mp4" />
               </video>
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
-
               <button
                 onClick={toggleMute}
-                className="absolute bottom-4 right-4 p-2.5 bg-white/20 text-white rounded-full backdrop-blur-xl hover:bg-[#3FB998] transition-all z-10 border border-white/20"
+                className="absolute bottom-6 right-6 p-3 bg-white/20 text-white rounded-full backdrop-blur-xl hover:bg-[#3FB998] transition-all z-10"
               >
-                {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
               </button>
-
-              {isPip && (
-                <button
-                  onClick={() => setIsPip(false)}
-                  className="absolute top-2 right-2 p-1 bg-black/60 text-white rounded-full hover:bg-red-500 transition-colors z-10"
-                >
-                  <X size={12} />
-                </button>
-              )}
-
-              {!isPip && (
-                <div className="absolute bottom-6 left-6 right-6 text-center pointer-events-none">
-                  <p className="text-white text-[9px] font-black uppercase tracking-[0.2em] drop-shadow-lg">
-                    Private Sector Innovation Cycle
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </div>
       </Section>
 
-      {/* Features Section */}
-      <Section gray className="py-20 md:py-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 relative">
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-slate-200"></div>
-
-          {/* Companies Side */}
-          <div className="space-y-8">
-            <h2 className="text-xl md:text-2xl font-black text-[#1F2D2B] uppercase tracking-wider mb-8 flex items-center gap-4">
-              <span className="w-10 h-1.5 bg-[#3FB998] block shrink-0 rounded-full"></span>
+      {/* Features Grid */}
+      <Section gray className="py-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 relative">
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-[#A9E2D2]/30"></div>
+          
+          <div className="space-y-10">
+            <h3 className="text-2xl font-black text-[#1F2D2B] uppercase tracking-widest mb-10 flex items-center gap-5 italic">
+              <span className="w-12 h-2 bg-[#3FB998] rounded-full"></span>
               For Companies
-            </h2>
-            <div className="space-y-4">
+            </h3>
+            <div className="space-y-5">
               {forCompanies.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-5 bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group">
-                  <div className="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    {React.cloneElement(item.icon as React.ReactElement<any>, { size: 24 })}
+                <div key={idx} className="flex items-center gap-6 bg-white p-6 rounded-[2rem] shadow-sm border border-[#EEF4F2] hover:shadow-xl transition-all group">
+                  <div className="w-14 h-14 rounded-2xl bg-[#EEF4F2] flex items-center justify-center shrink-0 group-hover:bg-[#3FB998] group-hover:text-white transition-all">
+                    {/* Fix: Casting to React.ReactElement<any> to allow 'size' prop in cloneElement */}
+                    {React.cloneElement(item.icon as React.ReactElement<any>, { size: 28 })}
                   </div>
-                  <span className="font-black text-[#001f54] text-sm uppercase tracking-tight leading-none">{item.title}</span>
+                  <span className="font-black text-[#1F2D2B] text-base uppercase tracking-tight">{item.title}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Students Side */}
-          <div className="space-y-8">
-            <h2 className="text-xl md:text-2xl font-black text-[#1F2D2B] uppercase tracking-wider mb-8 flex items-center gap-4">
-              <span className="w-10 h-1.5 bg-[#3FB998] block shrink-0 rounded-full"></span>
+          <div className="space-y-10">
+            <h3 className="text-2xl font-black text-[#1F2D2B] uppercase tracking-widest mb-10 flex items-center gap-5 italic">
+              <span className="w-12 h-2 bg-[#3FB998] rounded-full"></span>
               For Students
-            </h2>
-            <div className="space-y-4">
+            </h3>
+            <div className="space-y-5">
               {forStudents.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-5 bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group">
-                  <div className="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    {React.cloneElement(item.icon as React.ReactElement<any>, { size: 24 })}
+                <div key={idx} className="flex items-center gap-6 bg-white p-6 rounded-[2rem] shadow-sm border border-[#EEF4F2] hover:shadow-xl transition-all group">
+                  <div className="w-14 h-14 rounded-2xl bg-[#EEF4F2] flex items-center justify-center shrink-0 group-hover:bg-[#3FB998] group-hover:text-white transition-all">
+                    {/* Fix: Casting to React.ReactElement<any> to allow 'size' prop in cloneElement */}
+                    {React.cloneElement(item.icon as React.ReactElement<any>, { size: 28 })}
                   </div>
-                  <span className="font-black text-[#001f54] text-sm uppercase tracking-tight leading-none">{item.title}</span>
+                  <span className="font-black text-[#1F2D2B] text-base uppercase tracking-tight">{item.title}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <div className="mt-20 text-center">
-          <p className="text-slate-400 font-black uppercase tracking-[0.3em] text-[10px]">
-            Bridging industry challenges with research-driven talent
-          </p>
-        </div>
       </Section>
-
-      {/* Excellence Banner */}
-      <section className="bg-[#1F2D2B] py-16 md:py-24 text-white overflow-hidden border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-4xl font-black mb-16 uppercase tracking-tight italic">Research Excellence</h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-12">
-            {excellenceItems.map((item, idx) => (
-              <div key={idx} className="flex flex-col items-center gap-4 group cursor-default">
-                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#3FB998] group-hover:bg-[#3FB998] transition-all duration-500 transform group-hover:-translate-y-2">
-                  {React.cloneElement(item.icon as React.ReactElement<any>, { size: 28, className: "md:w-10 md:h-10" })}
-                </div>
-                <span className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.2em] text-slate-300 group-hover:text-white transition-colors">
-                  {item.label}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-16 text-slate-400 font-black uppercase tracking-[0.3em] text-[10px]">
-            Your ideas, data, and results remain fully confidential.
-          </div>
-        </div>
-      </section>
-
-      {/* Research Areas */}
-      <Section className="py-24 md:py-32">
-        <h2 className="text-center text-3xl md:text-5xl font-black text-[#1F2D2B] mb-20 uppercase tracking-tighter italic">Research Areas</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {researchAreas.map((area, idx) => (
-            <div
-              key={idx}
-              className={`bg-white rounded-3xl border border-slate-100 p-8 flex flex-col items-center text-center shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 group ${idx === researchAreas.length - 1 && 'sm:col-span-2 lg:col-span-1'}`}
-            >
-              <div className="mb-8 p-5 rounded-2xl bg-slate-50 group-hover:bg-white transition-colors shadow-inner">
-                {React.cloneElement(area.icon as React.ReactElement<any>, { size: 40 })}
-              </div>
-              <h3 className="font-black text-[#1F2D2B] text-lg uppercase mb-4 leading-tight tracking-tight">{area.title}</h3>
-              <p className="text-[#4A5D5A] text-[13px] leading-relaxed font-medium opacity-80">{area.description}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Program Section */}
-      <section className="py-24 bg-[#F7FAF9] border-y border-[#EEF4F2]">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-black text-[#1F2D2B] mb-16 uppercase tracking-tighter italic">Student Research Program</h2>
-          <div className="flex flex-wrap justify-center gap-y-6 gap-x-8 md:gap-x-12">
-            {programHighlights.map((item, idx) => (
-              <div key={idx} className="flex items-center gap-4 bg-white px-8 py-4 rounded-full shadow-md border border-[#EEF4F2] hover:border-[#3FB998] transition-colors group">
-                <div className="group-hover:rotate-12 transition-transform">{item.icon}</div>
-                <span className="font-black text-[#1F2D2B] text-xs uppercase tracking-widest">{item.text}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Application Form */}
-      
     </div>
   );
 };

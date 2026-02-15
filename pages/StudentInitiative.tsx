@@ -5,11 +5,31 @@ import { ArrowRight, CheckCircle } from 'lucide-react';
 
 const StudentInitiative = () => (
   <div className="animate-in slide-in-from-left duration-500">
-    <Section className="text-center pt-32 pb-44 bg-[#034880] text-white">
-      <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter uppercase">Student Initiative Program</h1>
-      <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-12 font-medium">Students lead. Mentors guide. Research happens.</p>
-      <Button size="lg" variant="secondary" className="h-16 px-12 rounded-full shadow-2xl">Apply as Student Researcher</Button>
-    </Section>
+    <section className="relative min-h-[100vh] flex flex-col items-center justify-center overflow-hidden bg-[#0A1211]">
+         {/* <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-[#0A1211] z-[2]"></div> */}
+        <div className="absolute inset-0 z-[1] opacity-50">
+          <img
+            src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1770321403/Student_Initiative_Home_wpysvr.jpg"
+            alt="Research Hero"
+            className="w-full h-full object-cover grayscale brightness-[0.3]"
+          />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto text-center px-6">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#3FB998]/10 border border-[#3FB998]/20 text-[#3FB998] text-[10px] font-black uppercase tracking-[0.3em] mb-8">
+            Strategic Industrial R&D
+          </div>
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-[#FFF0F0] leading-[0.9] mb-8 tracking-tighter uppercase italic">
+            Student Initiative <br /> <span className="text-[#3FB998]">Program</span>
+          </h1>
+          <p className="max-w-2xl mx-auto text-lg md:text-2xl text-[#FFF0F0] mb-12 leading-relaxed font-medium italic opacity-80">
+           Students lead. Mentors guide. Research happens.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8">
+          </div>
+        </div>
+      </section>
 
     <Section className="py-24 max-w-4xl mx-auto">
       <h2 className="text-3xl font-black text-[#1F2D2B] mb-8 uppercase tracking-tighter">What is Student Initiative</h2>

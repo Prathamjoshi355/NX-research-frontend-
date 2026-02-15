@@ -8,11 +8,11 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onExplore, onApply }) => {
   return (
-    <section className="relative overflow-hidden pt-32 pb-20 lg:pt-48 lg:pb-32 bg-[#F7FAF9]">
-      
-       <div className="absolute inset-0 z-0">
+    <section className="relative h-[92vh] flex items-center justify-center overflow-hidden bg-[#0A1211]">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1F2D2B]/90 via-transparent to-[#0A1211] z-[2]"></div>
+       <div className="absolute inset-0 z-0 opacity-90">
           <img
-            src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1770310168/a1aa7b69-6607-483b-949a-73279ce788f2.png"
+            src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1770321470/Empowerment_Home_g5oxtc.jpg"
             alt="Research Hero"
             className="w-full h-full object-cover brightness-50  "
           />
@@ -20,11 +20,12 @@ export const Hero: React.FC<HeroProps> = ({ onExplore, onApply }) => {
       
 
       <div className="relative z-10 max-w-7xl mx-auto text-center">
-        <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-[#1F2D2B] mb-6 leading-tight">
+        
+        <h1 className="text-2xl md:text-4xl lg:text-7xl font-black text-white leading-[0.8] tracking-tighter italic uppercase">
           Build Skills. Build Research.<br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3FB998] to-[#66C2A5]">Build Your Career.</span>
         </h1>
-        <p className="text-xl text-[#4A5D5A] mb-10 max-w-2xl mx-auto font-light">
+        <p className="text-base md:text-3xl text-[#EEF4F2]/80 max-w-4xl mx-auto mb-12 md:mb-20 leading-relaxed font-semibold italic">
           Industry-focused courses with mentorship, real projects & personalized learning paths designed for modern tech excellence.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -40,7 +41,8 @@ export const Hero: React.FC<HeroProps> = ({ onExplore, onApply }) => {
           >
             Apply for Skill Assessment
           </button>
-        </div>
+          </div>
+      
       </div>
       
     </section>

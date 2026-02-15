@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { Category } from '../types';
+// Changed import from '../types' to '../typesEMP' to fix enum mismatch and missing member errors (e.g., Programming)
+import { Category } from '../typesEMP';
 import { COURSE_CATEGORIES, COURSES } from '../constants';
 
 interface CourseSectionProps {

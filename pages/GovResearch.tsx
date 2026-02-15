@@ -91,29 +91,29 @@ const GovResearch = () => {
     <div className="animate-in fade-in duration-700 bg-white overflow-x-hidden">
 
       {/* HERO SECTION */}
-      <section className="relative h-[65vh] md:h-[75vh] flex items-center justify-center overflow-hidden bg-[#F8F9FA]">
+      <section className="relative h-[65vh] md:h-[75vh] flex items-center justify-center overflow-hidden bg-[#00000]">
        
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 ">
           <img
-            src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1770310168/a1aa7b69-6607-483b-949a-73279ce788f2.png"
+            src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1770321238/gov._Home_qfzpy3.jpg"
             alt="Research Hero"
-            className="w-full h-full object-cover brightness-50  "
+            className="w-full h-full object-cover grayscale brightness-[0.3]"
           />
         </div>
-        <div className="relative z-10 text-center max-w-5xl px-6">
-          <div className="mb-6 md:mb-8 inline-flex items-center px-4 py-1.5 rounded-full bg-[#1F2D2B]/10 border border-[#1F2D2B]/20 text-[#1F2D2B] text-[9px] font-black uppercase tracking-[0.3em] animate-in slide-in-from-top-12">
+        <div className="relative z-5 text-center max-w-3xl px-6">
+          <div className="mb-6 md:mb-8 inline-flex items-center px-4 py-1.5 rounded-full bg-[#1F2D2B]/10 border border-[#1F2D2B]/20 text-[#1fffff] text-[9px] font-black uppercase tracking-[0.3em] animate-in slide-in-from-top-12">
             Independent Applied Research Hub
           </div>
 
           <div className="h-[60px] md:h-[140px] flex items-center justify-center mb-6 md:mb-8 overflow-hidden">
-            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black text-[#1F2D2B] leading-none tracking-tighter uppercase italic">
+            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black text-[#fff0f0] leading-none tracking-tighter uppercase italic">
               <span key={heroIndex} className="block animate-heroText whitespace-pre-wrap px-4">
                 {heroTexts[heroIndex]}
               </span>
             </h1>
           </div>
 
-          <p className="text-base md:text-xl text-[#4A5D5A] max-w-3xl mx-auto mb-10 font-medium leading-relaxed italic opacity-80">
+          <p className="text-base md:text-xl text-[#1fffff] max-w-3xl mx-auto mb-10 font-medium leading-relaxed italic opacity-80">
             Bridging the gap between academic curiosity and national policy challenges.
             Build solutions that matter for millions.
           </p>
@@ -126,6 +126,8 @@ const GovResearch = () => {
             >
               Start Your Journey
             </Button>
+
+            
           </div>
         </div>
 
@@ -309,7 +311,7 @@ const GovResearch = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-4xl md:text-7xl font-black text-[#1F2D2B] uppercase tracking-tighter leading-none italic mb-6">Join Hub.</h2>
-            <p className="text-lg md:text-2xl text-[#8FA6A1] font-medium italic opacity-70">Transform national policy through applied intelligence.</p>
+            <p className="text-lg md:text-2xl text-[#F56FF2] font-medium italic opacity-70">Transform national policy through applied intelligence.</p>
           </div>
 
           <div className="flex flex-wrap justify-center mb-12 gap-3">
@@ -352,7 +354,7 @@ const GovResearch = () => {
 
       {/* FOOTER CALL TO ACTION */}
       <Section className="bg-[#1F2D2B] text-white py-24 md:py-32 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#3FB998]/20 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[#000459] pointer-events-none "></div>
 
         <div className="relative z-10 px-6">
           <h2 className="text-5xl md:text-8xl font-black mb-10 tracking-tighter uppercase leading-[0.8] italic drop-shadow-xl">

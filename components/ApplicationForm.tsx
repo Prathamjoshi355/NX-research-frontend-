@@ -1,7 +1,9 @@
 
 import React, { useState } from 'react';
-import { Category, ApplicationFormData } from '../types';
+// Changed import from '../types' to '../typesEMP' to fix missing ApplicationFormData and Category mismatch
+import { Category, ApplicationFormData } from '../typesEMP';
 import { COURSE_CATEGORIES, COURSES } from '../constants';
+import { applicationService } from '../services/apiService';
 
 interface ApplicationFormProps {
   onBack: () => void;
@@ -28,6 +30,8 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ onBack }) => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -44,6 +48,7 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ onBack }) => {
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
+    setError(null);
   };
 
   const handleCourseSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -57,11 +62,28 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ onBack }) => {
     setFormData(prev => ({ ...prev, specificCourses: values }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form Submitted:', formData);
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Call backend API to save application
+      const response = await applicationService.createApplication(formData);
+      
+      if (response.success) {
+        console.log('Application submitted successfully:', response.data);
+        setSubmitted(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        setError(response.message || 'Failed to submit application');
+      }
+    } catch (err: any) {
+      console.error('Error submitting application:', err);
+      setError(err.message || 'An error occurred while submitting. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -93,6 +115,13 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ onBack }) => {
         <button onClick={onBack} className="flex items-center gap-2 text-indigo-600 font-semibold mb-8 hover:translate-x-[-4px] transition-transform">
           ← Back to Courses
         </button>
+        
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-800 px-6 py-4 rounded-xl mb-8">
+            <p className="font-semibold">Error</p>
+            <p className="text-sm mt-1">{error}</p>
+          </div>
+        )}
         
         <header className="mb-12">
           <h1 className="text-3xl lg:text-4xl font-extrabold text-slate-900 mb-4">
@@ -296,11 +325,21 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ onBack }) => {
             </label>
 
             <button 
-              type="submit" 
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold py-5 rounded-2xl shadow-xl shadow-indigo-100 transition-all flex items-center justify-center gap-2 group"
+              type="submit"
+              disabled={loading}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-400 text-white font-extrabold py-5 rounded-2xl shadow-xl shadow-indigo-100 transition-all flex items-center justify-center gap-2 group disabled:cursor-not-allowed"
             >
-              Apply for Skill Assessment
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+              {loading ? (
+                <>
+                  <span className="animate-spin">⏳</span>
+                  Submitting...
+                </>
+              ) : (
+                <>
+                  Apply for Skill Assessment
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </>
+              )}
             </button>
           </div>
         </form>
