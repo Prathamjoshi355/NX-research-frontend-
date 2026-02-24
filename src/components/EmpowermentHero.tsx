@@ -60,14 +60,14 @@ export default function EmpowermentHero() {
               "absolute inset-0 z-0 overflow-hidden"
         }
       >
-        <video
+       <video
           ref={videoRef}
           autoPlay
           loop={isMuted}
           muted={isMuted}
           playsInline
           className={`w-full h-full object-cover object-center transition-all duration-700 ${
-            isMuted ? "blur-[4px] brightness-[0.35]" : "blur-0 brightness-100"
+            isMuted && !isPip ? "blur-[4px] brightness-[0.35]" : "blur-0 brightness-100"
           }`}
         >
           <source

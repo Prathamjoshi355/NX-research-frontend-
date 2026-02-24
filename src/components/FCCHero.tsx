@@ -72,7 +72,7 @@ export default function Hero({
               "absolute inset-0 z-0 overflow-hidden"
         }
       >
-        <video
+       <video
           ref={videoRef}
           autoPlay
           loop={isMuted}
