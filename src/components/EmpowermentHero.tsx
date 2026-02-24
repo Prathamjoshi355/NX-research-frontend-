@@ -1,3 +1,6 @@
+
+
+
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
