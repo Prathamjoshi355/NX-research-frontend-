@@ -76,35 +76,27 @@ export default function EmpowermentHero() {
           />
         </video>
 
-        {/* PiP close button */}
-        <AnimatePresence>
+       <AnimatePresence>
           {isPip && (
-            <motion.button
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="absolute top-2 right-2 w-8 h-8 bg-black/60 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-black/80 transition-all"
+              className="absolute inset-0 bg-black/20 opacity-0 group-hover/pip:opacity-100 transition-opacity flex items-center justify-center"
             >
-              <VolumeX size={16} />
-            </motion.button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleMute();
+                }}
+                className="w-10 h-10 bg-black/60 rounded-full flex items-center justify-center text-white hover:bg-neon-cyan hover:text-bg-primary transition-all"
+              >
+                {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+              </button>
+            </motion.div>
           )}
         </AnimatePresence>
       </motion.div>
-
-      {/* ── Gradient Overlay — fades when unmuted ── */}
-      <AnimatePresence>
-        {isMuted && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.7 }}
-            className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-bg-primary/30 via-bg-primary/60 to-bg-primary/95"
-          />
-        )}
-      </AnimatePresence>
-
       {/* ── Main Content ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

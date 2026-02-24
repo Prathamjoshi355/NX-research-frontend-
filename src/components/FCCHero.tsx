@@ -89,7 +89,7 @@ export default function Hero({
         </video>
 
         {/* PiP Controls */}
-       <AnimatePresence>
+      <AnimatePresence>
           {isPip && (
             <motion.div
               initial={{ opacity: 0 }}

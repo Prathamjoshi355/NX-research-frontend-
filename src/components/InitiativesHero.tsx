@@ -76,8 +76,7 @@ export default function InitiativesHero() {
           />
         </video>
 
-        {/* PiP close button */}
-       <AnimatePresence>
+      <AnimatePresence>
           {isPip && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -98,7 +97,6 @@ export default function InitiativesHero() {
           )}
         </AnimatePresence>
       </motion.div>
-
       {/* ── Gradient Overlay — fades when unmuted ── */}
       <AnimatePresence>
         {isMuted && (

@@ -76,7 +76,6 @@ export default function FounderCircleHero() {
           />
         </video>
 
-        {/* PiP close button */}
        <AnimatePresence>
           {isPip && (
             <motion.div
@@ -98,7 +97,6 @@ export default function FounderCircleHero() {
           )}
         </AnimatePresence>
       </motion.div>
-
       {/* ── Gradient Overlay — fades when unmuted ── */}
       <AnimatePresence>
         {isMuted && (
