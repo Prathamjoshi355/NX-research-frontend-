@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -8,10 +8,13 @@ import GovResearchPage from "./pages/GovResearchPage";
 import PrivateResearchPage from "./pages/PrivateResearchPage";
 import FounderCirclePage from "./pages/FounderCirclePage";
 import JoinPage from "./pages/JoinPage";
+import FCCPage from "./pages/FCC";
+import ScrollToTop from "./components/ScrollToTop";
 
 function AppContent() {
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary selection:bg-neon-cyan/30 selection:text-neon-cyan">
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -21,6 +24,7 @@ function AppContent() {
         <Route path="/private-research" element={<PrivateResearchPage />} />
         <Route path="/founder-circle" element={<FounderCirclePage />} />
         <Route path="/join" element={<JoinPage />} />
+        <Route path="/FCC" element={<FCCPage />} />
         {/* Add more routes here as they are built */}
       </Routes>
       <Footer />

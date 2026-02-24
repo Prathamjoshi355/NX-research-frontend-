@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 const NODES = [
   { title: "Mentors",            angle: -90,  icon: "🧠", desc: "Seasoned founders & industry leaders who've been there, done that.", stat: "120+ Mentors",    color: "#00d4ff" },
@@ -11,13 +12,13 @@ const NODES = [
   { title: "Strategic Partners", angle: -135, icon: "🔗", desc: "Corporate partners offering pilots, distribution, and co-selling.", stat: "80+ Partners",   color: "#ffd700" },
 ];
 
-const toRad = (deg) => (deg * Math.PI) / 180;
+const toRad = (deg: number) => (deg * Math.PI) / 180;
 
 export default function FounderCircleEcosystem() {
-  const [active, setActive]   = useState(null);
-  const [hovered, setHovered] = useState(null);
+  const [active, setActive]   = useState<any>(null);
+  const [hovered, setHovered] = useState<any>(null);
   const [size, setSize]       = useState(500);
-  const wrapRef = useRef(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const update = () => {
@@ -62,10 +63,6 @@ export default function FounderCircleEcosystem() {
           0%,100% { transform: translateY(0);   }
           50%     { transform: translateY(-6px); }
         }
-        @keyframes fade-up {
-          from { opacity:0; transform:translateY(8px); }
-          to   { opacity:1; transform:translateY(0);   }
-        }
         .orb-node {
           cursor: pointer;
         }
@@ -75,31 +72,25 @@ export default function FounderCircleEcosystem() {
       `}</style>
 
       {/* ── HEADER ── */}
-      <div style={{ textAlign: "center", marginBottom: 28, maxWidth: 560, width: "100%" }}>
-        <div style={{
-          display: "inline-block", fontSize: 10, letterSpacing: 5, color: "#00d4ff",
-          textTransform: "uppercase", marginBottom: 12, padding: "4px 14px",
-          border: "1px solid rgba(0,212,255,0.3)", borderRadius: 2,
-        }}>◈ Ecosystem Map</div>
-        <h2 style={{
-          fontSize: "clamp(20px, 5.5vw, 40px)", fontWeight: 800,
-          color: "#eef0ff", letterSpacing: "-0.5px", textTransform: "uppercase",
-          lineHeight: 1.15, margin: "0 0 8px",
-        }}>
+      <div className="text-center mb-8 max-w-[560px] w-full">
+        <div className="inline-block text-[10px] tracking-[5px] text-neon-cyan uppercase mb-3 px-[14px] py-1 border border-neon-cyan/30 rounded-[2px]">
+          ◈ Ecosystem Map
+        </div>
+        <h2 className="text-[clamp(24px,5.5vw,40px)] font-extrabold text-[#eef0ff] tracking-[-0.5px] uppercase leading-[1.15] mb-2">
           The Founder Circle<br />
-          <span style={{ color: "#00d4ff" }}>Support Ecosystem</span>
+          <span className="text-neon-cyan">Support Ecosystem</span>
         </h2>
-        <p style={{ color: "#2a3a4e", fontSize: 10, letterSpacing: 2, margin: 0 }}>
+        <p className="text-[#2a3a4e] text-[10px] tracking-[2px] uppercase">
           HOVER OR CLICK ANY NODE TO EXPLORE
         </p>
       </div>
 
       {/* ── DIAGRAM ── */}
-      <div ref={wrapRef} style={{ width: "100%", maxWidth: 560 }}>
+      <div ref={wrapRef} className="w-full max-w-[560px]">
         <svg
           viewBox={`0 0 ${size} ${size}`}
           width={size} height={size}
-          style={{ display: "block", width: "100%", height: "auto", overflow: "visible" }}
+          className="block w-full h-auto overflow-visible"
         >
           <defs>
             <filter id="glow-hub" x="-50%" y="-50%" width="200%" height="200%">
@@ -162,7 +153,7 @@ export default function FounderCircleEcosystem() {
           })}
 
           {/* ── HUB ── */}
-          <g filter="url(#glow-hub)" onClick={() => setActive(null)} style={{ cursor: "pointer" }}>
+          <g filter="url(#glow-hub)" onClick={() => setActive(null)} className="cursor-pointer">
             {/* pulse rings */}
             {[0, 1].map(k => (
               <circle key={k} cx={cx} cy={cy} r={HUB_R}
@@ -182,17 +173,17 @@ export default function FounderCircleEcosystem() {
             />
             <text x={cx} y={cy - HUB_R * 0.28} textAnchor="middle"
               fill="#00d4ff" fontSize={HUB_R * 0.24}
-              fontFamily="system-ui" fontWeight="700" letterSpacing="2">
+              className="font-sans font-bold tracking-[2px]">
               HUB
             </text>
             <text x={cx} y={cy + HUB_R * 0.1} textAnchor="middle" dominantBaseline="middle"
               fill="#eef0ff" fontSize={HUB_R * 0.3}
-              fontFamily="system-ui" fontWeight="800" letterSpacing="-0.3">
+              className="font-sans font-extrabold tracking-[-0.3px]">
               Your
             </text>
             <text x={cx} y={cy + HUB_R * 0.5} textAnchor="middle" dominantBaseline="middle"
               fill="#eef0ff" fontSize={HUB_R * 0.3}
-              fontFamily="system-ui" fontWeight="800" letterSpacing="-0.3">
+              className="font-sans font-extrabold tracking-[-0.3px]">
               Startup
             </text>
           </g>
@@ -254,8 +245,7 @@ export default function FounderCircleEcosystem() {
                     textAnchor="middle"
                     fill={isOn ? node.color : "#5a6a7e"}
                     fontSize={Math.max(7.5, NODE_R * 0.215)}
-                    fontFamily="system-ui" fontWeight="700"
-                    letterSpacing="0.2"
+                    className="font-sans font-bold tracking-[0.2px]"
                     style={{ transition: "fill 0.3s" }}
                   >
                     {word.toUpperCase()}
@@ -268,38 +258,44 @@ export default function FounderCircleEcosystem() {
       </div>
 
       {/* ── INFO PANEL ── */}
-      <div style={{ width: "100%", maxWidth: 540, marginTop: 6, minHeight: 90 }}>
-        {hi ? (
-          <div style={{
-            background: "linear-gradient(135deg, rgba(12,16,26,0.98), rgba(16,22,38,0.96))",
-            border: `1px solid ${hi.color}35`,
-            borderLeft: `3px solid ${hi.color}`,
-            borderRadius: 8, padding: "16px 20px",
-            boxShadow: `0 20px 60px rgba(0,0,0,0.7), 0 0 28px ${hi.color}15`,
-            animation: "fade-up 0.22s ease",
-          }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 11 }}>
-              <span style={{ fontSize: 26 }}>{hi.icon}</span>
-              <div>
-                <div style={{ fontWeight: 800, fontSize: 14, color: "#eef0ff", textTransform: "uppercase", letterSpacing: 0.5 }}>
-                  {hi.title}
-                </div>
-                <div style={{ fontSize: 9, color: hi.color, letterSpacing: 3, textTransform: "uppercase", marginTop: 2 }}>
-                  {hi.stat}
+      <div className="w-full max-w-[540px] mt-2 min-h-[90px]">
+        <AnimatePresence mode="wait">
+          {hi ? (
+            <motion.div 
+              key={hi.title}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              className="bg-gradient-to-br from-[#0c101a]/98 to-[#101626]/96 border border-white/5 border-l-[3px] rounded-lg p-4 md:p-5 shadow-[0_20px_60px_rgba(0,0,0,0.7),0_0_28px_rgba(0,212,255,0.05)]"
+              style={{ borderLeftColor: hi.color }}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">{hi.icon}</span>
+                <div>
+                  <div className="font-extrabold text-sm text-[#eef0ff] uppercase tracking-[0.5px]">
+                    {hi.title}
+                  </div>
+                  <div className="text-[9px] tracking-[3px] uppercase mt-0.5" style={{ color: hi.color }}>
+                    {hi.stat}
+                  </div>
                 </div>
               </div>
-            </div>
-            <p style={{ fontSize: 13, color: "#7a8a9e", lineHeight: 1.75, margin: 0, borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: 11 }}>
-              {hi.desc}
-            </p>
-          </div>
-        ) : (
-          <div style={{ textAlign: "center", padding: "18px 0" }}>
-            <p style={{ fontSize: "clamp(12px,2vw,14px)", fontStyle: "italic", color: "#1c2a38", lineHeight: 1.75, margin: 0 }}>
-              "When one startup needs support, the entire ecosystem responds."
-            </p>
-          </div>
-        )}
+              <p className="text-[13px] text-[#7a8a9e] leading-[1.75] border-t border-white/5 pt-3">
+                {hi.desc}
+              </p>
+            </motion.div>
+          ) : (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-4"
+            >
+              <p className="text-[clamp(12px,2vw,14px)] italic text-[#1c2a38] leading-[1.75]">
+                "When one startup needs support, the entire ecosystem responds."
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

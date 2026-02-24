@@ -1,351 +1,221 @@
-import React from "react";
-import { motion } from "motion/react";
-import {
-  Lightbulb,
-  Zap,
-  Search,
-  Crown,
-  Rocket,
-} from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Laptop, Users, Network, Rocket, UserCircle2 } from "lucide-react";
 
-const stages = [
+const steps = [
   {
-    title: "Initiatives",
-    desc: "Identifying core problems and opportunities.",
-    icon: Lightbulb,
+    id: "01",
+    title: "START WITH EMPOWERMENT",
+    subtitle: "Learn • Explore • Build Foundation",
+    description:
+      "Establish a powerful base of knowledge. We provide the tools and environment to explore your potential and build a solid foundation for your future ventures.",
+    icon: Laptop,
   },
   {
-    title: "Empowerment",
-    desc: "Equipping builders with tools and knowledge.",
-    icon: Zap,
+    id: "02",
+    title: "EXECUTE REAL RESEARCH",
+    subtitle: "Hands-on • Projects • Publication",
+    description:
+      "Theory meets practice. Engage in rigorous, hands-on research projects that lead to real-world insights and high-impact publications.",
+    icon: Users,
   },
   {
-    title: "Research",
-    desc: "Deep diving into data and innovation.",
-    icon: Search,
+    id: "03",
+    title: "GROW THROUGH INITIATIVES",
+    subtitle: "Connect • Collaborate • Visibility",
+    description:
+      "Expand your reach. Our initiatives are designed to connect you with the right people and provide the visibility needed to scale your ideas.",
+    icon: Network,
   },
   {
-    title: "Founder Circle",
-    desc: "Joining the elite network of builders.",
-    icon: Crown,
-  },
-  {
-    title: "Startup Launch",
-    desc: "Bringing ventures to the real world.",
+    id: "04",
+    title: "TURN IDEAS INTO STARTUPS",
+    subtitle: "Build • Validate • Launch",
+    description:
+      "From concept to company. We guide you through the critical stages of building, validating, and launching your startup into the market.",
     icon: Rocket,
+  },
+  {
+    id: "05",
+    title: "JOIN FOUNDERS' CIRCLE",
+    subtitle: "Scale • Lead • Impact",
+    description:
+      "The ultimate destination. Join an elite network of founders where you can scale your impact, lead industries, and create lasting change.",
+    icon: UserCircle2,
   },
 ];
 
+const CYCLE_TIME = 5000; // 5 seconds per step
+
 export default function HowItWorks() {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const nextStep = useCallback(() => {
+    setActiveStep((prev) => (prev + 1) % steps.length);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(nextStep, CYCLE_TIME);
+    return () => clearInterval(interval);
+  }, [nextStep, activeStep]); // Reset interval when activeStep changes manually
+
+  const handleManualStep = (index: number) => {
+    setActiveStep(index);
+  };
+
+  const Icon = steps[activeStep].icon;
+
   return (
-    <>
-      <style>{`
-        /* ── MOBILE vertical timeline ── */
-        .mob-list {
-          display: flex;
-          flex-direction: column;
-          gap: 0;
-          position: relative;
-        }
+    <section className="min-h-screen bg-bg-primary text-text-primary relative overflow-hidden flex items-center justify-center py-20 px-6">
+      {/* Grid Background */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_2px_2px,rgba(0,212,255,0.15)_1px,transparent_0)] bg-[length:40px_40px]" />
+      </div>
 
-        .mob-item {
-          display: flex;
-          align-items: flex-start;
-          gap: 14px;
-          position: relative;
-        }
+      {/* Decorative Glows */}
+      <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-neon-cyan/5 blur-[120px] pointer-events-none" />
+      <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] rounded-full bg-neon-cyan/5 blur-[120px] pointer-events-none" />
 
-        /* vertical line running through left column */
-        .mob-item:not(:last-child) .mob-left::after {
-          content: '';
-          position: absolute;
-          top: 40px;        /* below the circle */
-          left: 50%;
-          transform: translateX(-50%);
-          width: 1px;
-          bottom: -8px;
-          background: linear-gradient(to bottom, rgba(0,212,255,0.4), rgba(0,212,255,0.08));
-        }
+      <div className="relative z-10 w-full max-w-6xl">
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <p className="text-[10px] font-mono tracking-[0.4em] text-neon-cyan/60 uppercase mb-3">
+            The Journey
+          </p>
+          <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tighter text-white uppercase">
+            How It <span className="text-neon-cyan text-glow-cyan">Works</span>
+          </h2>
+        </motion.div>
 
-        .mob-left {
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          flex-shrink: 0;
-          width: 40px;
-        }
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+          {/* Left: Visual */}
+          <div className="flex justify-center items-center">
+            <div className="relative w-64 h-64 md:w-80 md:h-80">
+              {/* Glowing Rings */}
+              <motion.div
+                key={activeStep + "-ring-outer"}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="absolute inset-0 rounded-full border border-neon-cyan/20 shadow-[0_0_50px_rgba(0,212,255,0.1)]"
+              />
+              <motion.div
+                key={activeStep + "-ring-inner"}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="absolute inset-4 rounded-full border border-neon-cyan/10"
+              />
 
-        .mob-circle {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          border: 1.5px solid rgba(0,212,255,0.3);
-          background: #060a10;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #00d4ff;
-          position: relative;
-          flex-shrink: 0;
-        }
-
-        .mob-badge {
-          position: absolute;
-          top: -4px;
-          right: -4px;
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          background: #00d4ff;
-          color: #060a10;
-          font-size: 8px;
-          font-weight: 800;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-family: 'Space Mono', monospace;
-          box-shadow: 0 0 8px rgba(0,212,255,0.5);
-        }
-
-        .mob-content {
-          padding-bottom: 24px;
-          padding-top: 6px;
-        }
-
-        .mob-title {
-          font-size: 13px;
-          font-weight: 700;
-          color: #e8f4f8;
-          letter-spacing: 0.5px;
-          text-transform: uppercase;
-          margin-bottom: 3px;
-          font-family: 'Syne', sans-serif;
-        }
-
-        .mob-desc {
-          font-size: 10px;
-          color: rgba(160,200,215,0.5);
-          line-height: 1.65;
-          font-family: 'Space Mono', monospace;
-          max-width: 220px;
-        }
-
-        @media (min-width: 1024px) {
-          .mob-list { display: none; }
-        }
-        @media (min-width: 1024px) {
-          .desk-block { display: flex !important; }
-        }
-        .desk-block { display: none; }
-      `}</style>
-
-      <section
-        id="how-it-works"
-        className="py-20 lg:py-32 overflow-hidden"
-        style={{ background: "#060a10" }}
-      >
-        <div className="max-w-7xl mx-auto px-6">
-          {/* Title */}
-          <div className="text-center mb-16 lg:mb-24">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              style={{
-                fontFamily: "'Syne', sans-serif",
-                fontSize: "clamp(26px, 5vw, 52px)",
-                fontWeight: 800,
-                color: "#e8f4f8",
-                textTransform: "uppercase",
-                letterSpacing: "-1.5px",
-              }}
-            >
-              How NX Research Works
-            </motion.h2>
-          </div>
-
-          {/* ═══════════════ MOBILE vertical timeline ═══════════════ */}
-          <div className="mob-list lg:hidden">
-            {stages.map((stage, index) => {
-              const Icon = stage.icon;
-              return (
-                <motion.div
-                  key={stage.title}
-                  className="mob-item"
-                  initial={{ opacity: 0, x: -16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  {/* Left: circle + vertical line */}
-                  <div className="mob-left">
-                    <motion.div
-                      className="mob-circle"
-                      whileInView={{
-                        borderColor: [
-                          "rgba(0,212,255,0.2)",
-                          "rgba(0,212,255,0.9)",
-                          "rgba(0,212,255,0.2)",
-                        ],
-                        boxShadow: [
-                          "0 0 0px rgba(0,212,255,0)",
-                          "0 0 14px rgba(0,212,255,0.4)",
-                          "0 0 0px rgba(0,212,255,0)",
-                        ],
-                      }}
-                      transition={{ duration: 2.5, repeat: Infinity, delay: index * 0.3 }}
-                    >
-                      <Icon size={18} />
-                      <span className="mob-badge">{index + 1}</span>
-                    </motion.div>
-                  </div>
-
-                  {/* Right: text */}
-                  <div className="mob-content">
-                    <div className="mob-title">{stage.title}</div>
-                    <div className="mob-desc">{stage.desc}</div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* ═══════════════ DESKTOP wave layout ═══════════════ */}
-          <div
-            className="desk-block relative min-h-[400px] items-center"
-            style={{ display: "none" }}
-          >
-            {/* Curved path */}
-            <div className="absolute inset-0 z-0">
-              <svg
-                width="100%"
-                height="100%"
-                viewBox="0 0 1200 400"
-                fill="none"
-                preserveAspectRatio="none"
-              >
-                <motion.path
-                  d="M 100 200 Q 300 50 600 200 T 1100 200"
-                  stroke="#00d4ff"
+              {/* Progress Ring (Visual Indicator) */}
+              <svg className="absolute inset-0 w-full h-full -rotate-90">
+                <circle
+                  cx="50%"
+                  cy="50%"
+                  r="48%"
+                  fill="none"
+                  stroke="currentColor"
                   strokeWidth="2"
-                  strokeOpacity="0.2"
-                  strokeDasharray="10 10"
-                  initial={{ pathLength: 0 }}
-                  whileInView={{ pathLength: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 3, ease: "easeInOut" }}
+                  className="text-white/5"
                 />
                 <motion.circle
-                  r="4"
-                  fill="#00d4ff"
-                  initial={{ offsetDistance: "0%" } as any}
-                  animate={{ offsetDistance: "100%" } as any}
-                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                  style={{
-                    offsetPath: "path('M 100 200 Q 300 50 600 200 T 1100 200')",
-                  } as any}
+                  key={activeStep}
+                  cx="50%"
+                  cy="50%"
+                  r="48%"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeDasharray="100 100"
+                  initial={{ strokeDashoffset: 100 }}
+                  animate={{ strokeDashoffset: 0 }}
+                  transition={{ duration: CYCLE_TIME / 1000, ease: "linear" }}
+                  className="text-neon-cyan"
                 />
               </svg>
-            </div>
 
-            <div className="flex flex-row items-center justify-between gap-0 relative z-10 w-full">
-              {stages.map((stage, index) => {
-                const Icon = stage.icon;
-                return (
-                  <motion.div
-                    key={stage.title}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.3, duration: 0.5, ease: "easeOut" }}
-                    className={`flex flex-col items-center text-center group ${
-                      index % 2 === 0 ? "lg:-translate-y-16" : "lg:translate-y-16"
-                    }`}
-                  >
-                    <div className="relative mb-6">
-                      <motion.div
-                        whileInView={{
-                          borderColor: [
-                            "rgba(0,212,255,0.2)",
-                            "rgba(0,212,255,1)",
-                            "rgba(0,212,255,0.2)",
-                          ],
-                          boxShadow: [
-                            "0 0 0px rgba(0,212,255,0)",
-                            "0 0 20px rgba(0,212,255,0.4)",
-                            "0 0 0px rgba(0,212,255,0)",
-                          ],
-                        }}
-                        transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-                        style={{
-                          width: 80,
-                          height: 80,
-                          borderRadius: "50%",
-                          border: "2px solid rgba(0,212,255,0.3)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          background: "#060a10",
-                          color: "#00d4ff",
-                          position: "relative",
-                        }}
-                      >
-                        <Icon size={28} />
-                      </motion.div>
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: -4,
-                          right: -4,
-                          width: 24,
-                          height: 24,
-                          borderRadius: "50%",
-                          background: "#00d4ff",
-                          color: "#060a10",
-                          fontSize: 11,
-                          fontWeight: 800,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontFamily: "'Space Mono', monospace",
-                          boxShadow: "0 0 10px rgba(0,212,255,0.5)",
-                        }}
-                      >
-                        {index + 1}
-                      </div>
-                    </div>
-                    <h3
-                      style={{
-                        color: "#e8f4f8",
-                        fontFamily: "'Syne', sans-serif",
-                        fontWeight: 600,
-                        fontSize: 14,
-                        textTransform: "uppercase",
-                        letterSpacing: "1px",
-                        marginBottom: 8,
-                      }}
-                    >
-                      {stage.title}
-                    </h3>
-                    <p
-                      style={{
-                        color: "rgba(160,200,215,0.5)",
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: 11,
-                        lineHeight: 1.75,
-                        maxWidth: 140,
-                      }}
-                    >
-                      {stage.desc}
-                    </p>
-                  </motion.div>
-                );
-              })}
+              {/* Icon Container */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeStep}
+                  initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  exit={{ opacity: 0, scale: 0.5, rotate: 10 }}
+                  transition={{ duration: 0.4 }}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center shadow-[0_0_30px_rgba(0,212,255,0.2)]">
+                    <Icon size={48} className="text-neon-cyan" strokeWidth={1.5} />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Phase Badge */}
+              <motion.div
+                key={activeStep + "-badge"}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="absolute bottom-4 right-4 bg-neon-cyan/20 border border-neon-cyan/40 rounded px-3 py-1 text-[10px] font-mono text-neon-cyan font-bold tracking-widest"
+              >
+                PHASE {steps[activeStep].id}
+              </motion.div>
             </div>
           </div>
+
+          {/* Right: Text Content */}
+          <div className="min-h-[300px] flex flex-col justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ duration: 0.4 }}
+              >
+                <p className="text-[10px] font-mono tracking-[0.3em] text-neon-cyan/50 uppercase mb-4">
+                  Step {steps[activeStep].id}
+                </p>
+                <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white mb-3 leading-tight uppercase">
+                  {steps[activeStep].title}
+                </h3>
+                <p className="text-xs font-mono tracking-widest text-neon-cyan mb-6 uppercase">
+                  {steps[activeStep].subtitle}
+                </p>
+                <p className="text-text-secondary text-sm md:text-base leading-relaxed max-w-md">
+                  {steps[activeStep].description}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-      </section>
-    </>
+
+        {/* Navigation */}
+        <div className="flex justify-center gap-3 mt-16">
+          {steps.map((step, index) => {
+            const isActive = activeStep === index;
+            return (
+              <motion.button
+                key={step.id}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => handleManualStep(index)}
+                className={`w-12 h-12 flex items-center justify-center font-mono text-xs font-bold border rounded transition-all duration-300 ${
+                  isActive
+                    ? "bg-neon-cyan text-bg-primary border-neon-cyan shadow-[0_0_20px_rgba(0,212,255,0.4)]"
+                    : "bg-white/5 text-neon-cyan/60 border-white/10 hover:border-neon-cyan/40"
+                }`}
+              >
+                {step.id}
+              </motion.button>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }

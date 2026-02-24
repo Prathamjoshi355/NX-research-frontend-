@@ -1,8 +1,25 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
+import { Link } from "react-router-dom";
 
-export default function JoinHero() {
+interface GenericHeroProps {
+  label: string;
+  title: string;
+  subtitle: string;
+  videoUrl?: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+export default function GenericHero({
+  label,
+  title,
+  subtitle,
+  videoUrl = "https://res.cloudinary.com/dhy9pmo8s/video/upload/v1771707288/WhatsApp_Video_2026-02-21_at_1.59.15_AM_bfz1ju.mp4",
+  ctaText = "Get Started",
+  ctaLink = "/join",
+}: GenericHeroProps) {
   const [isMuted, setIsMuted] = useState(true);
   const [isPip, setIsPip] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -69,10 +86,7 @@ export default function JoinHero() {
             isMuted ? "blur-[4px] brightness-[0.35]" : "blur-0 brightness-100"
           }`}
         >
-          <source
-            src="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1771707288/WhatsApp_Video_2026-02-21_at_1.59.15_AM_bfz1ju.mp4"
-            type="video/mp4"
-          />
+          <source src={videoUrl} type="video/mp4" />
         </video>
 
         {/* PiP close button */}
@@ -121,7 +135,7 @@ export default function JoinHero() {
                 className="inline-block px-4 py-1 border border-neon-cyan/40 rounded-full mb-8"
               >
                 <span className="font-mono text-[11px] text-neon-cyan tracking-[6px] uppercase">
-                  Join the Ecosystem
+                  {label}
                 </span>
               </motion.div>
 
@@ -131,7 +145,7 @@ export default function JoinHero() {
                 exit={{ opacity: 0, y: -20 }}
                 className="text-2xl xs:text-3xl sm:text-4xl md:text-[64px] font-display font-black text-text-primary tracking-tighter mb-4 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)]"
               >
-                Start Your Journey
+                {title}
               </motion.h1>
 
               <motion.p
@@ -140,13 +154,13 @@ export default function JoinHero() {
                 exit={{ opacity: 0, y: -20 }}
                 className="text-base xs:text-lg sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-10 tracking-[0.2em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
               >
-                Apply to NX Research
+                {subtitle}
               </motion.p>
             </>
           )}
         </AnimatePresence>
 
-        {/* ── Unmute row — right aligned, above CTA ── */}
+        {/* ── Unmute row — centered on mobile, right aligned on desktop ── */}
         <div className="w-full flex items-center justify-center sm:justify-end gap-2 sm:gap-3 mb-6 px-4 sm:pr-4">
           {/* Label — only when muted */}
           <AnimatePresence>
@@ -180,7 +194,6 @@ export default function JoinHero() {
             )}
           </AnimatePresence>
 
-          {/* Mute Button */}
           <div className="relative flex-shrink-0">
             <AnimatePresence>
               {isMuted && (
@@ -223,12 +236,12 @@ export default function JoinHero() {
               exit={{ opacity: 0, y: 20 }}
               className="w-full flex justify-center px-4"
             >
-              <button
-                onClick={() => document.getElementById('join-form')?.scrollIntoView({ behavior: 'smooth' })}
+              <Link
+                to={ctaLink}
                 className="group relative w-full max-w-[280px] sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-transparent border-[1.5px] border-neon-cyan text-neon-cyan font-heading font-semibold text-[12px] sm:text-[14px] tracking-[2px] sm:tracking-[3px] uppercase rounded-[4px] transition-all duration-300 hover:bg-neon-cyan/15 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] text-center"
               >
-                Begin Application
-              </button>
+                {ctaText}
+              </Link>
             </motion.div>
           )}
         </AnimatePresence>

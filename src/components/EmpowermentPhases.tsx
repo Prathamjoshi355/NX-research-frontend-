@@ -2,43 +2,38 @@ import { motion } from "motion/react";
 import { ArrowRight, ArrowDown } from "lucide-react";
 
 const phases = [
-  {
-    title: "Entry & Clarity",
-    subtitle: "Foundation Journey",
-    desc: "Clarity Call / Start → Observe & Learn",
+   {
+    title: "Capability Check",
+    subtitle: "Assessing Your Readiness",
+    desc: "Skills and readiness evaluation",
     color: "neon-cyan",
   },
   {
-    title: "Track Selection",
-    subtitle: "Specialization",
-    desc: "Skill / Research / Founder / Corporate",
+    title: "Observation & Learning",
+    subtitle: "Understanding Before Action",
+    desc: "Observe processes and learn deeply",
     color: "neon-purple",
   },
   {
-    title: "Capability Score",
-    subtitle: "Readiness Check",
-    desc: "Assessment & Feedback Loop",
+    title: "Real‑World Exposure",
+    subtitle: "Learning Through Experience",
+    desc: "Work on real challenges",
     color: "teal",
   },
   {
-    title: "Direction Selection",
-    subtitle: "Outcome Focus",
-    desc: "Research / Startup / Professional",
+    title: "Responsibility",
+    subtitle: "Leading with Accountability",
+    desc: "Own tasks and deliver outcomes",
     color: "gold",
-  },
-  {
-    title: "Ecosystem Integration",
-    subtitle: "Full Access",
-    desc: "Join the Global Network",
-    color: "neon-blue",
   },
 ];
 
 export default function EmpowermentPhases() {
   return (
-    <section className="py-32 bg-bg-secondary relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
+    <section className="py-24 md:py-32 bg-bg-secondary relative overflow-hidden">
+      <div className="max-w-5xl mx-auto px-6 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-24">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -49,73 +44,50 @@ export default function EmpowermentPhases() {
           </motion.h2>
         </div>
 
-        {/* Desktop: Horizontal Snake Flow */}
-        <div className="hidden lg:flex flex-wrap justify-center gap-y-24 gap-x-4 relative">
-          {phases.map((phase, i) => (
-            <div key={phase.title} className="flex items-center">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="w-64 glass-panel p-8 rounded-2xl border-neon-cyan/10 relative group"
-              >
-                <div className={`w-10 h-10 rounded-lg bg-${phase.color}/10 border border-${phase.color}/30 flex items-center justify-center mb-6 text-${phase.color}`}>
-                  <span className="font-mono text-xs font-bold">0{i + 1}</span>
-                </div>
-                <h3 className="text-lg font-display font-bold text-text-primary mb-2">{phase.title}</h3>
-                <p className={`text-xs font-mono text-${phase.color} uppercase tracking-widest mb-4`}>{phase.subtitle}</p>
-                <p className="text-text-secondary text-xs leading-relaxed">{phase.desc}</p>
-                
-                {/* Glow Effect */}
-                <div className={`absolute inset-0 bg-${phase.color}/5 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl`} />
-              </motion.div>
+        {/* Timeline Path */}
+        <div className="relative">
+          {/* Vertical Line */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-neon-cyan/50 via-neon-cyan/20 to-transparent -translate-x-1/2" />
 
-              {i < phases.length - 1 && (
-                <motion.div
-                  initial={{ opacity: 0, width: 0 }}
-                  whileInView={{ opacity: 1, width: 40 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 + 0.3 }}
-                  className="flex items-center justify-center"
-                >
-                  <ArrowRight className="text-text-dim" size={24} />
-                </motion.div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Mobile: Vertical Stacked Pathway */}
-        <div className="lg:hidden flex flex-col items-center gap-8">
-          {phases.map((phase, i) => (
-            <div key={phase.title} className="flex flex-col items-center w-full max-w-sm">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="w-full glass-panel p-8 rounded-2xl border-neon-cyan/10"
-              >
-                <div className={`w-10 h-10 rounded-lg bg-${phase.color}/10 border border-${phase.color}/30 flex items-center justify-center mb-6 text-${phase.color}`}>
-                  <span className="font-mono text-xs font-bold">0{i + 1}</span>
-                </div>
-                <h3 className="text-lg font-display font-bold text-text-primary mb-2">{phase.title}</h3>
-                <p className={`text-xs font-mono text-${phase.color} uppercase tracking-widest mb-4`}>{phase.subtitle}</p>
-                <p className="text-text-secondary text-xs leading-relaxed">{phase.desc}</p>
-              </motion.div>
+          <div className="space-y-12 md:space-y-20">
+            {phases.map((phase, i) => {
+              const isEven = i % 2 === 0;
               
-              {i < phases.length - 1 && (
+              return (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  whileInView={{ opacity: 1, height: 32 }}
-                  viewport={{ once: true }}
-                  className="py-4"
+                  key={phase.title}
+                  initial={{ opacity: 0, x: isEven ? -30 : 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className={`relative flex flex-col md:flex-row items-start md:items-center ${isEven ? 'md:flex-row-reverse' : ''}`}
                 >
-                  <ArrowDown className="text-text-dim" size={24} />
+                  {/* Circle on the line */}
+                  <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
+                    <div className={`w-10 h-10 rounded-full bg-bg-secondary border-2 border-${phase.color} flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.3)]`}>
+                      <span className={`font-mono text-xs font-bold text-${phase.color}`}>0{i + 1}</span>
+                    </div>
+                  </div>
+
+                  {/* Content Area */}
+                  <div className={`w-full md:w-[45%] pl-20 md:pl-0 ${isEven ? 'md:text-right md:pr-12' : 'md:pl-12'}`}>
+                    <div className="relative">
+                      <p className={`text-[10px] font-mono text-${phase.color} uppercase tracking-[0.2em] mb-1 opacity-80`}>{phase.subtitle}</p>
+                      <h3 className="text-xl font-display font-bold text-text-primary mb-2 uppercase tracking-tight">
+                        {phase.title}
+                      </h3>
+                      <p className="text-text-secondary text-sm leading-relaxed font-heading max-w-sm ml-0 md:ml-auto">
+                        {phase.desc}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Spacer for the other side on desktop */}
+                  <div className="hidden md:block md:w-[45%]" />
                 </motion.div>
-              )}
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

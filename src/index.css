@@ -33,6 +33,22 @@
 }
 
 @layer components {
+  .initiatives-page {
+    position: relative;
+    width: 100%;
+    background-color: var(--color-bg-primary);
+  }
+
+  .page-grid {
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .glass-panel {
     background: rgba(0, 212, 255, 0.04);
     backdrop-filter: blur(20px);

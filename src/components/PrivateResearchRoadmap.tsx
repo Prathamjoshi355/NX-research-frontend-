@@ -1,134 +1,129 @@
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
-import { Target, Cpu, BarChart3 } from "lucide-react";
+import { motion } from "motion/react";
+import { Target, Grid, Share2 } from "lucide-react";
 
 const stages = [
   {
-    id: "01",
-    title: "Connect & Set Goals",
-    points: [
-      "Define interests, skills, or problems to solve",
-      "Choose research direction",
+    step: "01",
+    tag: "IDEATION",
+    title: "Idea to Structured Research",
+    items: [
+      { text: "Individuals & teams submit real-world ideas", detail: "Open submission portal with guided templates" },
+      { text: "Research direction structured with clear objectives", detail: "OKR-based framing with milestone checkpoints" },
+      { text: "Technical validation framework is defined", detail: "Peer-reviewed criteria and feasibility scoring" },
     ],
     icon: Target,
     color: "neon-cyan",
   },
   {
-    id: "02",
-    title: "AI / System Assists & Structures",
-    points: [
-      "Opportunity evaluation",
-      "Task assignment",
-      "Team alignment",
+    step: "02",
+    tag: "VALIDATION",
+    title: "Validation & Expert Development",
+    items: [
+      { text: "Technical feasibility assessment", detail: "Engineering review by domain specialists" },
+      { text: "Market analysis & opportunity evaluation", detail: "TAM/SAM analysis with competitive landscape" },
+      { text: "Expert mentorship and refinement", detail: "1-on-1 sessions with industry veterans" },
+      { text: "Research outcomes prepared for integration", detail: "Documented IP-ready deliverables" },
     ],
-    icon: Cpu,
+    icon: Grid,
     color: "neon-purple",
   },
   {
-    id: "03",
-    title: "Review, Control & Improve",
-    points: [
-      "Monitor progress",
-      "Refine approach",
-      "Prepare outcomes",
+    step: "03",
+    tag: "LAUNCH",
+    title: "Founder Circle Integration",
+    items: [
+      { text: "Validated innovations enter Founder Circle ecosystem", detail: "Curated network of 200+ active founders" },
+      { text: "Strategic incubation & business modeling", detail: "Revenue modeling, GTM strategy, cap table setup" },
+      { text: "Transformation into scalable startups", detail: "Series-A readiness program with investor access" },
     ],
-    icon: BarChart3,
+    icon: Share2,
     color: "teal",
   },
 ];
 
 export default function PrivateResearchRoadmap() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const pathLength = useTransform(scrollYProgress, [0.1, 0.8], [0, 1]);
-
   return (
-    <section ref={containerRef} className="py-32 bg-bg-primary relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-24 md:py-32 bg-bg-primary relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
+        style={{ backgroundImage: 'radial-gradient(#bd00ff 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
+      />
+      
+      <div className="max-w-5xl mx-auto px-6 relative z-10">
+        {/* Header */}
         <div className="text-center mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-block px-4 py-1 border border-neon-purple/30 rounded-full mb-6"
+          >
+            <span className="font-mono text-[10px] text-neon-purple tracking-[4px] uppercase">
+              Innovation Lifecycle
+            </span>
+          </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-[48px] font-display font-bold text-text-primary uppercase tracking-tighter"
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-[56px] font-display font-bold text-text-primary uppercase tracking-tighter"
           >
             How Private Research Works
           </motion.h2>
-          <p className="mt-4 text-text-secondary font-mono text-xs tracking-[4px] uppercase">Guided Innovation System</p>
         </div>
 
-        <div className="relative flex flex-col items-center">
-          {/* SVG Path */}
-          <svg
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[600px] h-full pointer-events-none z-0"
-            viewBox="0 0 400 1000"
-            fill="none"
-          >
-            <motion.path
-              d="M 200 0 Q 350 250 200 500 T 200 1000"
-              stroke="var(--color-neon-cyan)"
-              strokeWidth="2"
-              strokeOpacity="0.1"
-              strokeDasharray="10 10"
-            />
-            <motion.path
-              d="M 200 0 Q 350 250 200 500 T 200 1000"
-              stroke="var(--color-neon-cyan)"
-              strokeWidth="2"
-              style={{ pathLength }}
-              className="drop-shadow-[0_0_8px_rgba(0,212,255,0.5)]"
-            />
-          </svg>
+        {/* Timeline Path */}
+        <div className="relative">
+          {/* Vertical Line */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-neon-purple/50 via-neon-purple/20 to-transparent -translate-x-1/2" />
 
-          <div className="space-y-48 relative z-10 w-full">
+          <div className="space-y-16 md:space-y-32">
             {stages.map((stage, i) => {
               const Icon = stage.icon;
+              const isEven = i % 2 === 0;
+              
               return (
                 <motion.div
-                  key={stage.id}
-                  initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
+                  key={stage.step}
+                  initial={{ opacity: 0, x: isEven ? -60 : 60 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className={`flex flex-col md:flex-row items-center gap-12 ${
-                    i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
+                  viewport={{ once: true, margin: "-150px" }}
+                  transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className={`relative flex flex-col md:flex-row items-start md:items-center ${isEven ? 'md:flex-row-reverse' : ''}`}
                 >
-                  <div className={`flex-1 ${i % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
-                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-${stage.color}/10 border border-${stage.color}/20 text-${stage.color} mb-6`}>
-                      <Icon size={24} />
+                  {/* Icon/Circle on the line */}
+                  <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
+                    <div className="w-12 h-12 rounded-full bg-bg-primary border-2 border-neon-purple flex items-center justify-center shadow-[0_0_20px_rgba(189,0,255,0.3)]">
+                      <Icon size={20} className="text-neon-purple" />
                     </div>
-                    <h3 className="text-2xl font-display font-bold text-text-primary mb-4 uppercase tracking-wide">
-                      <span className="text-text-dim mr-2">{stage.id} —</span> {stage.title}
-                    </h3>
-                    <ul className={`space-y-3 ${i % 2 === 0 ? "md:items-end" : "md:items-start"} flex flex-col`}>
-                      {stage.points.map((point) => (
-                        <li key={point} className="flex items-center gap-3 text-text-secondary text-sm">
-                          <div className={`w-1 h-1 rounded-full bg-${stage.color}`} />
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
 
-                  <div className="relative">
-                    <motion.div
-                      whileInView={{
-                        boxShadow: ["0 0 0px rgba(0,212,255,0)", "0 0 20px rgba(0,212,255,0.4)", "0 0 0px rgba(0,212,255,0)"],
-                        scale: [1, 1.1, 1],
-                      }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      className={`w-10 h-10 rounded-full bg-bg-primary border-2 border-${stage.color} flex items-center justify-center text-${stage.color} z-10 relative`}
-                    >
-                      <div className={`w-2 h-2 rounded-full bg-${stage.color}`} />
-                    </motion.div>
+                  {/* Content Area */}
+                  <div className={`w-full md:w-[45%] pl-20 md:pl-0 ${isEven ? 'md:text-right md:pr-12' : 'md:pl-12'}`}>
+                    <div className="relative">
+                      <span className="font-mono text-[10px] text-neon-purple/60 mb-2 block tracking-widest uppercase">{stage.tag} — {stage.step}</span>
+                      <h3 className="text-xl md:text-2xl font-display font-bold text-text-primary mb-6 uppercase tracking-tight">
+                        {stage.title}
+                      </h3>
+                      
+                      <div className={`space-y-4 ${isEven ? 'md:items-end' : 'md:items-start'} flex flex-col`}>
+                        {stage.items.map((item, ii) => (
+                          <div key={ii} className={`relative ${isEven ? 'md:pr-4' : 'md:pl-4'}`}>
+                            <h4 className="text-sm font-heading font-semibold text-text-primary mb-1">
+                              {item.text}
+                            </h4>
+                            <p className="text-xs text-text-secondary leading-relaxed max-w-sm">
+                              {item.detail}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="flex-1 hidden md:block" />
+                  {/* Spacer for the other side on desktop */}
+                  <div className="hidden md:block md:w-[45%]" />
                 </motion.div>
               );
             })}

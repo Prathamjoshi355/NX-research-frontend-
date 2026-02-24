@@ -71,6 +71,50 @@ export default function JoinForm({ initialPath }: JoinFormProps) {
     }
   };
 
+  const handlePrevStep = () => {
+    if (step === 3) {
+      setStep(2);
+      setTimeout(() => {
+        basicInfoRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    } else if (step === 2) {
+      setStep(1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = () => {
+    // Simulate submission
+    setIsSubmitted(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (isSubmitted) {
+    return (
+      <div className="py-40 bg-bg-primary flex flex-col items-center justify-center text-center px-6">
+        <motion.div
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="w-20 h-20 bg-neon-cyan/20 rounded-full flex items-center justify-center mb-8"
+        >
+          <CheckCircle2 size={40} className="text-neon-cyan" />
+        </motion.div>
+        <h2 className="text-4xl font-display font-bold text-text-primary uppercase mb-4">Application Received</h2>
+        <p className="text-text-secondary max-w-md leading-relaxed mb-12">
+          Thank you for applying to NX Research. Our team will review your details and get back to you within 48 hours.
+        </p>
+        <button 
+          onClick={() => window.location.href = "/"}
+          className="px-8 py-3 bg-white/5 border border-white/10 text-text-primary font-bold rounded-lg hover:bg-white/10 transition-colors"
+        >
+          Return Home
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div id="join-form" className="py-20 bg-bg-primary relative">
       <div className="max-w-4xl mx-auto px-6">
@@ -242,7 +286,13 @@ export default function JoinForm({ initialPath }: JoinFormProps) {
                   </div>
                 </div>
 
-                <div className="mt-16 flex justify-end">
+                <div className="mt-16 flex items-center justify-between">
+                  <button 
+                    onClick={handlePrevStep}
+                    className="text-text-dim font-mono text-[11px] uppercase tracking-[2px] hover:text-text-primary transition-colors"
+                  >
+                    Back
+                  </button>
                   <button 
                     onClick={handleNextStep}
                     className="flex items-center gap-3 px-8 py-4 bg-neon-cyan text-bg-primary font-mono text-[12px] font-bold uppercase tracking-[2px] rounded-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(0,212,255,0.3)]"
@@ -273,10 +323,21 @@ export default function JoinForm({ initialPath }: JoinFormProps) {
                 <SpecializationForm path={path} formData={formData} onChange={handleInputChange} />
 
                 <div className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6">
-                  <button className="text-text-dim font-mono text-[11px] uppercase tracking-[2px] hover:text-text-primary transition-colors">
-                    Save & Continue Later
-                  </button>
-                  <button className="w-full sm:w-auto flex items-center justify-center gap-3 px-12 py-5 bg-neon-cyan text-bg-primary font-mono text-[14px] font-bold uppercase tracking-[3px] rounded-lg hover:scale-105 transition-transform shadow-[0_0_40px_rgba(0,212,255,0.4)]">
+                  <div className="flex items-center gap-8">
+                    <button 
+                      onClick={handlePrevStep}
+                      className="text-text-dim font-mono text-[11px] uppercase tracking-[2px] hover:text-text-primary transition-colors"
+                    >
+                      Back
+                    </button>
+                    <button className="text-text-dim font-mono text-[11px] uppercase tracking-[2px] hover:text-text-primary transition-colors">
+                      Save & Continue Later
+                    </button>
+                  </div>
+                  <button 
+                    onClick={handleSubmit}
+                    className="w-full sm:w-auto flex items-center justify-center gap-3 px-12 py-5 bg-neon-cyan text-bg-primary font-mono text-[14px] font-bold uppercase tracking-[3px] rounded-lg hover:scale-105 transition-transform shadow-[0_0_40px_rgba(0,212,255,0.4)]"
+                  >
                     Submit Application
                   </button>
                 </div>
@@ -611,6 +672,18 @@ function SpecializationForm({ path, formData, onChange }: any) {
   }
 
   if (path === "dont-know") {
+    const getRecommendation = () => {
+      const pref = formData.specialization.preference;
+      const goal = formData.specialization.goal;
+      
+      if (pref === "Learning") return "Learn Path";
+      if (pref === "Building" || goal === "Startup Path") return "Startup Path";
+      if (pref === "Exploring Ideas" || goal === "Research Path") return "Research Path";
+      return null;
+    };
+
+    const recommendation = getRecommendation();
+
     return (
       <div className="space-y-12">
         <div className="p-8 bg-neon-cyan/5 border border-neon-cyan/20 rounded-2xl">
@@ -645,6 +718,23 @@ function SpecializationForm({ path, formData, onChange }: any) {
                 ))}
               </div>
             </div>
+
+            <AnimatePresence>
+              {recommendation && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="pt-6 border-t border-neon-cyan/10"
+                >
+                  <div className="p-4 bg-neon-cyan/10 rounded-lg border border-neon-cyan/20">
+                    <p className="text-[10px] font-mono text-neon-cyan uppercase tracking-widest mb-1">Recommended Path:</p>
+                    <p className="text-lg font-display font-bold text-text-primary uppercase">{recommendation}</p>
+                    <p className="text-[10px] text-text-secondary mt-2">Based on your answers, we suggest applying for the {recommendation}. You can still submit this form, and our team will guide you further.</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>

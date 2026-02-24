@@ -1,14 +1,6 @@
 import { motion } from "motion/react";
 
 export default function VisionMission() {
-  const missionPoints = [
-    "Empowering founders with deep research and technical expertise.",
-    "Building a sustainable ecosystem for long-term venture success.",
-    "Bridging the gap between government research and private innovation.",
-    "Fostering a global community of elite builders and innovators.",
-    "Driving technological advancement for social and economic impact."
-  ];
-
   return (
     <section id="vision-mission" className="py-20 md:py-32 bg-gradient-to-b from-bg-secondary to-bg-primary overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
@@ -33,13 +25,10 @@ export default function VisionMission() {
             <span className="font-mono text-[11px] text-neon-cyan tracking-[6px] uppercase mb-6">
               Vision
             </span>
-            <h2 className="text-3xl md:text-[32px] font-display font-semibold text-text-primary mb-6 leading-[1.5]">
-              To be the world's most impactful research-driven ecosystem, 
-              where the boldest ideas find the support they need to redefine the future.
+            <h2 className="text-2xl md:text-[28px] font-display font-semibold text-text-primary mb-6 leading-[1.6]">
+              To create a global network where maximum startups are connected through NX Research, 
+              enabling every founder to access the support, guidance, and ecosystem needed to build and scale successfully.
             </h2>
-            <p className="font-heading font-normal text-text-secondary text-lg">
-              We envision a world where innovation is not just a buzzword, but a structured journey from concept to global impact.
-            </p>
           </motion.div>
 
           {/* Mission */}
@@ -53,38 +42,15 @@ export default function VisionMission() {
             <span className="font-mono text-[11px] text-gold tracking-[6px] uppercase mb-6">
               Mission
             </span>
-            <h2 className="text-2xl font-heading font-semibold text-text-primary mb-10">
-              Accelerating the transition from research to reality.
+            <h2 className="text-xl font-heading font-semibold text-text-primary mb-6">
+              Empowering the next generation of founders.
             </h2>
-            <motion.ul 
-              variants={{
-                hidden: { opacity: 0 },
-                show: {
-                  opacity: 1,
-                  transition: {
-                    staggerChildren: 0.1
-                  }
-                }
-              }}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              {missionPoints.map((point, i) => (
-                <motion.li 
-                  key={i} 
-                  variants={{
-                    hidden: { opacity: 0, x: 20 },
-                    show: { opacity: 1, x: 0 }
-                  }}
-                  className="flex items-start gap-5 text-text-secondary"
-                >
-                  <div className="mt-2 w-1.5 h-1.5 rounded-full bg-teal flex-shrink-0 shadow-[0_0_10px_#00ffcc]" />
-                  <span className="font-heading font-normal text-[15px]">{point}</span>
-                </motion.li>
-              ))}
-            </motion.ul>
+            <p className="font-heading font-normal text-text-secondary text-base leading-relaxed mb-6">
+              NX Research empowers students and early innovators to transform ideas into real startups by offering mentorship, technical guidance, research opportunities, collaborations, and strategic support.
+            </p>
+            <p className="font-heading font-normal text-text-secondary text-base leading-relaxed">
+              Our mission is to remove the common barriers — resources, funding, direction, and network — so that every passionate founder gets the confidence and ecosystem needed to build and scale.
+            </p>
           </motion.div>
         </div>
       </div>
