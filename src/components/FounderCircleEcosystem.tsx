@@ -1,312 +1,366 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { 
+  Users, 
+  Lightbulb, 
+  Handshake, 
+  FlaskConical, 
+  Cpu, 
+  Target, 
+  Briefcase,
+  ChevronRight
+} from 'lucide-react';
+import { Node } from '../FCtypes';
 
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
-
-const NODES = [
-  { title: "Mentors",            angle: -90,  icon: "🧠", desc: "Seasoned founders & industry leaders who've been there, done that.", stat: "120+ Mentors",    color: "#00d4ff" },
-  { title: "Investors",          angle: -45,  icon: "💰", desc: "Access to a curated network of angels, VCs, and family offices.",    stat: "$2B+ AUM",       color: "#ffd700" },
-  { title: "Peer Founders",      angle: 0,    icon: "🤝", desc: "Battle-tested peers building alongside you, sharing wins & scars.", stat: "800+ Founders",  color: "#00d4ff" },
-  { title: "Research Team",      angle: 45,   icon: "🔬", desc: "Dedicated analysts delivering market intelligence on demand.",       stat: "50+ Analysts",   color: "#ffd700" },
-  { title: "Tech Experts",       angle: 90,   icon: "⚙️", desc: "CTOs, engineers, and architects available for deep dives.",          stat: "200+ Experts",   color: "#00d4ff" },
-  { title: "Talent Network",     angle: 135,  icon: "🌟", desc: "Pre-vetted candidates across engineering, design, and growth.",      stat: "5K+ Candidates", color: "#ffd700" },
-  { title: "Advisors",           angle: 180,  icon: "🎯", desc: "Domain experts who guide strategy and unlock key relationships.",    stat: "300+ Advisors",  color: "#00d4ff" },
-  { title: "Strategic Partners", angle: -135, icon: "🔗", desc: "Corporate partners offering pilots, distribution, and co-selling.", stat: "80+ Partners",   color: "#ffd700" },
+const ECOSYSTEM_NODES: Node[] = [
+  { 
+    id: 'mentors', 
+    label: 'Mentors', 
+    icon: <Lightbulb className="w-6 h-6" />, 
+    iconColor: 'text-pink-400',
+    description: 'Experienced industry leaders providing strategic guidance and wisdom.',
+    color: 'from-pink-500 to-rose-500'
+  },
+  { 
+    id: 'investors', 
+    label: 'Investors', 
+    icon: <Briefcase className="w-6 h-6" />, 
+    iconColor: 'text-amber-400',
+    description: 'Venture capitalists and angel investors fueling your growth capital.',
+    color: 'from-amber-400 to-orange-500'
+  },
+  { 
+    id: 'founders', 
+    label: 'Peer Founders', 
+    icon: <Users className="w-6 h-6" />, 
+    iconColor: 'text-yellow-400',
+    description: 'A community of fellow entrepreneurs sharing insights and support.',
+    color: 'from-yellow-400 to-amber-500'
+  },
+  { 
+    id: 'research', 
+    label: 'Research Team', 
+    icon: <FlaskConical className="w-6 h-6" />, 
+    iconColor: 'text-emerald-400',
+    description: 'Deep-tech experts and scientists pushing the boundaries of innovation.',
+    color: 'from-emerald-400 to-teal-500'
+  },
+  { 
+    id: 'tech', 
+    label: 'Tech Experts', 
+    icon: <Cpu className="w-6 h-6" />, 
+    iconColor: 'text-blue-400',
+    description: 'Specialized engineers and architects building your core infrastructure.',
+    color: 'from-blue-400 to-indigo-500'
+  },
+  { 
+    id: 'talent', 
+    label: 'Talent Network', 
+    icon: <Users className="w-6 h-6" />, 
+    iconColor: 'text-violet-400',
+    description: 'Access to top-tier professionals across all functional domains.',
+    color: 'from-violet-400 to-purple-500'
+  },
+  { 
+    id: 'advisors', 
+    label: 'Advisors', 
+    icon: <Target className="w-6 h-6" />, 
+    iconColor: 'text-cyan-400',
+    description: 'Subject matter experts offering tactical advice on specific challenges.',
+    color: 'from-cyan-400 to-blue-500'
+  },
+  { 
+    id: 'partners', 
+    label: 'Strategic Partners', 
+    icon: <Handshake className="w-6 h-6" />, 
+    iconColor: 'text-blue-500',
+    description: 'Corporate alliances and channel partners expanding your market reach.',
+    color: 'from-blue-500 to-cyan-500'
+  },
 ];
 
-const toRad = (deg: number) => (deg * Math.PI) / 180;
+export const EcosystemHub = () => {
+  const [activeNode, setActiveNode] = useState<Node | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
 
-export default function App() {
-  const [active, setActive]   = useState<any>(null);
-  const [hovered, setHovered] = useState<any>(null);
-  const [size, setSize]       = useState(500);
-  const wrapRef = useRef<HTMLDivElement>(null);
-
+  // cycle through nodes every 2 seconds clockwise
   useEffect(() => {
-    const update = () => {
-      if (wrapRef.current) {
-        const containerWidth = wrapRef.current.offsetWidth;
-        setSize(Math.min(containerWidth, 560));
-      }
-    };
-    update();
-    const observer = new ResizeObserver(update);
-    if (wrapRef.current) observer.observe(wrapRef.current);
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("resize", update);
-      observer.disconnect();
-    };
+    const interval = setInterval(() => {
+      setActiveIndex(prev => {
+        const next = (prev + 1) % ECOSYSTEM_NODES.length;
+        setActiveNode(ECOSYSTEM_NODES[next]);
+        return next;
+      });
+    }, 2000);
+
+    return () => clearInterval(interval);
   }, []);
 
-  const cx     = size / 2;
-  const cy     = size / 2;
-  const R      = size * 0.36;
-  const HUB_R  = size * 0.115;
-  const NODE_R = size * 0.082;
-
-  const hi = active ?? hovered;
-
   return (
-    <div className="min-h-screen py-24 px-4 flex flex-col items-center bg-[#07080e] overflow-hidden font-sans">
-
-      <style>{`
-        @keyframes pulse-out {
-          0%   { r: ${HUB_R}; opacity: 0.55; }
-          100% { r: ${HUB_R * 2.6}; opacity: 0; }
-        }
-        @keyframes beam-in {
-          0%   { stroke-dashoffset: 500; opacity: 0;   }
-          10%  {                         opacity: 1;   }
-          88%  {                         opacity: 0.9; }
-          100% { stroke-dashoffset: 0;   opacity: 0;   }
-        }
-        @keyframes float-y {
-          0%,100% { transform: translateY(0);   }
-          50%     { transform: translateY(-6px); }
-        }
-        .orb-node {
-          cursor: pointer;
-        }
-        .orb-node:hover circle.node-circle {
-          opacity: 1;
-        }
-      `}</style>
-
-      {/* ── HEADER ── */}
-      <div className="text-center mb-8 max-w-[560px] w-full">
-        <div className="inline-block text-[10px] tracking-[5px] text-neon-cyan uppercase mb-3 px-[14px] py-1 border border-neon-cyan/30 rounded-[2px]">
-          ◈ Ecosystem Map
+    <section className="py-16 px-4 sm:py-24 sm:px-6 bg-[#080808] relative overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12 sm:mb-20">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold mb-4 sm:mb-6">
+            The Startup Core
+          </h2>
+          <p className="text-white/50 max-w-xl mx-auto text-sm sm:text-base">
+            Your startup doesn't exist in a vacuum. It's the center of a complex, 
+            interconnected web of expertise and capital.
+          </p>
         </div>
-        <h2 className="text-[clamp(24px,5.5vw,40px)] font-extrabold text-[#eef0ff] tracking-[-0.5px] uppercase leading-[1.15] mb-2">
-          The Founder Circle<br />
-          <span className="text-neon-cyan">Support Ecosystem</span>
-        </h2>
-        <p className="text-[#2a3a4e] text-[10px] tracking-[2px] uppercase">
-          HOVER OR CLICK ANY NODE TO EXPLORE
-        </p>
-      </div>
 
-      {/* ── DIAGRAM ── */}
-      <div ref={wrapRef} className="w-full max-w-[560px]">
-        <svg
-          viewBox={`0 0 ${size} ${size}`}
-          width={size} height={size}
-          className="block w-full h-auto overflow-visible"
-        >
-          <defs>
-            <filter id="glow-hub" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="10" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <filter id="glow-node" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="5" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <radialGradient id="hub-bg" cx="35%" cy="35%">
-              <stop offset="0%"   stopColor="#182035"/>
-              <stop offset="100%" stopColor="#07080e"/>
-            </radialGradient>
-            {NODES.map((n, i) => (
-              <radialGradient key={i} id={`ng${i}`} cx="30%" cy="30%">
-                <stop offset="0%"   stopColor={n.color} stopOpacity={hi?.title === n.title ? "0.28" : "0.07"}/>
-                <stop offset="100%" stopColor="#07080e" stopOpacity="1"/>
-              </radialGradient>
-            ))}
-          </defs>
-
-          {/* ── Background rings ── */}
-          <circle cx={cx} cy={cy} r={R + NODE_R + 8}
-            fill="none" stroke="rgba(0,212,255,0.035)" strokeWidth="1" strokeDasharray="2 14"/>
-          <circle cx={cx} cy={cy} r={R}
-            fill="none" stroke="rgba(0,212,255,0.06)" strokeWidth="1"/>
-
-          {/* ── Beams: FROM node TO center ── */}
-          {NODES.map((node, i) => {
-            const nx  = cx + Math.cos(toRad(node.angle)) * R;
-            const ny  = cy + Math.sin(toRad(node.angle)) * R;
-            const isOn = hi?.title === node.title;
-            return (
-              <g key={`beam-${i}`}>
-                {/* static dashed guide */}
-                <line
-                  x1={nx} y1={ny} x2={cx} y2={cy}
-                  stroke={node.color} strokeWidth="0.5"
-                  strokeDasharray="3 11"
-                  opacity={isOn ? 0.4 : 0.08}
-                  style={{ transition: "opacity 0.35s" }}
-                />
-                {/* travelling beam: node → hub */}
-                <line
-                  x1={nx} y1={ny} x2={cx} y2={cy}
-                  stroke={node.color}
-                  strokeWidth={isOn ? 2.2 : 1.2}
-                  strokeLinecap="round"
-                  strokeDasharray={`14 ${R + 30}`}
-                  style={{
-                    animation: `beam-in ${2.2 + i * 0.08}s linear infinite`,
-                    animationDelay: `${i * 0.3}s`,
-                    opacity: isOn ? 1 : 0.3,
-                    transition: "stroke-width 0.3s, opacity 0.3s",
-                  }}
-                />
-              </g>
-            );
-          })}
-
-          {/* ── HUB ── */}
-          <g filter="url(#glow-hub)" onClick={() => setActive(null)} className="cursor-pointer">
-            {/* pulse rings */}
-            {[0, 1].map(k => (
-              <circle key={k} cx={cx} cy={cy} r={HUB_R}
-                fill="none"
-                stroke={k === 0 ? "rgba(0,212,255,0.55)" : "rgba(0,212,255,0.25)"}
-                strokeWidth="1"
-                style={{
-                  animation: "pulse-out 3s ease-out infinite",
-                  animationDelay: k === 0 ? "0s" : "1.5s",
-                  transformOrigin: `${cx}px ${cy}px`,
-                }}
-              />
-            ))}
-            <circle cx={cx} cy={cy} r={HUB_R}
-              fill="url(#hub-bg)"
-              stroke="#00d4ff" strokeWidth="1.5"
-            />
-            <text x={cx} y={cy - HUB_R * 0.28} textAnchor="middle"
-              fill="#00d4ff" fontSize={HUB_R * 0.24}
-              className="font-sans font-bold tracking-[2px]">
-              HUB
-            </text>
-            <text x={cx} y={cy + HUB_R * 0.1} textAnchor="middle" dominantBaseline="middle"
-              fill="#eef0ff" fontSize={HUB_R * 0.3}
-              className="font-sans font-extrabold tracking-[-0.3px]">
-              Your
-            </text>
-            <text x={cx} y={cy + HUB_R * 0.5} textAnchor="middle" dominantBaseline="middle"
-              fill="#eef0ff" fontSize={HUB_R * 0.3}
-              className="font-sans font-extrabold tracking-[-0.3px]">
-              Startup
-            </text>
-          </g>
-
-          {/* ── ORBIT NODES ── */}
-          {NODES.map((node, i) => {
-            const nx    = cx + Math.cos(toRad(node.angle)) * R;
-            const ny    = cy + Math.sin(toRad(node.angle)) * R;
-            const isSel = active?.title === node.title;
-            const isOn  = hi?.title === node.title;
-            const words = node.title.split(" ");
-
-            return (
-              <g
-                key={node.title}
-                className="orb-node"
-                onClick={() => setActive(isSel ? null : node)}
-                onMouseEnter={() => setHovered(node)}
-                onMouseLeave={() => setHovered(null)}
-                filter={isOn ? "url(#glow-node)" : undefined}
-                style={{
-                  animation: `float-y ${3.6 + i * 0.35}s ease-in-out infinite`,
-                  animationDelay: `${i * 0.45}s`,
-                  transformOrigin: `${nx}px ${ny}px`,
-                }}
-              >
-                {/* selected ring */}
-                {isSel && (
-                  <circle cx={nx} cy={ny} r={NODE_R + 4}
-                    fill="none"
-                    stroke={node.color}
-                    strokeWidth="1"
-                    opacity="0.5"
+        {/* ─── DESKTOP: orbital hub layout ─── */}
+        <div className="hidden lg:flex relative items-center justify-center gap-20 min-h-[700px]">
+          
+          {/* The Hub Visualization */}
+          <div className="relative w-full max-w-[600px] aspect-square flex items-center justify-center">
+            
+            {/* Background Rings */}
+            <div className="absolute inset-0 border border-white/5 rounded-full" />
+            <div className="absolute inset-[15%] border border-white/5 rounded-full" />
+            <div className="absolute inset-[30%] border border-white/5 rounded-full" />
+            
+            {/* Connecting Lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
+              {ECOSYSTEM_NODES.map((_, index) => {
+                const angle = (index / ECOSYSTEM_NODES.length) * 2 * Math.PI;
+                const x2 = 50 + 40 * Math.cos(angle);
+                const y2 = 50 + 40 * Math.sin(angle);
+                return (
+                  <line 
+                    key={index}
+                    x1="50%" y1="50%" 
+                    x2={`${x2}%`} y2={`${y2}%`} 
+                    stroke="white" 
+                    strokeWidth="1" 
+                    strokeDasharray="4 4"
                   />
-                )}
-                {/* node bg */}
-                <circle
-                  className="node-circle"
-                  cx={nx} cy={ny} r={NODE_R}
-                  fill={`url(#ng${i})`}
-                  stroke={isOn ? node.color : "rgba(255,255,255,0.1)"}
-                  strokeWidth={isOn ? 1.5 : 0.8}
-                  opacity={isOn ? 1 : 0.85}
-                  style={{ transition: "stroke 0.3s, opacity 0.3s, stroke-width 0.3s" }}
-                />
-                {/* icon */}
-                <text
-                  x={nx} y={ny - NODE_R * 0.15}
-                  textAnchor="middle" dominantBaseline="middle"
-                  fontSize={NODE_R * 0.5}
-                >
-                  {node.icon}
-                </text>
-                {/* label — split into tspan lines */}
-                {words.map((word, wi) => (
-                  <text key={wi}
-                    x={nx}
-                    y={ny + NODE_R * 0.42 + wi * (NODE_R * 0.26)}
-                    textAnchor="middle"
-                    fill={isOn ? node.color : "#5a6a7e"}
-                    fontSize={Math.max(7.5, NODE_R * 0.215)}
-                    className="font-sans font-bold tracking-[0.2px]"
-                    style={{ transition: "fill 0.3s" }}
-                  >
-                    {word.toUpperCase()}
-                  </text>
-                ))}
-              </g>
-            );
-          })}
-        </svg>
-      </div>
+                );
+              })}
+            </svg>
 
-      {/* ── INFO PANEL ── */}
-      <div className="w-full max-w-[540px] mt-2 min-h-[90px]">
-        <AnimatePresence mode="wait">
-          {hi ? (
+            {/* Central Hub */}
             <motion.div 
-              key={hi.title}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              className="bg-gradient-to-br from-[#0c101a]/98 to-[#101626]/96 border border-white/5 border-l-[3px] rounded-lg p-4 md:p-5 shadow-[0_20px_60px_rgba(0,0,0,0.7),0_0_28px_rgba(0,212,255,0.05)]"
-              style={{ borderLeftColor: hi.color }}
+              className="relative z-10 w-40 h-40 md:w-48 md:h-48 rounded-full bg-black border-2 border-cyan-500/50 flex flex-col items-center justify-center text-center p-4 hub-glow"
+              whileHover={{ scale: 1.05 }}
             >
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-2xl">{hi.icon}</span>
-                <div>
-                  <div className="font-extrabold text-sm text-[#eef0ff] uppercase tracking-[0.5px]">
-                    {hi.title}
-                  </div>
-                  <div className="text-[9px] tracking-[3px] uppercase mt-0.5" style={{ color: hi.color }}>
-                    {hi.stat}
-                  </div>
-                </div>
-              </div>
-              <p className="text-[13px] text-[#7a8a9e] leading-[1.75] border-t border-white/5 pt-3">
-                {hi.desc}
-              </p>
+              <span className="text-cyan-400 font-bold text-xs tracking-[0.2em] uppercase mb-1">Hub</span>
+              <span className="text-xl md:text-2xl font-display font-bold leading-tight">Your<br />Startup</span>
+              <div className="absolute inset-0 rounded-full border border-cyan-500/20 animate-ping" />
             </motion.div>
-          ) : (
+
+            {/* Orbiting Nodes */}
+            {ECOSYSTEM_NODES.map((node, index) => {
+              const angle = (index / ECOSYSTEM_NODES.length) * 2 * Math.PI;
+              const radius = 42;
+              const x = 50 + radius * Math.cos(angle);
+              const y = 50 + radius * Math.sin(angle);
+
+              return (
+                <motion.button
+                  key={node.id}
+                  className={`absolute w-16 h-16 md:w-20 md:h-20 -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center transition-all z-20
+                    ${activeNode?.id === node.id ? 'scale-125 ring-4 ring-white/10' : 'hover:scale-110'}
+                  `}
+                  style={{ 
+                    left: `${x}%`, 
+                    top: `${y}%`,
+                    background: `radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.8) 100%)`,
+                    border: '1px solid rgba(255,255,255,0.1)'
+                  }}
+                  onMouseEnter={() => setActiveNode(node)}
+                  onMouseLeave={() => setActiveNode(null)}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <div className={`${node.iconColor ?? 'text-white/80'} ${activeNode?.id === node.id ? 'text-cyan-400' : ''}`}>
+                    {node.icon}
+                  </div>
+                  
+                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-white/40">
+                      {node.label}
+                    </span>
+                  </div>
+
+                  {activeNode?.id === node.id && (
+                    <motion.div 
+                      layoutId="node-glow"
+                      className={`absolute inset-0 rounded-full bg-gradient-to-br ${node.color} opacity-20 blur-xl`}
+                    />
+                  )}
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* Desktop Info Panel */}
+          <div className="w-full max-w-md lg:h-[400px] flex flex-col justify-center">
+            <AnimatePresence mode="wait">
+              {activeNode && (
+                <motion.div
+                  key={activeNode.id}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  className="glass-card p-8"
+                >
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${activeNode.color} flex items-center justify-center mb-6`}>
+                    {activeNode.icon}
+                  </div>
+                  <h3 className="text-2xl font-display font-bold mb-4">{activeNode.label}</h3>
+                  <p className="text-white/60 leading-relaxed mb-6">
+                    {activeNode.description}
+                  </p>
+                  <button className="flex items-center gap-2 text-cyan-400 font-bold text-sm hover:gap-3 transition-all">
+                    Explore Network <ChevronRight className="w-4 h-4" />
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* ─── MOBILE / TABLET: compact hub + scrollable cards ─── */}
+        <div className="lg:hidden flex flex-col items-center gap-8">
+
+          {/* Mini Hub */}
+          <div className="relative w-[280px] sm:w-[340px] aspect-square flex items-center justify-center">
+            
+            {/* Background Rings */}
+            <div className="absolute inset-0 border border-white/5 rounded-full" />
+            <div className="absolute inset-[18%] border border-white/5 rounded-full" />
+
+            {/* Connecting Lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-15">
+              {ECOSYSTEM_NODES.map((_, index) => {
+                const angle = (index / ECOSYSTEM_NODES.length) * 2 * Math.PI;
+                const x2 = 50 + 40 * Math.cos(angle);
+                const y2 = 50 + 40 * Math.sin(angle);
+                return (
+                  <line 
+                    key={index}
+                    x1="50%" y1="50%" 
+                    x2={`${x2}%`} y2={`${y2}%`} 
+                    stroke="white" 
+                    strokeWidth="1" 
+                    strokeDasharray="3 3"
+                  />
+                );
+              })}
+            </svg>
+
+            {/* Central Hub */}
             <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-4"
+              className="relative z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-black border-2 border-cyan-500/50 flex flex-col items-center justify-center text-center p-3 hub-glow"
             >
-              <p className="text-[clamp(12px,2vw,14px)] italic text-[#1c2a38] leading-[1.75]">
-                "When one startup needs support, the entire ecosystem responds."
-              </p>
+              <span className="text-cyan-400 font-bold text-[9px] tracking-[0.15em] uppercase mb-0.5">Hub</span>
+              <span className="text-sm sm:text-base font-display font-bold leading-tight">Your<br />Startup</span>
+              <div className="absolute inset-0 rounded-full border border-cyan-500/20 animate-ping" />
             </motion.div>
-          )}
-        </AnimatePresence>
+
+            {/* Orbiting Node Buttons (icon only, tap to select) */}
+            {ECOSYSTEM_NODES.map((node, index) => {
+              const angle = (index / ECOSYSTEM_NODES.length) * 2 * Math.PI;
+              const radius = 40;
+              const x = 50 + radius * Math.cos(angle);
+              const y = 50 + radius * Math.sin(angle);
+
+              return (
+                <motion.button
+                  key={node.id}
+                  className={`absolute w-12 h-12 sm:w-14 sm:h-14 -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center z-20 transition-all
+                    ${activeNode?.id === node.id 
+                      ? 'ring-2 ring-cyan-400/60 scale-110' 
+                      : 'active:scale-95'}
+                  `}
+                  style={{ 
+                    left: `${x}%`, 
+                    top: `${y}%`,
+                    background: activeNode?.id === node.id
+                      ? `radial-gradient(circle at center, rgba(6,182,212,0.2) 0%, rgba(0,0,0,0.9) 100%)`
+                      : `radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.8) 100%)`,
+                    border: '1px solid rgba(255,255,255,0.1)'
+                  }}
+                  onClick={() => setActiveNode(activeNode?.id === node.id ? null : node)}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.08 }}
+                >
+                  <div className={`${activeNode?.id === node.id ? 'text-cyan-400' : node.iconColor ?? 'text-white/70'}`}>
+                    <div className="w-4 h-4 sm:w-5 sm:h-5 [&>svg]:w-full [&>svg]:h-full">
+                      {node.icon}
+                    </div>
+                  </div>
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* Mobile Info Card */}
+          <div className="w-full max-w-sm min-h-[180px]">
+            <AnimatePresence mode="wait">
+              {activeNode ? (
+                <motion.div
+                  key={activeNode.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.2 }}
+                  className="glass-card p-5 sm:p-6"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${activeNode.color} flex items-center justify-center flex-shrink-0`}>
+                      {activeNode.icon}
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-display font-bold">{activeNode.label}</h3>
+                  </div>
+                  <p className="text-white/60 text-sm leading-relaxed mb-4">
+                    {activeNode.description}
+                  </p>
+                  <button className="flex items-center gap-1.5 text-cyan-400 font-bold text-xs sm:text-sm">
+                    Explore Network <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="placeholder"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="glass-card p-5 sm:p-6 flex items-center justify-center"
+                >
+                  <p className="text-white/30 text-sm text-center">
+                    Tap any node to explore
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Mobile: horizontal scroll node list as quick-access pills */}
+          <div className="w-full overflow-x-auto pb-2 -mx-4 px-4">
+            <div className="flex gap-2 w-max">
+              {ECOSYSTEM_NODES.map((node) => (
+                <button
+                  key={node.id}
+                  onClick={() => setActiveNode(activeNode?.id === node.id ? null : node)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all
+                    ${activeNode?.id === node.id
+                      ? 'bg-cyan-500/20 border border-cyan-500/50 text-cyan-400'
+                      : 'bg-white/5 border border-white/10 text-white/50 active:scale-95'}
+                  `}
+                >
+                  <span className={`${node.iconColor} [&>svg]:w-3 [&>svg]:h-3`}>{node.icon}</span>
+                  {node.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
