@@ -45,7 +45,7 @@ const steps = [
   },
 ];
 
-const CYCLE_TIME = 5000; // 5 seconds per step
+const CYCLE_TIME = 5000;
 
 export default function HowItWorks() {
   const [activeStep, setActiveStep] = useState(0);
@@ -57,7 +57,7 @@ export default function HowItWorks() {
   useEffect(() => {
     const interval = setInterval(nextStep, CYCLE_TIME);
     return () => clearInterval(interval);
-  }, [nextStep, activeStep]); // Reset interval when activeStep changes manually
+  }, [nextStep, activeStep]);
 
   const handleManualStep = (index: number) => {
     setActiveStep(index);
@@ -66,7 +66,7 @@ export default function HowItWorks() {
   const Icon = steps[activeStep].icon;
 
   return (
-    <section className="min-h-screen bg-bg-primary text-text-primary relative overflow-hidden flex items-center justify-center py-20 px-6">
+    <section className="min-h-screen bg-bg-primary text-text-primary relative overflow-hidden flex items-center justify-center py-10 px-4 sm:py-20 sm:px-6">
       {/* Grid Background */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_2px_2px,rgba(0,212,255,0.15)_1px,transparent_0)] bg-[length:40px_40px]" />
@@ -83,21 +83,21 @@ export default function HowItWorks() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-16"
         >
-          <p className="text-[10px] font-mono tracking-[0.4em] text-neon-cyan/60 uppercase mb-3">
+          <p className="text-[9px] sm:text-[10px] font-mono tracking-[0.4em] text-neon-cyan/60 uppercase mb-2 sm:mb-3">
             The Journey
           </p>
-          <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tighter text-white uppercase">
+          <h2 className="font-display text-xl sm:text-4xl md:text-6xl font-bold tracking-tighter text-white uppercase">
             How It <span className="text-neon-cyan text-glow-cyan">Works</span>
           </h2>
         </motion.div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12 lg:gap-24 items-center">
           {/* Left: Visual */}
           <div className="flex justify-center items-center">
-            <div className="relative w-64 h-64 md:w-80 md:h-80">
+            <div className="relative w-44 h-44 sm:w-64 sm:h-64 md:w-80 md:h-80">
               {/* Glowing Rings */}
               <motion.div
                 key={activeStep + "-ring-outer"}
@@ -112,7 +112,7 @@ export default function HowItWorks() {
                 className="absolute inset-4 rounded-full border border-neon-cyan/10"
               />
 
-              {/* Progress Ring (Visual Indicator) */}
+              {/* Progress Ring */}
               <svg className="absolute inset-0 w-full h-full -rotate-90">
                 <circle
                   cx="50%"
@@ -149,8 +149,8 @@ export default function HowItWorks() {
                   transition={{ duration: 0.4 }}
                   className="absolute inset-0 flex items-center justify-center"
                 >
-                  <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center shadow-[0_0_30px_rgba(0,212,255,0.2)]">
-                    <Icon size={48} className="text-neon-cyan" strokeWidth={1.5} />
+                  <div className="w-14 h-14 sm:w-20 sm:h-20 md:w-32 md:h-32 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center shadow-[0_0_30px_rgba(0,212,255,0.2)]">
+                    <Icon size={24} className="sm:size-[40px] md:size-[48px] text-neon-cyan" strokeWidth={1.5} />
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -160,7 +160,7 @@ export default function HowItWorks() {
                 key={activeStep + "-badge"}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="absolute bottom-4 right-4 bg-neon-cyan/20 border border-neon-cyan/40 rounded px-3 py-1 text-[10px] font-mono text-neon-cyan font-bold tracking-widest"
+                className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-neon-cyan/20 border border-neon-cyan/40 rounded px-2 py-0.5 sm:px-3 sm:py-1 text-[8px] sm:text-[10px] font-mono text-neon-cyan font-bold tracking-widest"
               >
                 PHASE {steps[activeStep].id}
               </motion.div>
@@ -168,7 +168,7 @@ export default function HowItWorks() {
           </div>
 
           {/* Right: Text Content */}
-          <div className="min-h-[300px] flex flex-col justify-center">
+          <div className="min-h-[220px] sm:min-h-[300px] flex flex-col justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeStep}
@@ -177,16 +177,16 @@ export default function HowItWorks() {
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ duration: 0.4 }}
               >
-                <p className="text-[10px] font-mono tracking-[0.3em] text-neon-cyan/50 uppercase mb-4">
+                <p className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] text-neon-cyan/50 uppercase mb-2 sm:mb-4">
                   Step {steps[activeStep].id}
                 </p>
-                <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white mb-3 leading-tight uppercase">
+                <h3 className="font-display text-base sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-2 sm:mb-3 leading-tight uppercase">
                   {steps[activeStep].title}
                 </h3>
-                <p className="text-xs font-mono tracking-widest text-neon-cyan mb-6 uppercase">
+                <p className="text-[9px] sm:text-xs font-mono tracking-widest text-neon-cyan mb-3 sm:mb-6 uppercase">
                   {steps[activeStep].subtitle}
                 </p>
-                <p className="text-text-secondary text-sm md:text-base leading-relaxed max-w-md">
+                <p className="text-text-secondary text-xs sm:text-sm md:text-base leading-relaxed max-w-md">
                   {steps[activeStep].description}
                 </p>
               </motion.div>
@@ -195,7 +195,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-center gap-3 mt-16">
+        <div className="flex justify-center gap-2 sm:gap-3 mt-10 sm:mt-16">
           {steps.map((step, index) => {
             const isActive = activeStep === index;
             return (
@@ -204,7 +204,7 @@ export default function HowItWorks() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleManualStep(index)}
-                className={`w-12 h-12 flex items-center justify-center font-mono text-xs font-bold border rounded transition-all duration-300 ${
+                className={`w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center font-mono text-[10px] sm:text-xs font-bold border rounded transition-all duration-300 ${
                   isActive
                     ? "bg-neon-cyan text-bg-primary border-neon-cyan shadow-[0_0_20px_rgba(0,212,255,0.4)]"
                     : "bg-white/5 text-neon-cyan/60 border-white/10 hover:border-neon-cyan/40"

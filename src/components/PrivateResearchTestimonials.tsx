@@ -1,4 +1,6 @@
-import { motion } from "motion/react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const testimonials = [
   {
@@ -21,44 +23,155 @@ const testimonials = [
   },
 ];
 
-export default function PrivateResearchTestimonials() {
+export default function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
+
+  const nextSlide = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevSlide = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  // Auto-play
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0,
+      scale: 0.95,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 100 : -100,
+      opacity: 0,
+      scale: 0.95,
+    }),
+  };
+
   return (
-    <section className="py-32 bg-bg-secondary">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
+    <section className="py-16 sm:py-32 bg-bg-secondary relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-neon-cyan/5 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
+        <div className="text-center mb-12 sm:mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-[48px] font-display font-bold text-text-primary uppercase tracking-tighter"
+            className="text-2xl sm:text-4xl md:text-[48px] font-display font-bold text-text-primary uppercase tracking-tighter"
           >
-            Experiences from the Lab
+             Experiences from the <span className="text-neon-cyan">Lab</span>
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t, i) => (
+        <div className="relative min-h-[320px] sm:min-h-[380px] flex items-center justify-center">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="glass-panel p-10 rounded-3xl border-neon-cyan/5 hover:border-neon-cyan/20 transition-all group"
+              key={currentIndex}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.3 },
+                scale: { duration: 0.4 }
+              }}
+              className="w-full"
             >
-              <div className="flex items-center gap-4 mb-8">
-                <img src={t.img} alt={t.name} className="w-12 h-12 rounded-full border border-neon-cyan/20" referrerPolicy="no-referrer" />
-                <div>
-                  <h4 className="text-text-primary font-bold text-sm">{t.name}</h4>
-                  <p className="text-neon-cyan font-mono text-[10px] uppercase tracking-wider">{t.role}</p>
+              <div className="glass-panel p-8 sm:p-16 rounded-[32px] border-white/5 relative group">
+                {/* Quote Icon */}
+                <div className="absolute -top-6 left-12 w-12 h-12 bg-bg-primary border border-white/10 rounded-2xl flex items-center justify-center text-neon-cyan shadow-xl">
+                  <Quote size={24} fill="currentColor" className="opacity-20" />
+                </div>
+
+                <div className="flex flex-col items-center text-center">
+                  <p className="text-text-primary text-base sm:text-xl md:text-2xl font-heading leading-relaxed mb-10 italic">
+                    "{testimonials[currentIndex].quote}"
+                  </p>
+
+                  <div className="flex items-center gap-4">
+                    <img 
+                      src={testimonials[currentIndex].img} 
+                      alt={testimonials[currentIndex].name} 
+                      className="w-14 h-14 rounded-full border-2 border-neon-cyan/30 p-0.5" 
+                      referrerPolicy="no-referrer" 
+                    />
+                    <div className="text-left">
+                      <h4 className="text-text-primary font-bold text-base sm:text-lg">{testimonials[currentIndex].name}</h4>
+                      <p className="text-neon-cyan font-mono text-[10px] sm:text-[11px] uppercase tracking-[3px]">{testimonials[currentIndex].role}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              
-              <p className="text-text-secondary text-sm italic leading-relaxed">
-                "{t.quote}"
-              </p>
             </motion.div>
-          ))}
+          </AnimatePresence>
+
+          {/* Navigation Buttons - Desktop */}
+          <div className="hidden md:block">
+            <button
+              onClick={prevSlide}
+              className="absolute -left-20 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:text-neon-cyan hover:border-neon-cyan/40 transition-all bg-white/5 backdrop-blur-sm"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute -right-20 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:text-neon-cyan hover:border-neon-cyan/40 transition-all bg-white/5 backdrop-blur-sm"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation & Dots */}
+        <div className="flex flex-col items-center gap-8 mt-12">
+          <div className="flex items-center gap-6 md:hidden">
+            <button
+              onClick={prevSlide}
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:text-neon-cyan transition-all bg-white/5"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:text-neon-cyan transition-all bg-white/5"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+
+          <div className="flex gap-3">
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setDirection(i > currentIndex ? 1 : -1);
+                  setCurrentIndex(i);
+                }}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  currentIndex === i ? "w-8 bg-neon-cyan" : "w-2 bg-white/20 hover:bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

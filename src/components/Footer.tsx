@@ -1,19 +1,22 @@
 import { Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-bg-primary border-t border-neon-cyan/8 py-16">
+    <footer className="bg-bg-primary border-t border-neon-cyan/8 py-10 sm:py-16">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-8">
-              <span className="font-display font-black text-2xl tracking-[4px] text-neon-cyan drop-shadow-[0_0_10px_rgba(0,212,255,0.5)]">
-                NX
-              </span>
-              <span className="font-display font-normal text-2xl tracking-[4px] text-text-primary">
-                RESEARCH
-              </span>
+              <Link to="/" className="flex items-center gap-2">
+                <span className="font-display font-black text-xl sm:text-2xl tracking-[2px] sm:tracking-[4px] text-neon-cyan drop-shadow-[0_0_10px_rgba(0,212,255,0.5)]">
+                  NX
+                </span>
+                <span className="font-display font-normal text-xl sm:text-2xl tracking-[2px] sm:tracking-[4px] text-text-primary">
+                  RESEARCH
+                </span>
+              </Link>
             </div>
             <p className="text-text-secondary font-heading font-normal text-sm max-w-sm mb-10 leading-relaxed">
               Building the next generation of ventures through deep research, elite networking, and strategic innovation.
@@ -35,10 +38,10 @@ export default function Footer() {
           <div>
             <h4 className="text-text-primary font-heading font-bold text-sm uppercase tracking-[2px] mb-8">Quick Links</h4>
             <ul className="space-y-4 text-text-secondary font-heading text-sm">
-              <li><a href="#" className="hover:text-neon-cyan transition-colors">Home</a></li>
-              <li><a href="#initiatives" className="hover:text-neon-cyan transition-colors">Initiatives</a></li>
-              <li><a href="#founder-circle" className="hover:text-neon-cyan transition-colors">Founder Circle</a></li>
-              <li><a href="#join" className="hover:text-neon-cyan transition-colors">Join Us</a></li>
+              <li><Link to="/" className="hover:text-neon-cyan transition-colors">Home</Link></li>
+              <li><Link to="/initiatives" className="hover:text-neon-cyan transition-colors">Initiatives</Link></li>
+              <li><Link to="/founder-circle" className="hover:text-neon-cyan transition-colors">Founder Circle</Link></li>
+              <li><Link to="/join" className="hover:text-neon-cyan transition-colors">Join Us</Link></li>
             </ul>
           </div>
 

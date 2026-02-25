@@ -113,10 +113,16 @@ export default function EcosystemPillars() {
           background: var(--bg);
           min-height: 100vh;
           padding: 80px 32px 120px;
-          font-family: 'DM Sans', sans-serif;
+          font-family: "Raleway", sans-serif;
           perspective: 1200px;
           position: relative;
           overflow: hidden;
+        }
+
+        @media (max-width: 767px) {
+          .ep-root {
+            padding: 40px 20px 60px;
+          }
         }
 
         /* Noise texture overlay */
@@ -137,6 +143,10 @@ export default function EcosystemPillars() {
         .ep-header {
           margin-bottom: 64px;
         }
+        @media (max-width: 767px) {
+          .ep-header { margin-bottom: 40px; }
+        }
+
         .ep-eyebrow {
           font-family: 'JetBrains Mono', monospace;
           font-size: 10px; letter-spacing: 6px;
@@ -152,11 +162,14 @@ export default function EcosystemPillars() {
         }
         .ep-title {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: clamp(56px, 9vw, 110px);
+          font-size: clamp(48px, 9vw, 110px);
           color: var(--text);
           line-height: 0.9;
           letter-spacing: 1px;
           margin: 0;
+        }
+        @media (max-width: 767px) {
+          .ep-title { font-size: 44px; }
         }
         .ep-title em {
           font-style: normal;
@@ -169,6 +182,9 @@ export default function EcosystemPillars() {
           color: var(--muted);
           max-width: 360px;
           line-height: 1.7;
+        }
+        @media (max-width: 767px) {
+          .ep-subtitle { margin-top: 12px; font-size: 13px; line-height: 1.5; }
         }
 
         /* ── BENTO GRID ── */
@@ -203,7 +219,7 @@ export default function EcosystemPillars() {
           .ep-grid-wrap {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 14px;
+            gap: 10px;
           }
         }
 
@@ -219,6 +235,9 @@ export default function EcosystemPillars() {
           text-decoration: none;
           display: block;
           transition: border-color 0.3s;
+        }
+        @media (max-width: 767px) {
+          .ep-card { padding: 20px 16px; border-radius: 16px; }
         }
         .ep-card:hover {
           border-color: rgba(255,255,255,0.14);
@@ -245,6 +264,9 @@ export default function EcosystemPillars() {
           transform: scale(0.7);
           transition: opacity 0.3s, transform 0.3s;
         }
+        @media (max-width: 767px) {
+          .ep-card-corner { top: 16px; right: 16px; opacity: 0.6; transform: scale(0.9); }
+        }
         .ep-card:hover .ep-card-corner {
           opacity: 1; transform: scale(1);
         }
@@ -256,6 +278,9 @@ export default function EcosystemPillars() {
           color: var(--muted);
           margin-bottom: 20px;
           display: flex; align-items: center; gap: 8px;
+        }
+        @media (max-width: 767px) {
+          .ep-step { margin-bottom: 12px; font-size: 8px; letter-spacing: 2px; }
         }
         .ep-step::before {
           content: ''; width: 16px; height: 1px;
@@ -270,6 +295,9 @@ export default function EcosystemPillars() {
           margin-bottom: 24px;
           transition: transform 0.3s;
         }
+        @media (max-width: 767px) {
+          .ep-icon-wrap { margin-bottom: 12px; width: 32px; height: 32px; border-radius: 8px; }
+        }
         .ep-card:hover .ep-icon-wrap { transform: scale(1.1) rotate(-3deg); }
 
         .ep-card-name {
@@ -280,11 +308,17 @@ export default function EcosystemPillars() {
           line-height: 1;
           margin: 0 0 10px;
         }
+        @media (max-width: 767px) {
+          .ep-card-name { font-size: 18px; margin-bottom: 6px; }
+        }
         .ep-card-desc {
           font-size: 12px;
           color: var(--muted);
           line-height: 1.75;
           margin: 0;
+        }
+        @media (max-width: 767px) {
+          .ep-card-desc { font-size: 10px; line-height: 1.5; }
         }
 
         /* ── FEATURED CARD extras ── */
@@ -294,13 +328,22 @@ export default function EcosystemPillars() {
           display: flex; flex-direction: column;
           justify-content: space-between;
         }
+        @media (max-width: 767px) {
+          .ep-featured { min-height: 280px; }
+        }
         .ep-featured .ep-card-name {
           font-size: 48px;
           line-height: 0.95;
         }
+        @media (max-width: 767px) {
+          .ep-featured .ep-card-name { font-size: 32px; }
+        }
         .ep-featured .ep-card-desc {
           font-size: 13px;
           max-width: 240px;
+        }
+        @media (max-width: 767px) {
+          .ep-featured .ep-card-desc { font-size: 11px; max-width: 100%; }
         }
 
         /* Big decorative number */
@@ -314,6 +357,9 @@ export default function EcosystemPillars() {
           pointer-events: none;
           user-select: none;
           transition: opacity 0.3s;
+        }
+        @media (max-width: 767px) {
+          .ep-big-num { font-size: 100px; bottom: -10px; right: -5px; opacity: 0.15; }
         }
 
         /* CTA pill */
@@ -329,6 +375,9 @@ export default function EcosystemPillars() {
           transition: all 0.25s;
           width: fit-content;
         }
+        @media (max-width: 767px) {
+          .ep-cta { margin-top: 16px; padding: 6px 14px; font-size: 8px; letter-spacing: 2px; }
+        }
         .ep-card:hover .ep-cta {
           padding-right: 24px;
         }
@@ -342,6 +391,10 @@ export default function EcosystemPillars() {
         .ep-footer {
           margin-top: 56px;
           display: flex; align-items: center; gap: 20px;
+        }
+        @media (max-width: 767px) {
+          .ep-footer { margin-top: 32px; gap: 12px; }
+          .ep-footer-text { letter-spacing: 2px; font-size: 8px; }
         }
         .ep-footer-text {
           font-family: 'JetBrains Mono', monospace;

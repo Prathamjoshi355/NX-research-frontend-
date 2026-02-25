@@ -36,7 +36,7 @@ const milestones: Milestone[] = [
     title: "Capability Score",
     icon: Target,
     desc: "Readiness Check",
-     color: "#ff6b6b",
+    color: "#ff6b6b",
   },
   {
     id: 4,
@@ -79,10 +79,10 @@ function VerticalRoadmap() {
   return (
     <div ref={containerRef} className="relative">
       {/* Ghost line */}
-      <div className="absolute left-8 top-0 bottom-0 w-px bg-[rgba(0,212,255,0.1)]" />
+      <div className="absolute left-5 sm:left-8 top-0 bottom-0 w-px bg-[rgba(0,212,255,0.1)]" />
       {/* Animated line */}
       <motion.div
-        className="absolute left-8 top-0 w-px origin-top"
+        className="absolute left-5 sm:left-8 top-0 w-px origin-top"
         style={{
           scaleY: lineScaleY,
           height: "100%",
@@ -103,13 +103,13 @@ function VerticalRoadmap() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative pl-20 pb-10"
+              className="relative pl-14 sm:pl-20 pb-6 sm:pb-10"
             >
               {/* Node button */}
               <motion.button
                 onClick={() => setActive(isActive ? null : m.id)}
                 whileTap={{ scale: 0.9 }}
-                className="absolute left-0 top-0 w-16 h-16 rounded-full border flex items-center justify-center cursor-pointer focus:outline-none transition-all duration-300"
+                className="absolute left-0 top-0 w-12 sm:w-16 h-12 sm:h-16 rounded-full border flex items-center justify-center cursor-pointer focus:outline-none transition-all duration-300"
                 style={{
                   background: isActive ? `${m.color}18` : "#0a141e",
                   borderColor: isActive ? m.color : "rgba(0,212,255,0.22)",
@@ -118,9 +118,9 @@ function VerticalRoadmap() {
                 }}
                 aria-label={`Toggle ${m.title}`}
               >
-                <Icon size={22} strokeWidth={1.5} />
+                <Icon size={18} strokeWidth={1.5} className="sm:w-[22px] sm:h-[22px]" />
                 <span
-                  className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full font-mono text-[9px] font-bold flex items-center justify-center text-[#050a0f]"
+                  className="absolute -top-1 sm:-top-1.5 -right-1 sm:-right-1.5 w-4 sm:w-5 h-4 sm:h-5 rounded-full font-mono text-[7px] sm:text-[9px] font-bold flex items-center justify-center text-[#050a0f]"
                   style={{ background: m.color }}
                 >
                   {String(m.id).padStart(2, "0")}
@@ -132,18 +132,18 @@ function VerticalRoadmap() {
                 onClick={() => setActive(isActive ? null : m.id)}
                 className="text-left w-full cursor-pointer focus:outline-none pt-1"
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <h3
-                    className="font-display text-[17px] font-bold uppercase tracking-wider transition-colors duration-200"
+                    className="font-['Raleway'] text-xs sm:text-base font-bold uppercase tracking-wider transition-colors duration-200"
                     style={{ color: isActive ? m.color : "#f0f4f8" }}
                   >
                     {m.title}
                   </h3>
                   <motion.span animate={{ rotate: isActive ? 90 : 0 }} transition={{ duration: 0.25 }}>
-                    <ChevronRight size={ 13 } style={{ color: "#6b8899" }} />
+                    <ChevronRight size={11} className="sm:w-[13px] sm:h-[13px]" style={{ color: "#6b8899" }} />
                   </motion.span>
                 </div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#6b8899] mt-1">
+                <p className="font-['Raleway'] font-mono text-[8px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.18em] text-[#6b8899] mt-1">
                   {m.desc}
                 </p>
 
@@ -155,7 +155,7 @@ function VerticalRoadmap() {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden"
                     >
-                      <p className="mt-4 text-sm text-[#7a9bb5] leading-relaxed border-l-2 border-neon-cyan/20 pl-4 py-1">
+                      <p className="mt-2 text-xs sm:text-sm font-['Raleway'] text-[#7a9bb5] leading-relaxed border-l-2 border-neon-cyan/20 pl-2 sm:pl-4 py-1">
                         Detailed information about {m.title.toLowerCase()} and how it fits into your progressive pathway at NX Research.
                       </p>
                     </motion.div>
@@ -215,7 +215,7 @@ function HorizontalNode({ milestone, index, isActive, onSelect }: HorizontalNode
   return (
     <div className="flex flex-col items-center flex-1 relative">
       {/* Label above (even) */}
-      <div className={`h-24 flex flex-col justify-end pb-4 ${isAbove ? "" : "invisible"}`}>
+      <div className={`h-20 flex flex-col justify-end pb-3 ${isAbove ? "" : "invisible"}`}>
         <motion.div
           initial={{ opacity: 0, y: -14 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -224,12 +224,12 @@ function HorizontalNode({ milestone, index, isActive, onSelect }: HorizontalNode
           className="text-center"
         >
           <p
-            className="font-display text-[13px] font-bold uppercase tracking-wider whitespace-nowrap transition-colors duration-200"
+            className="font-['Raleway'] text-[12px] font-bold uppercase tracking-wider whitespace-nowrap transition-colors duration-200"
             style={{ color: isActive ? milestone.color : "#f0f4f8" }}
           >
             {milestone.title}
           </p>
-          <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-[#6b8899] mt-0.5">
+          <p className="font-['Raleway'] text-[8px] uppercase tracking-[0.14em] text-[#6b8899] mt-0.5">
             {milestone.desc}
           </p>
         </motion.div>
@@ -244,7 +244,7 @@ function HorizontalNode({ milestone, index, isActive, onSelect }: HorizontalNode
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => onSelect(milestone.id)}
-        className="relative z-10 w-16 h-16 rounded-full border flex items-center justify-center cursor-pointer focus:outline-none transition-all duration-300 flex-shrink-0"
+        className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-full border flex items-center justify-center cursor-pointer focus:outline-none transition-all duration-300 flex-shrink-0"
         style={{
           background: isActive ? `${milestone.color}20` : "#0a141e",
           borderColor: isActive ? milestone.color : "rgba(0,212,255,0.22)",
@@ -253,9 +253,9 @@ function HorizontalNode({ milestone, index, isActive, onSelect }: HorizontalNode
         }}
         aria-label={milestone.title}
       >
-        <Icon size={22} strokeWidth={1.5} />
+        <Icon size={20} strokeWidth={1.5} className="sm:w-[22px] sm:h-[22px]" />
         <span
-          className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full font-mono text-[9px] font-bold flex items-center justify-center text-[#050a0f]"
+          className="absolute -top-1 sm:-top-1.5 -right-1 sm:-right-1.5 w-4 sm:w-5 h-4 sm:h-5 rounded-full font-mono text-[7px] sm:text-[9px] font-bold flex items-center justify-center text-[#050a0f]"
           style={{ background: milestone.color }}
         >
           {String(milestone.id).padStart(2, "0")}
@@ -263,7 +263,7 @@ function HorizontalNode({ milestone, index, isActive, onSelect }: HorizontalNode
       </motion.button>
 
       {/* Label below (odd) */}
-      <div className={`h-24 flex flex-col justify-start pt-4 ${!isAbove ? "" : "invisible"}`}>
+      <div className={`h-20 flex flex-col justify-start pt-3 ${!isAbove ? "" : "invisible"}`}>
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -272,12 +272,12 @@ function HorizontalNode({ milestone, index, isActive, onSelect }: HorizontalNode
           className="text-center"
         >
           <p
-            className="font-display text-[13px] font-bold uppercase tracking-wider whitespace-nowrap transition-colors duration-200"
+            className="font-['Raleway'] text-[12px] font-bold uppercase tracking-wider whitespace-nowrap transition-colors duration-200"
             style={{ color: isActive ? milestone.color : "#f0f4f8" }}
           >
             {milestone.title}
           </p>
-          <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-[#6b8899] mt-0.5">
+          <p className="font-['Raleway'] text-[8px] uppercase tracking-[0.14em] text-[#6b8899] mt-0.5">
             {milestone.desc}
           </p>
         </motion.div>
@@ -311,7 +311,7 @@ function HorizontalRoadmap() {
       </div>
 
       {/* Detail panel */}
-      <div className="mt-12 min-h-[120px]">
+      <div className="mt-6 sm:mt-12 min-h-[80px] sm:min-h-[120px]">
         <AnimatePresence mode="wait">
           {activeMilestone && (
             <motion.div
@@ -319,15 +319,15 @@ function HorizontalRoadmap() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="glass-panel p-8 rounded-2xl border-white/5 flex flex-col items-center text-center"
+              className="glass-panel p-3 sm:p-8 rounded-lg sm:rounded-2xl border-white/5 flex flex-col items-center text-center"
             >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `${activeMilestone.color}20`, color: activeMilestone.color }}>
-                  <activeMilestone.icon size={20} />
+              <div className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
+                <div className="w-7 sm:w-10 h-7 sm:h-10 rounded-full flex items-center justify-center" style={{ background: `${activeMilestone.color}20`, color: activeMilestone.color }}>
+                  <activeMilestone.icon size={16} className="sm:w-[20px] sm:h-[20px]" />
                 </div>
-                <h3 className="text-2xl font-display font-bold uppercase tracking-tight text-white">{activeMilestone.title}</h3>
+                <h3 className="text-base sm:text-2xl font-['Raleway'] font-bold uppercase tracking-tight text-white">{activeMilestone.title}</h3>
               </div>
-              <p className="max-w-2xl text-text-secondary leading-relaxed">
+              <p className="max-w-2xl text-[11px] sm:text-sm font-['Raleway'] text-text-secondary leading-relaxed">
                 Detailed information about {activeMilestone.title.toLowerCase()}. This stage focuses on {activeMilestone.desc.toLowerCase()}, ensuring you have the right foundation and resources to progress effectively through the NX Research ecosystem.
               </p>
             </motion.div>
@@ -345,7 +345,7 @@ export default function EmpowermentRoadmap() {
 
   return (
     <section
-      className="relative py-24 lg:py-32 overflow-hidden"
+      className="relative py-8 sm:py-12 md:py-20 lg:py-32 overflow-hidden"
       style={{ background: "#050a0f" }}
     >
       {/* Ambient glow */}
@@ -357,16 +357,16 @@ export default function EmpowermentRoadmap() {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
+      <div className="relative max-w-6xl mx-auto px-3 sm:px-6 md:px-8">
         {/* Header */}
-        <div className="text-center mb-16 lg:mb-20">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-            className="text-4xl sm:text-5xl lg:text-[60px] font-bold uppercase tracking-tighter text-[#f0f4f8] leading-none"
+            style={{ fontFamily: "'Raleway', sans-serif" }}
+            className="text-2xl sm:text-3xl md:text-5xl lg:text-[60px] font-bold uppercase tracking-tighter text-[#f0f4f8] leading-tight sm:leading-none"
           >
             How We Work Here
           </motion.h2>
@@ -376,11 +376,11 @@ export default function EmpowermentRoadmap() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="mt-3 font-mono text-[11px] uppercase tracking-[0.25em] text-[#6b8899]"
+            className="mt-1.5 sm:mt-3 font-['Raleway'] text-[8px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.15em] sm:tracking-[0.25em] text-[#6b8899]"
           >
             The Progressive Pathway
           </motion.p>
-</div>
+        </div>
 
         {/* Layout switcher */}
         {isDesktop ? <HorizontalRoadmap /> : <VerticalRoadmap />}

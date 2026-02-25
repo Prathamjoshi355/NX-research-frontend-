@@ -52,7 +52,7 @@ const StageCard = ({ stage, index, total, smoothProgress }: StageCardProps) => {
       style={{ opacity, scale, y, display }}
       className="absolute inset-0 flex items-center justify-center"
     >
-      <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full px-6 max-w-5xl">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 lg:gap-16 w-full px-4 sm:px-6 max-w-5xl">
 
         {/* ── Left: Number + Icon Node ── */}
         <div className="relative flex flex-col items-center flex-shrink-0">
@@ -62,38 +62,38 @@ const StageCard = ({ stage, index, total, smoothProgress }: StageCardProps) => {
               y: useTransform(smoothProgress, [start, end], [20, -20]),
               opacity: useTransform(smoothProgress, [start, start + 0.1, end - 0.1, end], [0, 0.05, 0.05, 0])
             }}
-            className="font-display font-black text-[10rem] md:text-[14rem] text-neon-cyan absolute top-[-30%] select-none pointer-events-none whitespace-nowrap tracking-tighter"
+            className="font-display font-black text-6xl xs:text-8xl md:text-[14rem] text-neon-cyan absolute top-[-30%] select-none pointer-events-none whitespace-nowrap tracking-tighter"
           >
             {stage.id}
           </motion.span>
 
           {/* Icon circle */}
-          <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-bg-secondary border-2 border-neon-cyan flex items-center justify-center relative z-10 shadow-[0_0_30px_rgba(0,212,255,0.3)]">
+          <div className="w-16 h-16 xs:w-20 xs:h-20 md:w-32 md:h-32 rounded-full bg-bg-secondary border-2 border-neon-cyan flex items-center justify-center relative z-10 shadow-[0_0_30px_rgba(0,212,255,0.3)]">
             <div className="absolute inset-0 rounded-full bg-neon-cyan/5 blur-xl" />
-            <Icon size={40} className="text-neon-cyan relative z-10" strokeWidth={1.5} />
+            <Icon size={28} className="xs:size-[32px] md:size-[40px] text-neon-cyan relative z-10" strokeWidth={1.5} />
           </div>
         </div>
 
         {/* ── Right: Content Card ── */}
-        <div className="glass-panel p-8 md:p-12 rounded-3xl max-w-lg w-full relative z-10 border-neon-cyan/20">
+        <div className="glass-panel p-5 sm:p-6 md:p-8 lg:p-12 rounded-xl sm:rounded-2xl md:rounded-3xl max-w-lg w-full relative z-10 border-neon-cyan/20">
           {/* Stage label row */}
-          <div className="flex items-center gap-4 mb-6">
-            <span className="font-mono text-[10px] font-bold text-neon-cyan uppercase tracking-[0.3em]">
+          <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <span className="font-mono text-[8px] xs:text-[9px] sm:text-[10px] font-bold text-neon-cyan uppercase tracking-[0.2em] sm:tracking-[0.3em] whitespace-nowrap">
               Stage {stage.id}
             </span>
             <div className="flex-1 h-px bg-neon-cyan/10" />
           </div>
 
-          <h2 className="font-display font-black text-2xl md:text-4xl text-text-primary tracking-tight mb-4 leading-tight uppercase italic text-glow-cyan">
+          <h2 className="font-display font-black text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl text-text-primary tracking-tight mb-2 sm:mb-4 leading-tight uppercase italic text-glow-cyan line-clamp-2">
             {stage.title}
           </h2>
 
-          <p className="font-sans text-sm md:text-base text-text-secondary leading-relaxed font-light">
+          <p className="font-sans text-xs xs:text-sm md:text-base text-text-secondary leading-relaxed font-light line-clamp-4 md:line-clamp-none">
             {stage.description}
           </p>
 
           {/* Decorative corner accent */}
-          <div className="absolute bottom-6 right-6 w-8 h-8 border-b border-r border-neon-cyan/20" />
+          <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 w-6 sm:w-8 h-6 sm:h-8 border-b border-r border-neon-cyan/20" />
         </div>
       </div>
     </motion.div>
@@ -109,7 +109,7 @@ interface ProgressRailProps {
 
 function ProgressRail({ total, smoothProgress }: ProgressRailProps) {
   return (
-    <div className="fixed right-6 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-50">
+    <div className="fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 flex flex-col gap-2 sm:gap-3 z-50">
       {Array.from({ length: total }).map((_, i) => {
         const isActive = useTransform(smoothProgress, (v: number) => {
           const s = i / total, e = (i + 1) / total;
@@ -120,7 +120,7 @@ function ProgressRail({ total, smoothProgress }: ProgressRailProps) {
           <motion.div 
             key={i}
             style={{ opacity: isActive }}
-            className="w-1.5 h-1.5 rounded-full bg-neon-cyan shadow-[0_0_10px_rgba(0,212,255,0.5)]"
+            className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-neon-cyan shadow-[0_0_10px_rgba(0,212,255,0.5)]"
           />
         );
       })}
@@ -165,23 +165,23 @@ export default function GovResearchRoadmap() {
       <section className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden z-10">
 
         {/* Header */}
-        <div className="absolute top-24 text-center z-30 px-6">
+        <div className="absolute top-16 sm:top-20 md:top-24 text-center z-30 px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <p className="font-mono text-[10px] font-bold tracking-[0.4em] text-neon-cyan/40 uppercase mb-3">
+            <p className="font-mono text-[8px] xs:text-[9px] sm:text-[10px] font-bold tracking-[0.3em] sm:tracking-[0.4em] text-neon-cyan/40 uppercase mb-2 sm:mb-3">
               Strategic Pathway
             </p>
-            <h1 className="font-display font-black text-3xl md:text-5xl text-text-primary tracking-tighter uppercase italic">
+            <h1 className="font-display font-black text-xl xs:text-2xl sm:text-3xl md:text-5xl text-text-primary tracking-tighter uppercase italic px-2">
               Government Research <span className="text-neon-cyan">Roadmap</span>
             </h1>
           </motion.div>
         </div>
 
         {/* Stage cards area */}
-        <div className="relative w-full max-w-7xl h-[60vh] flex items-center justify-center mt-20">
+        <div className="relative w-full max-w-7xl h-[60vh] flex items-center justify-center mt-12 sm:mt-16 md:mt-20">
           {STAGES.map((stage, i) => (
             <StageCard
               key={stage.id}
@@ -193,16 +193,7 @@ export default function GovResearchRoadmap() {
           ))}
         </div>
 
-        {/* Scroll hint */}
-        <motion.div
-          style={{ opacity: useTransform(smoothProgress, [0, 0.05], [1, 0]) }}
-          className="absolute bottom-12 flex flex-col items-center gap-4"
-        >
-          <span className="font-mono text-[10px] text-neon-cyan/30 tracking-[0.3em] uppercase">
-            Scroll to explore
-          </span>
-          <div className="w-px h-16 bg-gradient-to-b from-neon-cyan/30 to-transparent" />
-        </motion.div>
+   
 
       </section>
 

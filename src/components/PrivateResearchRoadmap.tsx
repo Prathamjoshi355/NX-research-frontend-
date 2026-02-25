@@ -43,7 +43,7 @@ const stages = [
 
 export default function PrivateResearchRoadmap() {
   return (
-    <section className="py-24 md:py-32 bg-bg-primary relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-bg-primary relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
         style={{ backgroundImage: 'radial-gradient(#bd00ff 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
@@ -51,23 +51,23 @@ export default function PrivateResearchRoadmap() {
       
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Header */}
-        <div className="text-center mb-24">
+        <div className="text-center mb-12 md:mb-20">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block px-4 py-1 border border-neon-purple/30 rounded-full mb-6"
+            className="inline-block px-3 py-1 border border-neon-purple/30 rounded-full mb-4"
           >
-            <span className="font-mono text-[10px] text-neon-purple tracking-[4px] uppercase">
+            <span className="font-mono text-[9px] md:text-[10px] text-neon-purple tracking-[3px] md:tracking-[4px] uppercase">
               Innovation Lifecycle
             </span>
           </motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-[56px] font-display font-bold text-text-primary uppercase tracking-tighter"
+            className="text-2xl sm:text-3xl md:text-[56px] font-display font-bold text-text-primary uppercase tracking-tighter"
           >
             How Private Research Works
           </motion.h2>
@@ -76,9 +76,9 @@ export default function PrivateResearchRoadmap() {
         {/* Timeline Path */}
         <div className="relative">
           {/* Vertical Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-neon-purple/50 via-neon-purple/20 to-transparent -translate-x-1/2" />
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-neon-purple/50 via-neon-purple/20 to-transparent -translate-x-1/2" />
 
-          <div className="space-y-16 md:space-y-32">
+          <div className="space-y-12 md:space-y-24">
             {stages.map((stage, i) => {
               const Icon = stage.icon;
               const isEven = i % 2 === 0;
@@ -86,34 +86,34 @@ export default function PrivateResearchRoadmap() {
               return (
                 <motion.div
                   key={stage.step}
-                  initial={{ opacity: 0, x: isEven ? -60 : 60 }}
+                  initial={{ opacity: 0, x: isEven ? -30 : 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-150px" }}
-                  transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                   className={`relative flex flex-col md:flex-row items-start md:items-center ${isEven ? 'md:flex-row-reverse' : ''}`}
                 >
                   {/* Icon/Circle on the line */}
-                  <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
-                    <div className="w-12 h-12 rounded-full bg-bg-primary border-2 border-neon-purple flex items-center justify-center shadow-[0_0_20px_rgba(189,0,255,0.3)]">
-                      <Icon size={20} className="text-neon-purple" />
+                  <div className="absolute left-6 md:left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-bg-primary border-2 border-neon-purple flex items-center justify-center shadow-[0_0_15px_rgba(189,0,255,0.2)]">
+                      <Icon size={18} className="text-neon-purple" />
                     </div>
                   </div>
 
                   {/* Content Area */}
-                  <div className={`w-full md:w-[45%] pl-20 md:pl-0 ${isEven ? 'md:text-right md:pr-12' : 'md:pl-12'}`}>
+                  <div className={`w-full md:w-[45%] pl-14 md:pl-0 ${isEven ? 'md:text-right md:pr-10' : 'md:pl-10'}`}>
                     <div className="relative">
-                      <span className="font-mono text-[10px] text-neon-purple/60 mb-2 block tracking-widest uppercase">{stage.tag} — {stage.step}</span>
-                      <h3 className="text-xl md:text-2xl font-display font-bold text-text-primary mb-6 uppercase tracking-tight">
+                      <span className="font-mono text-[9px] md:text-[10px] text-neon-purple/60 mb-1 block tracking-widest uppercase">{stage.tag} — {stage.step}</span>
+                      <h3 className="text-lg md:text-2xl font-display font-bold text-text-primary mb-4 uppercase tracking-tight">
                         {stage.title}
                       </h3>
                       
-                      <div className={`space-y-4 ${isEven ? 'md:items-end' : 'md:items-start'} flex flex-col`}>
+                      <div className={`space-y-3 ${isEven ? 'md:items-end' : 'md:items-start'} flex flex-col`}>
                         {stage.items.map((item, ii) => (
-                          <div key={ii} className={`relative ${isEven ? 'md:pr-4' : 'md:pl-4'}`}>
-                            <h4 className="text-sm font-heading font-semibold text-text-primary mb-1">
+                          <div key={ii} className={`relative ${isEven ? 'md:pr-3' : 'md:pl-3'}`}>
+                            <h4 className="text-xs md:text-sm font-heading font-semibold text-text-primary mb-0.5">
                               {item.text}
                             </h4>
-                            <p className="text-xs text-text-secondary leading-relaxed max-w-sm">
+                            <p className="text-[11px] md:text-xs text-text-secondary leading-relaxed max-w-sm">
                               {item.detail}
                             </p>
                           </div>

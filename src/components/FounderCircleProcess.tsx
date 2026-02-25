@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, ChevronDown } from "lucide-react";
@@ -25,7 +26,7 @@ const steps = [
   },
 ];
 
-export default function FounderCircleProcess() {
+function FounderCircleProcess() {
   const [activeStep, setActiveStep] = useState<number | null>(null);
 
   return (
@@ -105,5 +106,13 @@ export default function FounderCircleProcess() {
         </div>
       </div>
     </section>
+  );
+}
+
+export default function App() {
+  return (
+    <main className="min-h-screen bg-bg-primary">
+      <FounderCircleProcess />
+    </main>
   );
 }

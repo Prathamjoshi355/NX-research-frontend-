@@ -52,7 +52,7 @@ export default function Hero({
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-bg-primary pt-24 pb-12"
+      className="relative min-h-[85dvh] w-full overflow-hidden flex items-center justify-center bg-bg-primary pt-20 pb-10"
     >
       {/* ── Video Container ── */}
       <motion.div
@@ -67,7 +67,7 @@ export default function Hero({
         className={
           isPip
             ? // PiP mode — fixed bottom-right, big enough to see
-              "fixed bottom-8 right-8 z-50 w-[240px] sm:w-[300px] h-[135px] sm:h-[168px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)] border border-white/10 group/pip"
+              "fixed bottom-6 right-6 z-50 w-[200px] sm:w-[300px] h-[112px] sm:h-[168px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)] border border-white/10 group/pip"
             : // Hero mode — full screen absolute
               "absolute inset-0 z-0 overflow-hidden"
         }
@@ -78,8 +78,8 @@ export default function Hero({
           loop={isMuted}
           muted={isMuted}
           playsInline
-          className={`w-full h-full object-cover object-center transition-all duration-700 ${
-            isMuted && !isPip ? "blur-[4px] brightness-[0.35]" : "blur-0 brightness-100"
+          className={`w-full h-full transition-all duration-700 ${
+            isMuted && !isPip ? "object-cover blur-[4px] brightness-[0.35]" : "object-contain blur-0 brightness-100"
           }`}
         >
           <source
@@ -138,9 +138,9 @@ export default function Hero({
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="inline-block px-4 py-1 border border-neon-cyan/40 rounded-full mb-8"
+                className="inline-block px-4 py-1 border border-neon-cyan/40 rounded-full mb-4 sm:mb-6"
               >
-                <span className="font-mono text-[11px] text-neon-cyan tracking-[6px] uppercase">
+                <span className="font-mono text-[10px] sm:text-[11px] text-neon-cyan tracking-[3px] sm:tracking-[6px] uppercase">
                   {badge}
                 </span>
               </motion.div>
@@ -149,7 +149,7 @@ export default function Hero({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-2xl xs:text-3xl sm:text-4xl md:text-[64px] font-display font-black text-text-primary tracking-tighter mb-4 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)]"
+                className="text-xl xs:text-2xl sm:text-4xl md:text-[64px] font-display font-black text-text-primary tracking-tighter mb-2 sm:mb-3 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)]"
               >
                 {title}
               </motion.h1>
@@ -158,7 +158,7 @@ export default function Hero({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-base xs:text-lg sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-10 tracking-[0.2em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
+                className="text-sm xs:text-base sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-6 sm:mb-8 tracking-[0.15em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
               >
                 {subtitle}
               </motion.p>
@@ -167,7 +167,7 @@ export default function Hero({
         </AnimatePresence>
 
         {/* ── Unmute row — right aligned, above CTA ── */}
-        <div className="w-full flex items-center justify-center sm:justify-end gap-2 sm:gap-3 mb-6 px-4 sm:pr-4">
+        <div className={`w-full flex items-center gap-2 sm:gap-3 mb-4 px-4 sm:pr-4 ${isMuted ? "justify-center sm:justify-end" : "justify-end"}`}>
           {/* Label — only when muted */}
           <AnimatePresence>
             {isMuted && (
@@ -223,12 +223,12 @@ export default function Hero({
 
             <button
               onClick={toggleMute}
-              className="relative w-14 h-14 sm:w-[68px] sm:h-[68px] bg-bg-primary/60 backdrop-blur-2xl border-2 border-neon-cyan rounded-full flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-bg-primary transition-all duration-500 group shadow-[0_0_35px_rgba(0,212,255,0.35)] hover:shadow-[0_0_70px_rgba(0,212,255,0.75)]"
+              className="relative w-12 h-12 sm:w-[68px] sm:h-[68px] bg-bg-primary/60 backdrop-blur-2xl border-2 border-neon-cyan rounded-full flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-bg-primary transition-all duration-500 group shadow-[0_0_35px_rgba(0,212,255,0.35)] hover:shadow-[0_0_70px_rgba(0,212,255,0.75)]"
             >
               {isMuted ? (
-                <VolumeX size={26} className="group-hover:scale-110 transition-transform" />
+                <VolumeX size={22} className="sm:size-[26px] group-hover:scale-110 transition-transform" />
               ) : (
-                <Volume2 size={26} className="group-hover:scale-110 transition-transform" />
+                <Volume2 size={22} className="sm:size-[26px] group-hover:scale-110 transition-transform" />
               )}
             </button>
           </div>
@@ -245,7 +245,7 @@ export default function Hero({
             >
               <Link
                 to="/join"
-                className="group relative w-full max-w-[280px] sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-transparent border-[1.5px] border-neon-cyan text-neon-cyan font-heading font-semibold text-[12px] sm:text-[14px] tracking-[2px] sm:tracking-[3px] uppercase rounded-[4px] transition-all duration-300 hover:bg-neon-cyan/15 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] text-center"
+                className="group relative w-full max-w-[240px] sm:w-auto px-6 sm:px-12 py-2.5 sm:py-4 bg-transparent border-[1.5px] border-neon-cyan text-neon-cyan font-heading font-semibold text-[11px] sm:text-[14px] tracking-[2px] sm:tracking-[3px] uppercase rounded-[4px] transition-all duration-300 hover:bg-neon-cyan/15 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] text-center"
               >
                 Get Started
               </Link>

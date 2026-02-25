@@ -40,7 +40,7 @@ export default function InitiativesHero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-bg-primary pt-24 pb-12"
+      className="relative min-h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-bg-primary pt-24 pb-12 font-sans"
     >
       {/* ── Video Container ── */}
       <motion.div
@@ -55,7 +55,7 @@ export default function InitiativesHero() {
         className={
           isPip
             ? // PiP mode — fixed bottom-right, big enough to see
-              "fixed bottom-8 right-8 z-50 w-[300px] h-[150px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)]"
+              "fixed bottom-8 right-8 z-50 w-[280px] h-[130px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)] border border-white/10"
             : // Hero mode — full screen absolute
               "absolute inset-0 z-0 overflow-hidden"
         }
@@ -66,8 +66,10 @@ export default function InitiativesHero() {
           loop={isMuted}
           muted={isMuted}
           playsInline
-          className={`w-full h-full object-cover object-center transition-all duration-700 ${
-            isMuted && !isPip ? "blur-[4px] brightness-[0.35]" : "blur-0 brightness-100"
+          className={`w-full h-full object-center transition-all duration-700 ${
+            !isMuted && !isPip ? "object-contain bg-black" : "object-cover"
+          } ${
+            (isMuted && !isPip) ? "blur-[4px] brightness-[0.35]" : "blur-0 brightness-100"
           }`}
         >
           <source
@@ -76,7 +78,8 @@ export default function InitiativesHero() {
           />
         </video>
 
-      <AnimatePresence>
+        {/* PiP controls */}
+       <AnimatePresence>
           {isPip && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -97,9 +100,10 @@ export default function InitiativesHero() {
           )}
         </AnimatePresence>
       </motion.div>
+
       {/* ── Gradient Overlay — fades when unmuted ── */}
       <AnimatePresence>
-        {isMuted && (
+        {isMuted && !isPip && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -120,22 +124,11 @@ export default function InitiativesHero() {
         <AnimatePresence>
           {isMuted && (
             <>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="inline-block px-4 py-1 border border-neon-cyan/40 rounded-full mb-8"
-              >
-                <span className="font-mono text-[11px] text-neon-cyan tracking-[6px] uppercase">
-                  NX INITIATIVES
-                </span>
-              </motion.div>
-
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-2xl xs:text-3xl sm:text-4xl md:text-[64px] font-display font-black text-text-primary tracking-tighter mb-4 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)]"
+                className="text-2xl xs:text-3xl sm:text-4xl md:text-[64px] font-bold text-text-primary tracking-tighter mb-4 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)] uppercase"
               >
                 Where Ideas
               </motion.h1>
@@ -144,7 +137,7 @@ export default function InitiativesHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-base xs:text-lg sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-10 tracking-[0.2em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
+                className="text-base xs:text-lg sm:text-xl md:text-3xl font-normal text-neon-cyan mb-10 tracking-[0.2em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
               >
                 Become Impact
               </motion.p>
@@ -231,7 +224,7 @@ export default function InitiativesHero() {
             >
               <Link
                 to="/join"
-                className="group relative w-full max-w-[280px] sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-transparent border-[1.5px] border-neon-cyan text-neon-cyan font-heading font-semibold text-[12px] sm:text-[14px] tracking-[2px] sm:tracking-[3px] uppercase rounded-[4px] transition-all duration-300 hover:bg-neon-cyan/15 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] text-center"
+                className="group relative w-full max-w-[280px] sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-transparent border-[1.5px] border-neon-cyan text-neon-cyan font-bold text-[12px] sm:text-[14px] tracking-[2px] sm:tracking-[3px] uppercase rounded-[4px] transition-all duration-300 hover:bg-neon-cyan/15 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] text-center"
               >
                 Get Started
               </Link>

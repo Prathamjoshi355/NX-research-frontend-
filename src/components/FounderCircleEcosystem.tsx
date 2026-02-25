@@ -1,3 +1,13 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -14,7 +24,7 @@ const NODES = [
 
 const toRad = (deg: number) => (deg * Math.PI) / 180;
 
-export default function FounderCircleEcosystem() {
+export default function App() {
   const [active, setActive]   = useState<any>(null);
   const [hovered, setHovered] = useState<any>(null);
   const [size, setSize]       = useState(500);
@@ -46,7 +56,7 @@ export default function FounderCircleEcosystem() {
   const hi = active ?? hovered;
 
   return (
-    <div className="py-24 px-4 flex flex-col items-center bg-[#07080e] overflow-hidden">
+    <div className="min-h-screen py-24 px-4 flex flex-col items-center bg-[#07080e] overflow-hidden font-sans">
 
       <style>{`
         @keyframes pulse-out {

@@ -5,7 +5,7 @@ import InitiativesWhatWeDo from "../components/InitiativesWhatWeDo";
 import InitiativesProcess from "../components/InitiativesProcess";
 import InitiativesOutcomes from "../components/InitiativesOutcomes";
 import InitiativesWhy from "../components/InitiativesWhy";
-import InitiativesCTA from "../components/InitiativesCTA";
+// import InitiativesCTA from "../components/InitiativesCTA";
 
 export default function InitiativesPage() {
   return (
@@ -110,7 +110,7 @@ export default function InitiativesPage() {
       <InitiativesProcess />
       <InitiativesOutcomes />
       <InitiativesWhy />
-      <InitiativesCTA />
+      
 
     </div>
   );
