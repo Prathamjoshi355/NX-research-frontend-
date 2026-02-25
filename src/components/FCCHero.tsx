@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
 import { Link } from "react-router-dom";
-import FCCregistration from "../pages/FCCregistration"
+
 interface HeroProps {
   badge?: string;
   title?: string;
@@ -67,12 +67,12 @@ export default function Hero({
         className={
           isPip
             ? // PiP mode — fixed bottom-right, big enough to see
-              "fixed bottom-6 right-6 z-50 w-[200px] sm:w-[300px] h-[112px] sm:h-[168px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)] border border-white/10 group/pip"
+              "fixed bottom-8 right-8 z-50 w-[240px] sm:w-[300px] h-[135px] sm:h-[168px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)] border border-white/10 group/pip"
             : // Hero mode — full screen absolute
               "absolute inset-0 z-0 overflow-hidden"
         }
       >
-       <video
+        <video
           ref={videoRef}
           autoPlay
           loop={isMuted}
@@ -89,7 +89,7 @@ export default function Hero({
         </video>
 
         {/* PiP Controls */}
-      <AnimatePresence>
+       <AnimatePresence>
           {isPip && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -137,9 +137,9 @@ export default function Hero({
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="inline-block px-4 py-1 border border-neon-cyan/40 rounded-full mb-6 sm:mb-8"
+                className="inline-block px-4 py-1 border border-neon-cyan/40 rounded-full mb-8"
               >
-                <span className="font-mono text-[10px] sm:text-[11px] text-neon-cyan tracking-[3px] sm:tracking-[6px] uppercase">
+                <span className="font-mono text-[11px] text-neon-cyan tracking-[6px] uppercase">
                   {badge}
                 </span>
               </motion.div>
@@ -148,7 +148,7 @@ export default function Hero({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-xl xs:text-2xl sm:text-4xl md:text-[64px] font-display font-black text-text-primary tracking-tighter mb-3 sm:mb-4 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)]"
+                className="text-2xl xs:text-3xl sm:text-4xl md:text-[64px] font-display font-black text-text-primary tracking-tighter mb-4 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)]"
               >
                 {title}
               </motion.h1>
@@ -157,7 +157,7 @@ export default function Hero({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-sm xs:text-base sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-8 sm:mb-10 tracking-[0.15em] sm:tracking-widest drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
+                className="text-base xs:text-lg sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-10 tracking-[0.2em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
               >
                 {subtitle}
               </motion.p>
@@ -222,12 +222,12 @@ export default function Hero({
 
             <button
               onClick={toggleMute}
-              className="relative w-12 h-12 sm:w-[68px] sm:h-[68px] bg-bg-primary/60 backdrop-blur-2xl border-2 border-neon-cyan rounded-full flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-bg-primary transition-all duration-500 group shadow-[0_0_35px_rgba(0,212,255,0.35)] hover:shadow-[0_0_70px_rgba(0,212,255,0.75)]"
+              className="relative w-14 h-14 sm:w-[68px] sm:h-[68px] bg-bg-primary/60 backdrop-blur-2xl border-2 border-neon-cyan rounded-full flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-bg-primary transition-all duration-500 group shadow-[0_0_35px_rgba(0,212,255,0.35)] hover:shadow-[0_0_70px_rgba(0,212,255,0.75)]"
             >
               {isMuted ? (
-                <VolumeX size={22} className="sm:size-[26px] group-hover:scale-110 transition-transform" />
+                <VolumeX size={26} className="group-hover:scale-110 transition-transform" />
               ) : (
-                <Volume2 size={22} className="sm:size-[26px] group-hover:scale-110 transition-transform" />
+                <Volume2 size={26} className="group-hover:scale-110 transition-transform" />
               )}
             </button>
           </div>
@@ -243,8 +243,8 @@ export default function Hero({
               className="w-full flex justify-center px-4"
             >
                    <Link
-                to="/FCCregistration"
-                className="group relative w-full max-w-[240px] sm:w-auto px-6 sm:px-12 py-2.5 sm:py-4 bg-transparent border-[1.5px] border-neon-cyan text-neon-cyan font-heading font-semibold text-[11px] sm:text-[14px] tracking-[2px] sm:tracking-[3px] uppercase rounded-[4px] transition-all duration-300 hover:bg-neon-cyan/15 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] text-center"
+                to="/"
+                className="group relative w-full max-w-[280px] sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-transparent border-[1.5px] border-neon-cyan text-neon-cyan font-heading font-semibold text-[12px] sm:text-[14px] tracking-[2px] sm:tracking-[3px] uppercase rounded-[4px] transition-all duration-300 hover:bg-neon-cyan/15 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] text-center"
               >
                 Register for Event
               </Link>
