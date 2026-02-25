@@ -15,12 +15,14 @@ import {
   ArrowLeft,
   CheckCircle2,
   Upload,
-  ExternalLink
+  ExternalLink,
+  Loader
 } from 'lucide-react';
 import { PATHS } from '../constants';
 import { AppPath, PathDefinition, FormSection, FormField } from '../types';
 import { NXForm } from '../components/NXForm';
-
+import { joinAPI } from '../api';
+import "./Formindex.css";
 const IconMap: Record<string, React.ReactNode> = {
   BookOpen: <BookOpen className="w-6 h-6" />,
   Lightbulb: <Lightbulb className="w-6 h-6" />,
@@ -33,6 +35,8 @@ export default function join() {
   const [selectedPath, setSelectedPath] = useState<AppPath>(null);
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionId, setSubmissionId] = useState<string>('');
 
   const currentPathDef = useMemo(() => 
     PATHS.find(p => p.id === selectedPath), 
@@ -42,16 +46,33 @@ export default function join() {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    
+    try {
+      const response = await joinAPI.saveSubmission(selectedPath!, formData);
+      
+      if (response.success) {
+        console.log('Form submitted successfully:', response);
+        setSubmissionId(response.submissionId);
+        setIsSubmitted(true);
+      } else {
+        alert('Error submitting form: ' + response.message);
+      }
+    } catch (error: any) {
+      console.error('Error submitting form:', error);
+      alert('Error submitting form: ' + error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const reset = () => {
     setSelectedPath(null);
     setFormData({});
     setIsSubmitted(false);
+    setSubmissionId('');
   };
 
   if (isSubmitted) {
@@ -66,9 +87,15 @@ export default function join() {
             <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-nx-cyan" />
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-nx-white mb-4">Application Received!</h2>
-          <p className="text-nx-gray text-sm sm:text-base mb-8">
+          <p className="text-nx-gray text-sm sm:text-base mb-4">
             Thank you for your interest in the NX Ecosystem. Our team will review your details and get back to you soon.
           </p>
+          {submissionId && (
+            <div className="bg-nx-navy/30 rounded-lg p-3 mb-6">
+              <p className="text-[10px] text-nx-gray uppercase tracking-widest mb-1">Submission ID</p>
+              <p className="text-nx-cyan font-mono text-sm">{submissionId}</p>
+            </div>
+          )}
           <button 
             onClick={reset}
             className="w-full py-3 sm:py-4 bg-nx-cyan text-nx-navy rounded-xl font-bold hover:bg-white transition-all active:scale-95"
