@@ -137,7 +137,7 @@ export default function InitiativesHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-base xs:text-lg sm:text-xl md:text-3xl font-normal text-neon-cyan mb-10 tracking-[0.2em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
+                className="text-base xs:text-lg sm:text-xl md:text-3xl font-normal text-neon-cyan mb-10 tracking-[0.2em] sm:tracking-widest drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
               >
                 Become Impact
               </motion.p>

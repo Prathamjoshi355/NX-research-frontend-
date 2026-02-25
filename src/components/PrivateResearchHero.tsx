@@ -134,7 +134,7 @@ export default function PrivateResearchHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-sm xs:text-base sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-6 sm:mb-8 tracking-[0.15em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
+                className="text-sm xs:text-base sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-6 sm:mb-8 tracking-[0.15em] sm:tracking-widest drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
               >
                 Turn Ideas into Ventures
               </motion.p>
