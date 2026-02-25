@@ -79,7 +79,7 @@ const ECOSYSTEM_NODES: Node[] = [
   },
 ];
 
-export const EcosystemHub = () => {
+export const FounderCircleEcosystem = () => {
   const [activeNode, setActiveNode] = useState<Node | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
@@ -364,3 +364,4 @@ export const EcosystemHub = () => {
     </section>
   );
 };
+export default FounderCircleEcosystem;
