@@ -10,6 +10,31 @@ import { ChevronDown, ChevronUp, Plus, Trash2, GraduationCap, Rocket, Briefcase,
 const FCCRegistration: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<Step>(Step.AGREEMENTS);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const submitForm = async () => {
+    setIsSubmitting(true);
+    setSubmitError(null);
+    try {
+      const response = await fccAPI.saveRegistration(formData);
+      if (response.success) {
+        alert(`✅ Registration Submitted Successfully!\nRegistration ID: ${response.registrationId}`);
+        // Reset form
+        setFormData(INITIAL_FORM_DATA);
+        setCurrentStep(Step.AGREEMENTS);
+      } else {
+        setSubmitError(response.message || 'Submission failed');
+        alert(`❌ Error: ${response.message}`);
+      }
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error occurred';
+      setSubmitError(errorMsg);
+      alert(`❌ Error submitting form: ${errorMsg}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const nextStep = () => {
     if (!isCurrentStepComplete()) return;
@@ -576,10 +601,18 @@ const FCCRegistration: React.FC = () => {
 
                   {isLastStep ? (
                     <button 
-                      className="px-12 py-4 bg-emerald-600 text-white border-2 border-emerald-700 rounded-lg font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1 w-full sm:w-auto"
-                      onClick={() => alert("Registration Submitted Successfully!")}
+                      disabled={isSubmitting}
+                      className="px-12 py-4 bg-emerald-600 text-white border-2 border-emerald-700 rounded-lg font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto flex items-center justify-center gap-2"
+                      onClick={submitForm}
                     >
-                      Submit Registration
+                      {isSubmitting ? (
+                        <>
+                          <Loader className="w-5 h-5 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        'Submit Registration'
+                      )}
                     </button>
                   ) : (
                     <button 
