@@ -34,19 +34,29 @@ interface APIResponse {
   [key: string]: any;
 }
 
-// FCC Registration APIs
 export const fccAPI = {
   // Save registration
   saveRegistration: async (formData: any): Promise<APIResponse> => {
     try {
       const url = makeUrl('/forms/fcc-registration');
       console.debug('fccAPI.saveRegistration posting to', url);
+      console.debug('Payload:', formData);
+      
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      return await response.json();
+      
+      console.debug('Response status:', response.status, response.statusText);
+      const data = await response.json();
+      console.debug('Response data:', data);
+      
+      if (!response.ok) {
+        console.error('Server returned error:', response.status, data);
+      }
+      
+      return data;
     } catch (error) {
       console.error('Error saving registration:', error);
       throw error;
