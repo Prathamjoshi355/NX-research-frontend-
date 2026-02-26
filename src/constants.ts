@@ -16,7 +16,7 @@ const COMMON_BASIC_DETAILS: FormSection = {
       required: true 
     },
     { id: 'college', label: 'College / Organization', type: 'text' },
-    { id: 'linkedin', label: 'LinkedIn Profile', type: 'url' },
+    { id: 'linkedin', label: 'LinkedIn Profile', type: 'text' },
     { id: 'portfolio', label: 'Portfolio / GitHub (optional)', type: 'url' },
   ]
 };

@@ -62,7 +62,7 @@ export default function EmpowermentHero() {
           loop={isMuted}
           muted={isMuted}
           playsInline
-          className={`w-full h-full object-cover object-center transition-all duration-700 ${isMuted ? "blur-[2px] brightness-[0.0]" : "blur-0 brightness-100"
+          className={`w-full h-full object-cover object-center transition-all duration-700 ${isMuted ? "blur-[2px] brightness-[0.90]" : "blur-0 brightness-100"
             }`}
         >
           <source
