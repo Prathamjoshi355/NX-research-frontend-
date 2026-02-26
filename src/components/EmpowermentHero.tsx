@@ -62,7 +62,7 @@ export default function EmpowermentHero() {
           loop={isMuted}
           muted={isMuted}
           playsInline
-          className={`w-full h-full transition-all duration-700 ${isMuted ? "object-cover blur-[4px] brightness-[0.35]" : "object-contain blur-0 brightness-100"
+          className={`w-full h-full object-cover object-center transition-all duration-700 ${isMuted ? "blur-[4px] brightness-[0.35]" : "blur-0 brightness-100"
             }`}
         >
           <source
@@ -124,7 +124,7 @@ export default function EmpowermentHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-[13px] xs:text-base sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-8 sm:mb-10 tracking-[0.15em] xs:tracking-[0.2em] sm:tracking-widest drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-2"
+                className="text-[13px] xs:text-base sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-8 sm:mb-10 tracking-[0.15em] xs:tracking-[0.2em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-2"
               >
                 Foundation for Success
               </motion.p>
@@ -133,7 +133,7 @@ export default function EmpowermentHero() {
         </AnimatePresence>
 
         {/* ── Unmute row ── */}
-        <div className={`w-full flex items-center gap-2 sm:gap-3 mb-5 sm:mb-6 px-2 sm:pr-4 ${isMuted ? "justify-center sm:justify-end" : "justify-end"}`}>
+        <div className="w-full flex items-center justify-center sm:justify-end gap-2 sm:gap-3 mb-5 sm:mb-6 px-2 sm:pr-4">
           <AnimatePresence>
             {isMuted && (
               <motion.div
