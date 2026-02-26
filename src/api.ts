@@ -12,12 +12,19 @@ API_BASE_URL = API_BASE_URL.replace(/\/+$/g, '');
 if (!API_BASE_URL.startsWith('http')) {
   console.warn('VITE_API_URL may be misconfigured:', API_BASE_URL);
 }
-console.debug('Using API_BASE_URL =', API_BASE_URL);
 
-// helper that ensures a leading slash when joining
+// ensure the base URL includes the /api path expected by the server
+let API_PATH_PREFIX = '';
+if (!API_BASE_URL.endsWith('/api')) {
+  API_PATH_PREFIX = '/api';
+}
+
+console.debug('Using API_BASE_URL =', API_BASE_URL + API_PATH_PREFIX);
+
+// helper that ensures a leading slash when joining and adds the prefix
 const makeUrl = (path: string) => {
-  const prefix = path.startsWith('/') ? '' : '/';
-  return `${API_BASE_URL}${prefix}${path}`;
+  const leading = path.startsWith('/') ? '' : '/';
+  return `${API_BASE_URL}${API_PATH_PREFIX}${leading}${path}`;
 };
 
 interface APIResponse {
