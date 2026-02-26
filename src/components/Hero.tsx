@@ -14,7 +14,7 @@ export default function Hero({
   badge = "Innovation Ecosystem",
   title = "Future Support is here",
   subtitle = "Founder Circle",
-  videoSrc = "https://res.cloudinary.com/dhy9pmo8s/video/upload/v1771707288/WhatsApp_Video_2026-02-21_at_1.59.15_AM_bfz1ju.mp4"
+  // videoSrc = "https://res.cloudinary.com/dhy9pmo8s/video/upload/v1771707288/WhatsApp_Video_2026-02-21_at_1.59.15_AM_bfz1ju.mp4"
 }: HeroProps) {
   const [isMuted, setIsMuted] = useState(true);
   const [isPip, setIsPip] = useState(false);
@@ -79,7 +79,7 @@ export default function Hero({
           muted={isMuted}
           playsInline
           className={`w-full h-full transition-all duration-700 ${
-            isMuted && !isPip ? "object-cover blur-[4px] brightness-[0.35]" : "object-contain blur-0 brightness-100"
+            isMuted && !isPip ? "object-cover blur-[1px] brightness-[0.35]" : "object-contain blur-0 brightness-100"
           }`}
         >
           <source
@@ -134,17 +134,6 @@ export default function Hero({
         <AnimatePresence>
           {isMuted && (
             <>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="inline-block px-4 py-1 border border-neon-cyan/40 rounded-full mb-4 sm:mb-6"
-              >
-                <span className="font-mono text-[10px] sm:text-[11px] text-neon-cyan tracking-[3px] sm:tracking-[6px] uppercase">
-                  {badge}
-                </span>
-              </motion.div>
-
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
