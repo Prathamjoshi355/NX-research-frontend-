@@ -131,7 +131,6 @@ export default function GovResearchStats() {
           <div className="flex gap-1.5 sm:gap-3">
             {stats.map((stat, index) => (
               <StatCard
-                key={stat.label}
                 label={stat.label}
                 value={stat.value}
                 suffix={stat.suffix}

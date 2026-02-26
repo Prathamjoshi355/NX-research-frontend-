@@ -131,7 +131,7 @@ export default function GovResearchHeroPreview() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-xs xs:text-sm sm:text-lg md:text-2xl font-normal text-cyan-400 mb-6 sm:mb-10 tracking-[0.15em] sm:tracking-widest drop-shadow-[0_0_30px_rgba(34,211,238,0.6)] px-2 sm:px-4"
+                className="text-xs xs:text-sm sm:text-lg md:text-2xl font-normal text-cyan-400 mb-6 sm:mb-10 tracking-[0.15em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(34,211,238,0.6)] px-2 sm:px-4"
               >
                 Transforming Policy into Reality
               </motion.p>
