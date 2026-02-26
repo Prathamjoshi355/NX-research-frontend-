@@ -4,7 +4,7 @@
  */
 
 import Hero  from "../components/FCCHero";
-import { NetworkVisual } from "../components/FCCNetworkVisual";
+import  NetworkVisual  from "../components/FCCNetworkVisual";
 import { PreviousSessions } from "../components/FCCPreviousSessions";
 import { WhoCanAttend } from "../components/FCCWhoCanAttend";
 import { Benefits } from "../components/FCCBenefits";

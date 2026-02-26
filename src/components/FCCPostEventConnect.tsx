@@ -1,81 +1,170 @@
 import { motion } from "motion/react";
-import { ChevronRight } from "lucide-react";
-import { Section } from "./ui/Section";
 
 export const PostEventConnect = () => {
   const steps = [
-    { step: "01", title: "Submit Collaboration Intent", desc: "Define your goals and what you bring to the table." },
-    { step: "02", title: "Structured Match Review", desc: "Our team evaluates alignment with other participants." },
-    { step: "03", title: "Founder Approval", desc: "Both parties review and approve the connection." },
-    { step: "04", title: "Scheduled Strategic Introduction", desc: "A curated meeting is set up for high-clarity discussion." },
+    { step: "01", title: "Network and Collaboration", desc: "Define your goals and what you bring to the table.", accent: "#00D4FF" },
+    { step: "02", title: "Structured Match Review", desc: "Our team evaluates alignment with other participants.", accent: "#7C3AED" },
+    { step: "03", title: "Founder Approval", desc: "Both parties review and approve the connection.", accent: "#FFD400" },
+    { step: "04", title: "Scheduled Strategic Introduction", desc: "A curated meeting is set up for high-clarity discussion.", accent: "#00E0C6" },
   ];
 
   return (
-    <Section>
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Post-Session Connection</h2>
-        <p className="text-zinc-500">How we facilitate strategic introductions after the event.</p>
-      </motion.div>
+    <section style={{ backgroundColor: "#00060D", padding: "80px 24px", position: "relative", overflow: "hidden" }}>
+      
+      {/* Deep ambient background glow */}
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,212,255,0.04) 0%, transparent 70%)",
+      }} />
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        background: "radial-gradient(ellipse 60% 40% at 80% 100%, rgba(124,58,237,0.05) 0%, transparent 60%)",
+      }} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-        <motion.div 
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
+      <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 1 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
-          className="hidden lg:block absolute top-1/2 left-0 w-full h-px bg-white/10 -translate-y-1/2 z-0 origin-left" 
-        />
-        
-        {steps.map((step, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.2, duration: 0.6 }}
-            whileHover={{ y: -10 }}
-            className="relative z-10 glass p-8 rounded-2xl group hover:bg-white/10 transition-all duration-300 border border-white/5 hover:border-white/20"
-          >
-            <motion.span 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: i * 0.2 + 0.3 }}
-              className="text-5xl font-bold font-mono text-white/5 group-hover:text-white/20 transition-colors mb-6 block"
-            >
-              {step.step}
-            </motion.span>
-            <h3 className="text-lg font-bold mb-3 group-hover:text-white transition-colors">{step.title}</h3>
-            <p className="text-zinc-500 text-sm leading-relaxed group-hover:text-zinc-400 transition-colors">{step.desc}</p>
-          </motion.div>
-        ))}
-      </div>
-
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.8, duration: 0.8 }}
-        className="mt-24 text-center glass p-8 md:p-16 rounded-3xl max-w-4xl mx-auto border border-white/10 relative overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
-        <h3 className="text-2xl md:text-3xl font-bold mb-6 relative z-10">Ready to connect with alignment?</h3>
-        <p className="text-zinc-400 mb-10 max-w-xl mx-auto relative z-10 text-sm md:text-base">
-          Post-event connections are evaluated based on alignment, seriousness, and mutual value.
-        </p>
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="w-full sm:w-auto bg-white text-black px-6 sm:px-12 py-4 md:py-5 rounded-full font-bold flex items-center justify-center gap-2 sm:gap-3 mx-auto hover:bg-zinc-200 transition-all relative z-10 shadow-xl shadow-white/5 text-sm sm:text-base"
+          style={{ textAlign: "center", marginBottom: "64px" }}
         >
-          Request Post-Event Introduction
-          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-        </motion.button>
-      </motion.div>
-    </Section>
+          <h2 style={{
+            fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
+            fontWeight: 800,
+            marginBottom: "12px",
+            color: "#C8DCF0",
+            letterSpacing: "-0.02em",
+          }}>
+            Post-Session Connection
+          </h2>
+          <p style={{ color: "#3D6278", fontSize: "0.95rem" }}>
+            How we facilitate connections after the event.
+          </p>
+        </motion.div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "20px", position: "relative" }}>
+          
+          {/* Connecting line */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.8, ease: "easeInOut", delay: 0.4 }}
+            style={{
+              display: "none",
+              position: "absolute",
+              top: "50%",
+              left: 0,
+              width: "100%",
+              height: "1px",
+              background: "linear-gradient(90deg, transparent, #0D2E3F, #0D2E3F, transparent)",
+              transform: "translateY(-50%)",
+              transformOrigin: "left",
+              zIndex: 0,
+            }}
+            className="lg-line"
+          />
+
+          {steps.map((step, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+              whileHover={{ y: -8, transition: { duration: 0.2 } }}
+              style={{ position: "relative", zIndex: 1 }}
+            >
+              <div
+                style={{
+                  backgroundColor: "#010B14",
+                  border: "1px solid #0C2233",
+                  borderRadius: "20px",
+                  padding: "32px 28px",
+                  height: "100%",
+                  position: "relative",
+                  overflow: "hidden",
+                  transition: "background-color 0.3s, border-color 0.3s, box-shadow 0.3s",
+                  cursor: "default",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.backgroundColor = "#030F1C";
+                  el.style.borderColor = "#142D40";
+                  el.style.boxShadow = `0 0 40px -10px ${step.accent}22, 0 20px 60px -20px #000`;
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.backgroundColor = "#010B14";
+                  el.style.borderColor = "#0C2233";
+                  el.style.boxShadow = "none";
+                }}
+              >
+                {/* Accent top line */}
+                <div style={{
+                  position: "absolute", top: 0, left: "24px", right: "24px",
+                  height: "2px", borderRadius: "0 0 4px 4px",
+                  background: `linear-gradient(90deg, transparent, ${step.accent}80, transparent)`,
+                }} />
+
+                {/* Faint inner corner glow */}
+                <div style={{
+                  position: "absolute", top: 0, right: 0,
+                  width: "80px", height: "80px", pointerEvents: "none",
+                  background: `radial-gradient(circle at top right, ${step.accent}10, transparent 70%)`,
+                }} />
+
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: i * 0.15 + 0.3 }}
+                  style={{
+                    display: "block",
+                    fontSize: "3.5rem",
+                    fontWeight: 900,
+                    fontFamily: "monospace",
+                    color: "#071520",
+                    marginBottom: "20px",
+                    lineHeight: 1,
+                    letterSpacing: "-0.04em",
+                  }}
+                >
+                  {step.step}
+                </motion.span>
+
+                <h3 style={{
+                  fontSize: "1rem",
+                  fontWeight: 700,
+                  marginBottom: "10px",
+                  color: "#C8DCF0",
+                  lineHeight: 1.3,
+                }}>
+                  {step.title}
+                </h3>
+
+                <p style={{
+                  fontSize: "0.83rem",
+                  lineHeight: 1.7,
+                  color: "#2E5266",
+                }}>
+                  {step.desc}
+                </p>
+
+                {/* Bottom accent dot */}
+                <div style={{
+                  position: "absolute", bottom: "20px", right: "20px",
+                  width: "6px", height: "6px", borderRadius: "50%",
+                  backgroundColor: step.accent,
+                  opacity: 0.4,
+                  boxShadow: `0 0 8px 2px ${step.accent}`,
+                }} />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA removed */}
+      </div>
+    </section>
   );
 };

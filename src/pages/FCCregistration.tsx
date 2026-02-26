@@ -1,91 +1,32 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Step, FormData, INITIAL_FORM_DATA, Category } from '../FCCtypes';
 import Sidebar from '../components/FCCRegistrationSidebar';
 import StepIndicator from '../components/FCCRegistrationStepIndicator';
-import { fccAPI, handleRazorpayPayment } from '../api';
-// Added CreditCard to the list of imported icons from lucide-react
-import { ChevronDown, ChevronUp, Plus, Trash2, GraduationCap, Rocket, Briefcase, Users, Layout, CreditCard, Loader } from 'lucide-react';
+import { fccAPI } from '../api';
+import { ChevronDown, ChevronUp, Plus, Trash2, GraduationCap, Rocket, Briefcase, Users, Layout, Loader } from 'lucide-react';
 
 const FCCRegistration: React.FC = () => {
    const [currentStep, setCurrentStep] = useState<Step>(Step.AGREEMENTS);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
-  const [paymentPrice, setPaymentPrice] = useState<number>(0);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState<'idle' | 'pending' | 'success' | 'failed'>('idle');
 
-  // Fetch pricing when category changes
-  useEffect(() => {
-    if (formData.category && currentStep === Step.PAYMENT) {
-      fetchPricing(formData.category);
-    }
-  }, [formData.category, currentStep]);
-
-  const fetchPricing = async (category: string) => {
-    try {
-      const response = await fccAPI.getPricing(category);
-      if (response.success) {
-        setPaymentPrice(response.amount);
-      }
-    } catch (error) {
-      console.error('Failed to fetch pricing:', error);
-    }
-  };
-
-  const handlePaymentSubmit = async () => {
+  const handleFormSubmit = async () => {
     setIsProcessing(true);
-    setPaymentStatus('pending');
 
     try {
-      // Create Razorpay order
-      const orderResponse = await fccAPI.createPaymentOrder({
-        category: formData.category,
-        email: formData.personalEmail,
-        phone: formData.personalContact,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-      });
+      const response = await fccAPI.saveRegistration(formData);
 
-      if (!orderResponse.success) {
-        throw new Error(orderResponse.message);
-      }
-
-      // Handle Razorpay payment
-      const paymentResponse = await handleRazorpayPayment({
-        key: orderResponse.keyId,
-        amount: orderResponse.amount * 100,
-        currency: orderResponse.currency,
-        order_id: orderResponse.orderId,
-        name: 'NX Ecosystem - FCC Registration',
-        description: `FCC Registration - ${formData.category}`,
-        prefill: {
-          name: orderResponse.name,
-          email: orderResponse.email,
-          contact: orderResponse.contact,
-        },
-      });
-
-      // Verify payment and save registration
-      const verifyResponse = await fccAPI.verifyPayment({
-        razorpay_order_id: paymentResponse.razorpay_order_id,
-        razorpay_payment_id: paymentResponse.razorpay_payment_id,
-        razorpay_signature: paymentResponse.razorpay_signature,
-        formData: formData,
-      });
-
-      if (verifyResponse.success) {
-        setPaymentStatus('success');
-        setTimeout(() => {
-          alert('Registration completed successfully! Your registration ID: ' + verifyResponse.registrationId);
-          window.location.href = '/';
-        }, 2000);
+      if (response.success) {
+        alert('Registration completed successfully! Your registration ID: ' + response.registrationId);
+        // Show a success message or redirect
+        window.location.href = '/';
       } else {
-        throw new Error(verifyResponse.message);
+        throw new Error(response.message || 'Failed to save registration');
       }
     } catch (error: any) {
-      console.error('Payment error:', error);
-      setPaymentStatus('failed');
-      alert('Payment failed: ' + error.message);
+      console.error('Registration error:', error);
+      alert('Registration failed: ' + error.message);
     } finally {
       setIsProcessing(false);
     }
@@ -93,7 +34,7 @@ const FCCRegistration: React.FC = () => {
 
   const nextStep = () => {
     if (!isCurrentStepComplete()) return;
-    setCurrentStep(prev => Math.min(prev + 1, Step.PAYMENT));
+    setCurrentStep(prev => Math.min(prev + 1, Step.ADDITIONAL_INFO));
   };
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, Step.AGREEMENTS));
 
@@ -177,8 +118,6 @@ const FCCRegistration: React.FC = () => {
         return true;
       case Step.ADDITIONAL_INFO:
         return isAdditionalInfoComplete();
-      case Step.PAYMENT:
-        return true;
       default:
         return false;
     }
@@ -615,50 +554,12 @@ const FCCRegistration: React.FC = () => {
           </div>
         );
 
-      case Step.PAYMENT:
-        return (
-          <CollapsibleSection title="Payment" defaultOpen>
-            <div className="p-12 space-y-8 flex flex-col items-center justify-center">
-              <div className="w-24 h-24 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600">
-                <CreditCard className="w-12 h-12" />
-              </div>
-              <div className="text-center space-y-4">
-                <h3 className="text-2xl font-bold text-slate-900">Secure Checkout</h3>
-                <p className="text-slate-500">Complete your registration with a secure payment.</p>
-                <div className="bg-indigo-50 rounded-lg p-6 border border-indigo-200 inline-block">
-                  <p className="text-xs text-slate-600 uppercase tracking-wide">Total Amount</p>
-                  <h4 className="text-4xl font-bold text-indigo-600 mt-2">₹{paymentPrice}</h4>
-                  <p className="text-xs text-slate-500 mt-2">{formData.category} Registration</p>
-                </div>
-              </div>
-              <div className="w-full max-w-md bg-slate-50 rounded-lg p-6 border border-slate-200">
-                <p className="text-sm text-slate-600 mb-4 text-center">Secure payment powered by Razorpay</p>
-                <button
-                  onClick={handlePaymentSubmit}
-                  disabled={isProcessing || !paymentPrice}
-                  className="w-full py-4 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
-                >
-                  {isProcessing ? (
-                    <>
-                      <Loader className="w-5 h-5 animate-spin" />
-                      Processing...
-                    </>
-                  ) : (
-                    'Pay ₹' + paymentPrice
-                  )}
-                </button>
-                <p className="text-xs text-slate-400 mt-3 text-center">Your payment information is secure and encrypted.</p>
-              </div>
-            </div>
-          </CollapsibleSection>
-        );
-
       default:
         return null;
     }
   };
 
-  const isLastStep = currentStep === Step.PAYMENT;
+  const isLastStep = currentStep === Step.ADDITIONAL_INFO;
 
   return (
     <div className="min-h-screen bg-white">
@@ -695,7 +596,7 @@ const FCCRegistration: React.FC = () => {
                   {isLastStep ? (
                     <button 
                       className="px-12 py-4 bg-emerald-600 text-white border-2 border-emerald-700 rounded-lg font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-200 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all hover:-translate-y-1 flex items-center gap-2"
-                      onClick={handlePaymentSubmit}
+                      onClick={handleFormSubmit}
                       disabled={isProcessing}
                     >
                       {isProcessing ? (
@@ -704,7 +605,7 @@ const FCCRegistration: React.FC = () => {
                           Processing...
                         </>
                       ) : (
-                        'Complete Payment'
+                        'Submit Registration'
                       )}
                     </button>
                   ) : (

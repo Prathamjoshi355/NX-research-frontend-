@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import FCCRegistration from "../pages/FCCregistration";
 
 interface HeroProps {
-  badge?: string;
+  // badge?: string;x
   title?: string;
   subtitle?: string;
   videoSrc?: string;
 }
 
 export default function Hero({
-  badge = "The Future of Strategic Networking",
+  // badge = "The Future of Strategic Networking",
   title = "Founder Circle Connect",
   subtitle = "Where founders, researchers, and strategic partners meet in structured, curated environments.",
   videoSrc = "https://res.cloudinary.com/dhy9pmo8s/video/upload/v1771707288/WhatsApp_Video_2026-02-21_at_1.59.15_AM_bfz1ju.mp4"
@@ -134,16 +134,7 @@ export default function Hero({
         <AnimatePresence>
           {isMuted && (
             <>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="inline-block px-4 py-1 border border-neon-cyan/40 rounded-full mb-8"
-              >
-                <span className="font-mono text-[11px] text-neon-cyan tracking-[6px] uppercase">
-                  {badge}
-                </span>
-              </motion.div>
+             
 
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}

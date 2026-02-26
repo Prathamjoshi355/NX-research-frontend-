@@ -53,9 +53,6 @@ export interface FormData {
   // Step 5: Additional Info
   interests: string[];
   socialNetworks: SocialNetwork[];
-
-  // Step 6: Payment
-  paymentMethod: string;
 }
 
 export const INITIAL_FORM_DATA: FormData = {
@@ -74,7 +71,6 @@ export const INITIAL_FORM_DATA: FormData = {
   category: null,
   interests: [],
   socialNetworks: [{ platform: '', url: '' }],
-  paymentMethod: '',
 };
 
 export enum Step {
@@ -83,5 +79,4 @@ export enum Step {
   SELECT_CATEGORY = 2,
   CATEGORY_DETAILS = 3,
   ADDITIONAL_INFO = 4,
-  PAYMENT = 5,
 }
