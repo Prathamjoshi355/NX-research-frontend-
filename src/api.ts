@@ -1,5 +1,5 @@
 // API utility file for frontend
-const API_BASE_URL = ((import.meta as any).env.VITE_API_URL as string) || 'https://api.nxresearchh.com';
+const API_BASE_URL = ((import.meta as any).env.VITE_API_URL as string);
 
 interface APIResponse {
   success: boolean;
