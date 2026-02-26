@@ -21,15 +21,6 @@ const InitiativesProcess = () => {
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-12 md:mb-24">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 mb-6"
-          >
-            <Zap className="w-3 h-3 text-neon-cyan" />
-            <span className="text-[10px] font-black text-neon-cyan uppercase tracking-widest">Connection Protocols</span>
-          </motion.div>
           
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}

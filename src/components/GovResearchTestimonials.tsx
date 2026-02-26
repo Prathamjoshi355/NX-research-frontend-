@@ -1,245 +1,183 @@
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Dr. Aris Thorne",
-    role: "Lead Researcher",
-    type: "Research Contributor",
-    quote:
-      "The structured approach at NX allowed us to take a complex policy problem and build a working pilot in record time.",
-    img: "https://picsum.photos/seed/aris/200/200",
-  },
-  {
-    name: "James Kalu",
-    role: "Founder, UrbanFlow",
-    type: "Startup Evolved",
-    quote:
-      "Starting as a project lead gave me the domain expertise and network needed to launch UrbanFlow with confidence.",
-    img: "https://picsum.photos/seed/james/200/200",
-  },
-  {
-    name: "Sarah Chen",
-    role: "Innovation Owner",
-    type: "Project Lead",
-    quote:
-      "Bridging the gap between government needs and private sector agility is where NX truly shines.",
-    img: "https://picsum.photos/seed/sarahc/200/200",
-  },
+  name: "Harsh Khandelwal",
+  role: "Founder, Nexisparks Technology",
+  quote: "We highly appreciate NX Research for creating a strong technology-focused ecosystem. Their structured approach, technical guidance, and collaborative support helped us accelerate IT project development and convert innovative concepts into scalable digital solutions.",
+  img: "https://picsum.photos/seed/nexisparks/200/200",
+},
+{
+  name: "Harsh Sahu",
+  role: "Founder, Tastyaana",
+  quote: "NX Research has been instrumental in refining our quick-service operations model. Their strategic mentorship and process optimization support helped us improve delivery efficiency, vehicle coordination, and overall service reliability.",
+  img: "https://picsum.photos/seed/tastyaana/200/200",
+},
+{
+  name: "Uday Choubey",
+  role: "Founder , Event Dhara",
+  quote: "Working with NX Research strengthened our operational systems and event-tech integrations. The ecosystem support enhanced our planning workflows and enabled us to manage large-scale events with better precision and scalability.",
+  img: "https://picsum.photos/seed/eventdhara/200/200",
+},
+{
+  name: "Hritik Jaiswal",
+  role: "Founder, Vyorai",
+  quote: "NX Research provided a collaborative and innovation-driven environment that helped us structure our product roadmap effectively. Their guidance accelerated our execution cycle and improved our go-to-market clarity.",
+  img: "https://picsum.photos/seed/vyorai/200/200",
+},
 ];
 
-const SLIDE_INTERVAL = 4000;
+export default function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
 
-export default function GovResearchTestimonials() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const go = useCallback(
-    (dir: number) => {
-      setDirection(dir);
-      setActive((prev) =>
-        (prev + dir + testimonials.length) % testimonials.length
-      );
-    },
-    []
-  );
-
-  const goTo = useCallback((idx: number) => {
-    setDirection(idx > active ? 1 : -1);
-    setActive(idx);
-  }, [active]);
-
-  // Auto-scroll
-  useEffect(() => {
-    if (paused) return;
-    timerRef.current = setInterval(() => go(1), SLIDE_INTERVAL);
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [paused, go]);
-
-  const resetTimer = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    if (!paused) {
-      timerRef.current = setInterval(() => go(1), SLIDE_INTERVAL);
-    }
+  const nextSlide = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
-  const handlePrev = () => { go(-1); resetTimer(); };
-  const handleNext = () => { go(1); resetTimer(); };
+  const prevSlide = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  // Auto-play
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 6000);
+    return () => clearInterval(timer);
+  }, []);
 
   const variants = {
-    enter: (d: number) => ({ opacity: 0, x: d * 60 }),
-    center: { opacity: 1, x: 0 },
-    exit: (d: number) => ({ opacity: 0, x: d * -60 }),
+    enter: (direction: number) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0,
+      scale: 0.95,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 100 : -100,
+      opacity: 0,
+      scale: 0.95,
+    }),
   };
 
   return (
-    <section className="py-24 md:py-32 bg-bg-primary overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
-        {/* Heading */}
-        <div className="text-center mb-14 md:mb-20">
+    <section className="py-16 sm:py-32 bg-bg-secondary relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-neon-cyan/5 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
+        <div className="text-center mb-12 sm:mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-[48px] font-display font-bold text-text-primary uppercase tracking-tighter"
+            className="text-2xl sm:text-4xl md:text-[48px] font-display font-bold text-text-primary uppercase tracking-tighter"
           >
-            Credibility in Action
+            What Founders <span className="text-neon-cyan">Say</span>
           </motion.h2>
         </div>
 
-        {/* ── Desktop: 3-column static grid ── */}
-        <div className="hidden md:grid grid-cols-3 gap-8">
-          {testimonials.map((t, i) => (
+        <div className="relative min-h-[320px] sm:min-h-[380px] flex items-center justify-center">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="glass-panel p-10 rounded-3xl border border-neon-cyan/5 hover:border-neon-cyan/20 transition-all group"
+              key={currentIndex}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.3 },
+                scale: { duration: 0.4 }
+              }}
+              className="w-full"
             >
-              <div className="flex items-center gap-4 mb-8">
-                <img
-                  src={t.img}
-                  alt={t.name}
-                  className="w-12 h-12 rounded-full border border-neon-cyan/20"
-                  referrerPolicy="no-referrer"
-                />
-                <div>
-                  <h4 className="text-text-primary font-bold text-sm">{t.name}</h4>
-                  <p className="text-neon-cyan font-mono text-[10px] uppercase tracking-wider">
-                    {t.role}
-                  </p>
+              <div className="glass-panel p-8 sm:p-16 rounded-[32px] border-white/5 relative group">
+                {/* Quote Icon */}
+                <div className="absolute -top-6 left-12 w-12 h-12 bg-bg-primary border border-white/10 rounded-2xl flex items-center justify-center text-neon-cyan shadow-xl">
+                  <Quote size={24} fill="currentColor" className="opacity-20" />
                 </div>
-              </div>
-              <p className="text-text-secondary text-sm italic leading-relaxed mb-8">
-                "{t.quote}"
-              </p>
-              <div className="pt-6 border-t border-white/5">
-                <span className="text-text-dim font-mono text-[9px] uppercase tracking-widest">
-                  Path: {t.type}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
 
-        {/* ── Mobile: auto-scroll carousel ── */}
-        <div
-          className="md:hidden relative"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onTouchStart={() => setPaused(true)}
-          onTouchEnd={() => setPaused(false)}
-        >
-          {/* Card */}
-          <div className="relative overflow-hidden min-h-[280px]">
-            <AnimatePresence custom={direction} mode="wait">
-              <motion.div
-                key={active}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="glass-panel p-8 rounded-3xl border border-neon-cyan/5"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <img
-                    src={testimonials[active].img}
-                    alt={testimonials[active].name}
-                    className="w-12 h-12 rounded-full border border-neon-cyan/20"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div>
-                    <h4 className="text-text-primary font-bold text-sm">
-                      {testimonials[active].name}
-                    </h4>
-                    <p className="text-neon-cyan font-mono text-[10px] uppercase tracking-wider">
-                      {testimonials[active].role}
-                    </p>
+                <div className="flex flex-col items-center text-center">
+                  <p className="text-text-primary text-base sm:text-xl md:text-2xl font-heading leading-relaxed mb-10 italic">
+                    "{testimonials[currentIndex].quote}"
+                  </p>
+
+                  <div className="flex items-center gap-4">
+                    <img 
+                      src={testimonials[currentIndex].img} 
+                      alt={testimonials[currentIndex].name} 
+                      className="w-14 h-14 rounded-full border-2 border-neon-cyan/30 p-0.5" 
+                      referrerPolicy="no-referrer" 
+                    />
+                    <div className="text-left">
+                      <h4 className="text-text-primary font-bold text-base sm:text-lg">{testimonials[currentIndex].name}</h4>
+                      <p className="text-neon-cyan font-mono text-[10px] sm:text-[11px] uppercase tracking-[3px]">{testimonials[currentIndex].role}</p>
+                    </div>
                   </div>
                 </div>
-                <p className="text-text-secondary text-sm italic leading-relaxed mb-6">
-                  "{testimonials[active].quote}"
-                </p>
-                <div className="pt-5 border-t border-white/5">
-                  <span className="text-text-dim font-mono text-[9px] uppercase tracking-widest">
-                    Path: {testimonials[active].type}
-                  </span>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
-          {/* Controls row */}
-          <div className="flex items-center justify-between mt-6 px-1">
-            {/* Prev arrow */}
+          {/* Navigation Buttons - Desktop */}
+          <div className="hidden md:block">
             <button
-              onClick={handlePrev}
-              aria-label="Previous"
-              className="w-9 h-9 flex items-center justify-center rounded-full border border-neon-cyan/20 text-neon-cyan hover:bg-neon-cyan/10 transition-colors"
+              onClick={prevSlide}
+              className="absolute -left-20 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:text-neon-cyan hover:border-neon-cyan/40 transition-all bg-white/5 backdrop-blur-sm"
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M10 3L5 8L10 13"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <ChevronLeft size={24} />
             </button>
-
-            {/* Dots */}
-            <div className="flex gap-2">
-              {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => { goTo(i); resetTimer(); }}
-                  aria-label={`Go to slide ${i + 1}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === active
-                      ? "w-6 bg-neon-cyan"
-                      : "w-1.5 bg-white/20 hover:bg-white/40"
-                  }`}
-                />
-              ))}
-            </div>
-
-            {/* Next arrow */}
             <button
-              onClick={handleNext}
-              aria-label="Next"
-              className="w-9 h-9 flex items-center justify-center rounded-full border border-neon-cyan/20 text-neon-cyan hover:bg-neon-cyan/10 transition-colors"
+              onClick={nextSlide}
+              className="absolute -right-20 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:text-neon-cyan hover:border-neon-cyan/40 transition-all bg-white/5 backdrop-blur-sm"
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M6 3L11 8L6 13"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <ChevronRight size={24} />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation & Dots */}
+        <div className="flex flex-col items-center gap-8 mt-12">
+          <div className="flex items-center gap-6 md:hidden">
+            <button
+              onClick={prevSlide}
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:text-neon-cyan transition-all bg-white/5"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:text-neon-cyan transition-all bg-white/5"
+            >
+              <ChevronRight size={20} />
             </button>
           </div>
 
-          {/* Auto-progress bar */}
-          {!paused && (
-            <motion.div
-              key={active + "-bar"}
-              className="mt-4 h-px bg-neon-cyan/30 origin-left"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: SLIDE_INTERVAL / 1000, ease: "linear" }}
-            />
-          )}
+          <div className="flex gap-3">
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setDirection(i > currentIndex ? 1 : -1);
+                  setCurrentIndex(i);
+                }}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  currentIndex === i ? "w-8 bg-neon-cyan" : "w-2 bg-white/20 hover:bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

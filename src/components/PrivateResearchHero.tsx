@@ -69,7 +69,7 @@ export default function PrivateResearchHero() {
           className={`w-full h-full object-center transition-all duration-700 ${
             !isMuted && !isPip ? "object-contain bg-black" : "object-cover"
           } ${
-            isMuted && !isPip ? "blur-[4px] brightness-[0]" : "blur-0 brightness-100"
+            isMuted && !isPip ? "blur-[4px] brightness-[0.90]" : "blur-0 brightness-100"
           }`}
         >
           <source

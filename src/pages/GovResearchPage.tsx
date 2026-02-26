@@ -3,7 +3,7 @@ import GovResearchStats from "../components/GovResearchStats";
 import GovResearchRoadmap from "../components/GovResearchRoadmap";
 import GovResearchProjects from "../components/GovResearchProjects";
 // import GovResearchTransformation from "../components/GovResearchTransformation";
-import GovResearchTestimonials from "../components/GovResearchTestimonials";
+// import GovResearchTestimonials from "../components/GovResearchTestimonials";
 
 export default function GovResearchPage() {
   return (
@@ -13,7 +13,7 @@ export default function GovResearchPage() {
       <GovResearchStats />
       <GovResearchRoadmap />
       <GovResearchProjects />
-      <GovResearchTestimonials />
+      {/* <GovResearchTestimonials /> */}
     </main>
   );
 }

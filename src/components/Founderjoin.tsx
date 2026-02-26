@@ -207,28 +207,9 @@ export default function FoundersCirclejoin () {
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        className="mt-12 md:mt-24 pt-6 md:pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8"
-      >
-        <div className="flex items-center gap-6 md:gap-12">
-          <div className="flex flex-col">
-            <span className="text-[8px] md:text-[10px] font-mono uppercase tracking-widest text-slate-500 mb-0.5 md:mb-1">System Status</span>
-            <div className="flex items-center gap-1.5 md:gap-2">
-              <div className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-              <span className="text-white font-bold text-[10px] md:text-sm">Operational</span>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[8px] md:text-[10px] font-mono uppercase tracking-widest text-slate-500 mb-0.5 md:mb-1">Ecosystem Nodes</span>
-            <span className="text-white font-bold text-[10px] md:text-sm">1,248 Active</span>
-          </div>
-        </div>
+      
         
      
-      </motion.div>
     </main>
   );
 };

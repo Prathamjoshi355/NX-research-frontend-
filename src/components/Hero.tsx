@@ -11,10 +11,8 @@ interface HeroProps {
 }
 
 export default function Hero({
-  badge = "Innovation Ecosystem",
-  title = "Future Support is here",
-  subtitle = "Founder Circle",
-  // videoSrc = "https://res.cloudinary.com/dhy9pmo8s/video/upload/v1771707288/WhatsApp_Video_2026-02-21_at_1.59.15_AM_bfz1ju.mp4"
+  title = "FUTURE SUPPORT IS HERE",
+  subtitle = "Founders' Circle",
 }: HeroProps) {
   const [isMuted, setIsMuted] = useState(true);
   const [isPip, setIsPip] = useState(false);
@@ -79,11 +77,11 @@ export default function Hero({
           muted={isMuted}
           playsInline
           className={`w-full h-full transition-all duration-700 ${
-            isMuted && !isPip ? "object-cover blur-[1px] brightness-[0]" : "object-contain blur-0 brightness-100"
+            isMuted && !isPip ? "object-cover blur-[1px] brightness-[0.90]" : "object-contain blur-0 brightness-100"
           }`}
         >
           <source
-            src="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1771707288/WhatsApp_Video_2026-02-21_at_1.59.15_AM_bfz1ju.mp4"
+            src="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1772101272/WhatsApp_Video_2026-02-26_at_2.11.58_PM_ufc8wf.mp4"
             type="video/mp4"
           />
         </video>

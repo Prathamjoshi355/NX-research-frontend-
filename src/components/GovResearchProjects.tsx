@@ -2,47 +2,27 @@ import { motion } from "motion/react";
 
 const projects = [
   {
-    title: "Smart Agri-Grid",
-    sector: "Agriculture",
+    title: "V2V (Vehicle-to-Vehicle Communication)",
+    sector: "Tech & Innovation",
     status: "Research Phase",
-    desc: "Optimizing irrigation through AI-driven sensor networks.",
-    tags: ["Open for contributors", "Data-heavy"],
+    desc: "Tech And Innovation.",
+    tags: [" "],
   },
   {
-    title: "HealthConnect",
-    sector: "Health",
-    status: "Proposal Phase",
-    desc: "Decentralized patient record system for rural clinics.",
-    tags: ["Policy Focus", "Blockchain"],
-  },
-  {
-    title: "UrbanFlow",
-    sector: "Infrastructure",
-    status: "Pilot Phase",
-    desc: "Real-time traffic management using edge computing.",
-    tags: ["Implementation", "Smart City"],
-  },
-  {
-    title: "EduLink",
-    sector: "Education",
+    title: "Surgical Robot",
+    sector: "IOT & Healthcare",
     status: "Research Phase",
-    desc: "Personalized learning pathways for vocational training.",
-    tags: ["Social Impact", "AI"],
+    desc: "IOT and Healthcare.",
+    tags: ["Robotics", "Healthcare"],
   },
   {
-    title: "GreenEnergy",
-    sector: "Energy",
-    status: "Proposal Phase",
-    desc: "Community-led microgrid management systems.",
-    tags: ["Sustainability", "Open Source"],
+    title: "Quantum ",
+    sector: "Quantum Computing",
+    status: "Research Phase",
+    desc: "Exploring quantum computing applications.",
+    tags: ["Quantum Physics", "Computing"],
   },
-  {
-    title: "SecureGov",
-    sector: "Cybersecurity",
-    status: "Pilot Phase",
-    desc: "Quantum-resistant encryption for public data.",
-    tags: ["Deep Tech", "Security"],
-  },
+  
 ];
 
 export default function GovResearchProjects() {
@@ -58,11 +38,8 @@ export default function GovResearchProjects() {
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-display font-bold text-text-primary uppercase tracking-tighter leading-none"
           >
-            Incoming Projects
+            Ongoing Projects
           </motion.h2>
-          <p className="mt-3 sm:mt-4 text-text-secondary font-mono text-[10px] sm:text-xs tracking-[3px] sm:tracking-[5px] uppercase">
-            Public Sector Challenges
-          </p>
         </div>
 
         {/* Grid */}

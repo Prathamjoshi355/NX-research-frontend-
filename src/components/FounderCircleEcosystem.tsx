@@ -83,7 +83,6 @@ export const FounderCircleEcosystem = () => {
   const [activeNode, setActiveNode] = useState<Node | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
-  // cycle through nodes every 2 seconds clockwise
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex(prev => {
@@ -97,10 +96,10 @@ export const FounderCircleEcosystem = () => {
   }, []);
 
   return (
-    <section className="py-16 px-4 sm:py-24 sm:px-6 bg-[#080808] relative overflow-hidden">
+    <section className="py-6 px-4 sm:py-10 sm:px-6 bg-[#080808] relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12 sm:mb-20">
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold mb-4 sm:mb-6">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold mb-3 sm:mb-4">
             The Startup Core
           </h2>
           <p className="text-white/50 max-w-xl mx-auto text-sm sm:text-base">
@@ -112,15 +111,12 @@ export const FounderCircleEcosystem = () => {
         {/* ─── DESKTOP: orbital hub layout ─── */}
         <div className="hidden lg:flex relative items-center justify-center gap-20 min-h-[700px]">
           
-          {/* The Hub Visualization */}
           <div className="relative w-full max-w-[600px] aspect-square flex items-center justify-center">
             
-            {/* Background Rings */}
             <div className="absolute inset-0 border border-white/5 rounded-full" />
             <div className="absolute inset-[15%] border border-white/5 rounded-full" />
             <div className="absolute inset-[30%] border border-white/5 rounded-full" />
             
-            {/* Connecting Lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
               {ECOSYSTEM_NODES.map((_, index) => {
                 const angle = (index / ECOSYSTEM_NODES.length) * 2 * Math.PI;
@@ -139,7 +135,6 @@ export const FounderCircleEcosystem = () => {
               })}
             </svg>
 
-            {/* Central Hub */}
             <motion.div 
               className="relative z-10 w-40 h-40 md:w-48 md:h-48 rounded-full bg-black border-2 border-cyan-500/50 flex flex-col items-center justify-center text-center p-4 hub-glow"
               whileHover={{ scale: 1.05 }}
@@ -149,7 +144,6 @@ export const FounderCircleEcosystem = () => {
               <div className="absolute inset-0 rounded-full border border-cyan-500/20 animate-ping" />
             </motion.div>
 
-            {/* Orbiting Nodes */}
             {ECOSYSTEM_NODES.map((node, index) => {
               const angle = (index / ECOSYSTEM_NODES.length) * 2 * Math.PI;
               const radius = 42;
@@ -195,7 +189,6 @@ export const FounderCircleEcosystem = () => {
             })}
           </div>
 
-          {/* Desktop Info Panel */}
           <div className="w-full max-w-md lg:h-[400px] flex flex-col justify-center">
             <AnimatePresence mode="wait">
               {activeNode && (
@@ -222,17 +215,14 @@ export const FounderCircleEcosystem = () => {
           </div>
         </div>
 
-        {/* ─── MOBILE / TABLET: compact hub + scrollable cards ─── */}
-        <div className="lg:hidden flex flex-col items-center gap-8">
+        {/* ─── MOBILE / TABLET ─── */}
+        <div className="lg:hidden flex flex-col items-center gap-6">
 
-          {/* Mini Hub */}
           <div className="relative w-[280px] sm:w-[340px] aspect-square flex items-center justify-center">
             
-            {/* Background Rings */}
             <div className="absolute inset-0 border border-white/5 rounded-full" />
             <div className="absolute inset-[18%] border border-white/5 rounded-full" />
 
-            {/* Connecting Lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-15">
               {ECOSYSTEM_NODES.map((_, index) => {
                 const angle = (index / ECOSYSTEM_NODES.length) * 2 * Math.PI;
@@ -251,7 +241,6 @@ export const FounderCircleEcosystem = () => {
               })}
             </svg>
 
-            {/* Central Hub */}
             <motion.div 
               className="relative z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-black border-2 border-cyan-500/50 flex flex-col items-center justify-center text-center p-3 hub-glow"
             >
@@ -260,7 +249,6 @@ export const FounderCircleEcosystem = () => {
               <div className="absolute inset-0 rounded-full border border-cyan-500/20 animate-ping" />
             </motion.div>
 
-            {/* Orbiting Node Buttons (icon only, tap to select) */}
             {ECOSYSTEM_NODES.map((node, index) => {
               const angle = (index / ECOSYSTEM_NODES.length) * 2 * Math.PI;
               const radius = 40;
@@ -298,8 +286,7 @@ export const FounderCircleEcosystem = () => {
             })}
           </div>
 
-          {/* Mobile Info Card */}
-          <div className="w-full max-w-sm min-h-[180px]">
+          <div className="w-full max-w-sm min-h-[160px]">
             <AnimatePresence mode="wait">
               {activeNode ? (
                 <motion.div
@@ -339,7 +326,6 @@ export const FounderCircleEcosystem = () => {
             </AnimatePresence>
           </div>
 
-          {/* Mobile: horizontal scroll node list as quick-access pills */}
           <div className="w-full overflow-x-auto pb-2 -mx-4 px-4">
             <div className="flex gap-2 w-max">
               {ECOSYSTEM_NODES.map((node) => (

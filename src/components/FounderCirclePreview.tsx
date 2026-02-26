@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function FounderCirclePreview() {
   const highlights = [
     "Mentorship & Guidance",
-    "Founder Collaboration",
+    "Founders' Collaboration",
     "Scaling Support",
     "Investor Access",
   ];
@@ -33,20 +33,15 @@ export default function FounderCirclePreview() {
         >
           {/* ───── Content ───── */}
           <div className="max-w-3xl">
-            <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
-              <div className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-              <span className="font-mono text-[10px] sm:text-[11px] text-gold tracking-[3px] sm:tracking-[5px] uppercase">
-                Exclusive Program
-              </span>
-            </div>
+
 
             <h2 className="text-xl sm:text-3xl md:text-[40px] font-display font-bold text-text-primary mb-4 sm:mb-8 leading-tight">
-              Founder Circle — <br />
+              Founders' Circle — <br />
               <span className="text-neon-cyan">Structured Growth Ecosystem</span>
             </h2>
 
             <p className="font-heading font-normal text-text-secondary text-sm sm:text-lg mb-6 sm:mb-10 leading-[1.6] sm:leading-[1.8]">
-              Founder's Circle is the structured startup growth ecosystem within
+              Founders' Circle is the structured startup growth ecosystem within
               NX Research. It brings together serious founders, innovators, and
               execution-focused teams to refine ideas, validate models, and
               build scalable ventures. Through collaborative reviews, strategic

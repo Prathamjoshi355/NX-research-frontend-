@@ -4,23 +4,29 @@ import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Alex Rivera",
-    role: "Researcher",
-    quote: "The collaboration tools and AI assistance at NX allowed me to focus entirely on the core innovation.",
-    img: "https://picsum.photos/seed/alex/200/200",
-  },
-  {
-    name: "Maya Patel",
-    role: "Founder, NeuralMesh",
-    quote: "Starting as a private research track was the best decision for our startup. The ecosystem support is incredible.",
-    img: "https://picsum.photos/seed/maya/200/200",
-  },
-  {
-    name: "David Kim",
-    role: "Contributor",
-    quote: "I joined an ongoing project and within months I was leading a sub-track. The growth here is exponential.",
-    img: "https://picsum.photos/seed/david/200/200",
-  },
+  name: "Harsh Khandelwal",
+  role: "Founder, Nexisparks Technology",
+  quote: "We highly appreciate NX Research for creating a strong technology-focused ecosystem. Their structured approach, technical guidance, and collaborative support helped us accelerate IT project development and convert innovative concepts into scalable digital solutions.",
+  img: "https://picsum.photos/seed/nexisparks/200/200",
+},
+{
+  name: "Harsh Sahu",
+  role: "Founder, Tastyaana",
+  quote: "NX Research has been instrumental in refining our quick-service operations model. Their strategic mentorship and process optimization support helped us improve delivery efficiency, vehicle coordination, and overall service reliability.",
+  img: "https://picsum.photos/seed/tastyaana/200/200",
+},
+{
+  name: "Uday Choubey",
+  role: "Founder , Event Dhara",
+  quote: "Working with NX Research strengthened our operational systems and event-tech integrations. The ecosystem support enhanced our planning workflows and enabled us to manage large-scale events with better precision and scalability.",
+  img: "https://picsum.photos/seed/eventdhara/200/200",
+},
+{
+  name: "Hritik Jaiswal",
+  role: "Founder, Vyorai",
+  quote: "NX Research provided a collaborative and innovation-driven environment that helped us structure our product roadmap effectively. Their guidance accelerated our execution cycle and improved our go-to-market clarity.",
+  img: "https://picsum.photos/seed/vyorai/200/200",
+},
 ];
 
 export default function Testimonials() {

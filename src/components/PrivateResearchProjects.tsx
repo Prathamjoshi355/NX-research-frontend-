@@ -3,47 +3,33 @@ import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const projects = [
-  {
-    title: "NeuralMesh",
-    sector: "AI & Robotics",
-    status: "Active",
-    desc: "Developing decentralized swarm intelligence for industrial automation.",
-    tags: ["Deep Tech", "Recruiting"],
+   {
+    title: "Nexisparkx Technologies",
+    sector: "Technologies & Innovation",
+    status: "Implemented",
+    desc: "Working on Tech And Innovation.",
+    tags: [" "],
   },
   {
-    title: "QuantumLedger",
-    sector: "Fintech",
-    status: "Recruiting",
-    desc: "Next-gen encryption protocols for institutional asset management.",
-    tags: ["Security", "Open for contributors"],
+    title: "Tastyaana",
+    sector: "Quick Commerce",
+    status: "Implementation Phase",
+    desc: "Platform for quick commerce and delivery services.",
+    tags: ["MERN Stack"],
   },
   {
-    title: "BioForge",
-    sector: "HealthTech",
-    status: "Prototype",
-    desc: "Synthetic biology frameworks for personalized medicine delivery.",
-    tags: ["Biotech", "Research Phase"],
+    title: "Event Dhara ",
+    sector: "Event Management",
+    status: "Implementation Phase",
+    desc: "Platform for managing and promoting events.",
+    tags: ["React", "Node.js"],
   },
   {
-    title: "EcoSphere",
-    sector: "Sustainability",
-    status: "Active",
-    desc: "Carbon sequestration monitoring using satellite data and AI.",
-    tags: ["Climate", "Data-heavy"],
-  },
-  {
-    title: "AstroLink",
-    sector: "SpaceTech",
-    status: "Recruiting",
-    desc: "Low-latency communication arrays for orbital infrastructure.",
-    tags: ["Aerospace", "Open for contributors"],
-  },
-  {
-    title: "CyberShield",
-    sector: "Security",
-    status: "Active",
-    desc: "Autonomous threat detection systems for critical infrastructure.",
-    tags: ["Cyber", "Deep Tech"],
+    title: "Vyorai",
+    sector: "AI & Education",
+    status: "Research Phase",
+    desc: "AI-driven personalized .",
+    tags: ["Social Impact", "AI"],
   },
 ];
 

@@ -3,7 +3,23 @@ import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent }
 import { Volume2, VolumeX } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export default function InitiativesHero() {
+interface GenericHeroProps {
+  label: string;
+  title: string;
+  subtitle: string;
+  videoUrl?: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+export default function GenericHero({
+  label,
+  title,
+  subtitle,
+  videoUrl = "https://res.cloudinary.com/dhy9pmo8s/video/upload/v1771707288/WhatsApp_Video_2026-02-21_at_1.59.15_AM_bfz1ju.mp4",
+  ctaText = "Get Started",
+  ctaLink = "/join",
+}: GenericHeroProps) {
   const [isMuted, setIsMuted] = useState(true);
   const [isPip, setIsPip] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -40,7 +56,7 @@ export default function InitiativesHero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-bg-primary pt-24 pb-12 font-sans"
+      className="relative min-h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-bg-primary pt-24 pb-12"
     >
       {/* ── Video Container ── */}
       <motion.div
@@ -55,7 +71,7 @@ export default function InitiativesHero() {
         className={
           isPip
             ? // PiP mode — fixed bottom-right, big enough to see
-              "fixed bottom-8 right-8 z-50 w-[280px] h-[130px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)] border border-white/10"
+              "fixed bottom-8 right-8 z-50 w-[300px] h-[150px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)]"
             : // Hero mode — full screen absolute
               "absolute inset-0 z-0 overflow-hidden"
         }
@@ -66,44 +82,32 @@ export default function InitiativesHero() {
           loop={isMuted}
           muted={isMuted}
           playsInline
-          className={`w-full h-full object-center transition-all duration-700 ${
-            !isMuted && !isPip ? "object-contain bg-black" : "object-cover"
-          } ${
-            (isMuted && !isPip) ? "blur-[4px] brightness-[0.90]" : "blur-0 brightness-100"
+          className={`w-full h-full object-cover object-center transition-all duration-700 ${
+            isMuted ? "blur-[4px] brightness-[0.35]" : "blur-0 brightness-100"
           }`}
         >
-          <source
-            src="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1771958595/Initiative_lbvlpa.mp4"
-            type="video/mp4"
-          />
+          <source src={videoUrl} type="video/mp4" />
         </video>
 
-        {/* PiP controls */}
-       <AnimatePresence>
+        {/* PiP close button */}
+        <AnimatePresence>
           {isPip && (
-            <motion.div
+            <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/20 opacity-0 group-hover/pip:opacity-100 transition-opacity flex items-center justify-center"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="absolute top-2 right-2 w-8 h-8 bg-black/60 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-black/80 transition-all"
             >
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleMute();
-                }}
-                className="w-10 h-10 bg-black/60 rounded-full flex items-center justify-center text-white hover:bg-neon-cyan hover:text-bg-primary transition-all"
-              >
-                {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-              </button>
-            </motion.div>
+              <VolumeX size={16} />
+            </motion.button>
           )}
         </AnimatePresence>
       </motion.div>
 
       {/* ── Gradient Overlay — fades when unmuted ── */}
       <AnimatePresence>
-        {isMuted && !isPip && (
+        {isMuted && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -124,28 +128,39 @@ export default function InitiativesHero() {
         <AnimatePresence>
           {isMuted && (
             <>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className="inline-block px-4 py-1 border border-neon-cyan/40 rounded-full mb-8"
+              >
+                <span className="font-mono text-[11px] text-neon-cyan tracking-[6px] uppercase">
+                  {label}
+                </span>
+              </motion.div>
+
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-2xl xs:text-3xl sm:text-4xl md:text-[64px] font-bold text-text-primary tracking-tighter mb-4 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)] uppercase"
+                className="text-2xl xs:text-3xl sm:text-4xl md:text-[64px] font-display font-black text-text-primary tracking-tighter mb-4 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)]"
               >
-                Where Ideas
+                {title}
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-base xs:text-lg sm:text-xl md:text-3xl font-normal text-neon-cyan mb-10 tracking-[0.2em] sm:tracking-widest drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
+                className="text-base xs:text-lg sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-10 tracking-[0.2em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
               >
-                Become Impact
+                {subtitle}
               </motion.p>
             </>
           )}
         </AnimatePresence>
 
-        {/* ── Unmute row — right aligned, above CTA ── */}
+        {/* ── Unmute row — centered on mobile, right aligned on desktop ── */}
         <div className="w-full flex items-center justify-center sm:justify-end gap-2 sm:gap-3 mb-6 px-4 sm:pr-4">
           {/* Label — only when muted */}
           <AnimatePresence>
@@ -179,7 +194,6 @@ export default function InitiativesHero() {
             )}
           </AnimatePresence>
 
-          {/* Mute Button */}
           <div className="relative flex-shrink-0">
             <AnimatePresence>
               {isMuted && (
@@ -223,10 +237,10 @@ export default function InitiativesHero() {
               className="w-full flex justify-center px-4"
             >
               <Link
-                to="/join"
-                className="group relative w-full max-w-[280px] sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-transparent border-[1.5px] border-neon-cyan text-neon-cyan font-bold text-[12px] sm:text-[14px] tracking-[2px] sm:tracking-[3px] uppercase rounded-[4px] transition-all duration-300 hover:bg-neon-cyan/15 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] text-center"
+                to={ctaLink}
+                className="group relative w-full max-w-[280px] sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-transparent border-[1.5px] border-neon-cyan text-neon-cyan font-heading font-semibold text-[12px] sm:text-[14px] tracking-[2px] sm:tracking-[3px] uppercase rounded-[4px] transition-all duration-300 hover:bg-neon-cyan/15 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] text-center"
               >
-                Get Started
+                {ctaText}
               </Link>
             </motion.div>
           )}

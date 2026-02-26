@@ -37,7 +37,7 @@ const pillars = [
     accent: "#ffcc00", // gold
   },
   {
-    name: "Founder Circle",
+    name: "Founders' Circle",
     icon: Crown,
     desc: "Structured startup growth ecosystem for serious founders to refine, validate, and build scalable ventures.",
     step: "05",
@@ -501,15 +501,6 @@ export default function EcosystemPillars() {
             </div>
 
           </div>
-
-          {/* Footer */}
-          <motion.div className="ep-footer"
-            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-            viewport={{ once: true }} transition={{ delay: 0.8, duration: 0.6 }}>
-            <span className="ep-footer-text">Sequential Growth Framework</span>
-            <div className="ep-footer-line" />
-            <span className="ep-footer-count">05 / 05</span>
-          </motion.div>
 
         </div>
       </section>

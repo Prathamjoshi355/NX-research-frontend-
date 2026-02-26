@@ -13,15 +13,7 @@ export default function InitiativesOutcomes() {
     <section className="py-20 md:py-32 bg-bg-primary relative overflow-hidden font-sans">
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-16 md:mb-24">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neon-purple/30 bg-neon-purple/5 mb-6"
-          >
-            <TrendingUp className="w-3 h-3 text-neon-purple" />
-            <span className="text-[10px] font-bold text-neon-purple uppercase tracking-widest">After You Connect</span>
-          </motion.div>
+         
           
           <h2 className="text-3xl md:text-5xl font-bold text-text-primary mb-4 md:mb-6 tracking-tight uppercase leading-none">
             Long-term <span className="text-neon-purple">Outcomes</span>

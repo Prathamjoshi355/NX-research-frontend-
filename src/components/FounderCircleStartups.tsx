@@ -2,9 +2,7 @@ import React from "react";
 import { motion } from "motion/react";
 
 const startups = [
-  "NeuralMesh", "QuantumLedger", "BioForge", "EcoSphere", "AstroLink", 
-  "CyberShield", "Smart Agri-Grid", "HealthConnect", "UrbanFlow", "EduLink",
-  "GreenEnergy", "SecureGov"
+  "Nexisparkx Technologies", "Tastyaana", "Vyorai", "Event Dhara", "Nexisparkx Technologies", "Tastyaana", "Vyorai", "Event Dhara"
 ];
 
 function StartupMarquee() {
@@ -40,7 +38,7 @@ function StartupMarquee() {
           {startups.map((startup, i) => (
             <div
               key={i}
-              className="text-base sm:text-lg md:text-3xl lg:text-4xl font-display font-black text-white/10 hover:text-neon-cyan transition-colors duration-500 cursor-default uppercase tracking-tighter"
+              className="text-base sm:text-lg md:text-3xl lg:text-4xl font-display font-black text-white/14 hover:text-neon-cyan transition-colors duration-500 cursor-default uppercase tracking-tighter"
             >
               {startup}
             </div>
@@ -49,7 +47,7 @@ function StartupMarquee() {
           {startups.map((startup, i) => (
             <div
               key={`dup-${i}`}
-              className="text-base sm:text-lg md:text-3xl lg:text-4xl font-display font-black text-white/10 hover:text-neon-cyan transition-colors duration-500 cursor-default uppercase tracking-tighter"
+              className="text-base sm:text-lg md:text-3xl lg:text-4xl font-display font-black text-white/14 hover:text-neon-cyan transition-colors duration-500 cursor-default uppercase tracking-tighter"
             >
               {startup}
             </div>

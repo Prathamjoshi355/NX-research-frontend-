@@ -86,11 +86,11 @@ function StatCard({ label, value, suffix, icon: Icon, accentColor, index }) {
 }
 
 const stats = [
-  { label: "Total Projects",         value: 47,  suffix: "",  icon: BarChart3,    accentColor: "#22d3ee" },
-  { label: "Active Projects",        value: 11,  suffix: "",  icon: Activity,     accentColor: "#2dd4bf" },
-  { label: "Students & Researchers", value: 849, suffix: "+", icon: Users,        accentColor: "#c084fc" },
-  { label: "Startups Evolved",       value: 14,  suffix: "",  icon: Rocket,       accentColor: "#fbbf24" },
-  { label: "Projects Implemented",   value: 23,  suffix: "",  icon: CheckCircle2, accentColor: "#60a5fa" },
+  { label: "Total Idea",         value: 6,  suffix: "",  icon: BarChart3,    accentColor: "#22d3ee" },
+  { label: "Active Projects",        value: 3,  suffix: "",  icon: Activity,     accentColor: "#2dd4bf" },
+  { label: "Students & Researchers", value: 22, suffix: "+", icon: Users,        accentColor: "#c084fc" },
+  { label: "Startups Evolved",       value: 3,  suffix: "",  icon: Rocket,       accentColor: "#fbbf24" },
+  { label: "Startups Fellows",   value: 3,  suffix: "",  icon: CheckCircle2, accentColor: "#60a5fa" },
 ];
 
 export default function GovResearchStats() {
