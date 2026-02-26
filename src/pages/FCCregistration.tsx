@@ -5,29 +5,11 @@ import Sidebar from '../components/FCCRegistrationSidebar';
 import StepIndicator from '../components/FCCRegistrationStepIndicator';
 import { fccAPI } from '../api';
 import { ChevronDown, ChevronUp, Plus, Trash2, GraduationCap, Rocket, Briefcase, Users, Layout, Loader } from 'lucide-react';
+// Note: CreditCard icon removed since payment step was eliminated
 
 const FCCRegistration: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<Step>(Step.AGREEMENTS);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
-  const [isProcessing, setIsProcessing] = useState(false);
-
-  const handleFormSubmit = async () => {
-    setIsProcessing(true);
-    try {
-      const response = await fccAPI.saveRegistration(formData);
-      if (response.success) {
-        alert('Registration submitted successfully! Your registration ID: ' + response.registrationId);
-        window.location.href = '/';
-      } else {
-        throw new Error(response.message || 'Failed to save registration');
-      }
-    } catch (error: any) {
-      console.error('Registration error:', error);
-      alert('Registration failed: ' + error.message);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
 
   const nextStep = () => {
     if (!isCurrentStepComplete()) return;
@@ -550,6 +532,8 @@ const FCCRegistration: React.FC = () => {
             </CollapsibleSection>
           </div>
         );
+
+
 
       default:
         return null;
