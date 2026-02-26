@@ -66,7 +66,7 @@ export default function JoinHero() {
           muted={isMuted}
           playsInline
           className={`w-full h-full object-cover object-center transition-all duration-700 ${
-            isMuted ? "blur-[4px] brightness-[0.35]" : "blur-0 brightness-100"
+            isMuted ? "blur-[4px] brightness-[0]" : "blur-0 brightness-100"
           }`}
         >
           <source

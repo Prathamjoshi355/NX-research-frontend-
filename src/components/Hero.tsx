@@ -79,7 +79,7 @@ export default function Hero({
           muted={isMuted}
           playsInline
           className={`w-full h-full transition-all duration-700 ${
-            isMuted && !isPip ? "object-cover blur-[1px] brightness-[0.35]" : "object-contain blur-0 brightness-100"
+            isMuted && !isPip ? "object-cover blur-[1px] brightness-[0]" : "object-contain blur-0 brightness-100"
           }`}
         >
           <source
