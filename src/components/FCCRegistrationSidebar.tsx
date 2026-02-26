@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Step } from '../FCCtypes';
 import { CheckCircle, Circle, ChevronUp } from 'lucide-react';
@@ -12,36 +11,36 @@ const Sidebar: React.FC<SidebarProps> = ({ currentStep }) => {
     { id: Step.AGREEMENTS, label: 'Registration Notification' },
     { id: Step.AGREEMENTS, label: 'Privacy & Terms' },
     { id: Step.PERSONAL_INFO, label: 'Personal Information' },
-    { id: Step.SELECT_CATEGORY, label: 'Online Influence & Network' },
-    { id: Step.CATEGORY_DETAILS, label: 'Academic Institution' },
+    { id: Step.SELECT_CATEGORY, label: 'Category Selection' },
+    { id: Step.CATEGORY_DETAILS, label: 'Category Details' },
     { id: Step.ADDITIONAL_INFO, label: 'Additional Information' },
-    { id: Step.PAYMENT, label: 'Review' },
+    { id: Step.ADDITIONAL_INFO, label: 'Final Submission' },
   ];
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+    <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4 sm:p-6 w-full">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-base font-bold text-gray-800">Registration Progress</h2>
+        <h2 className="text-base sm:text-lg font-bold text-gray-800">Registration Progress</h2>
         <ChevronUp className="w-5 h-5 text-gray-600" />
       </div>
       
-      <ul className="space-y-4">
+      <ul className="space-y-3 sm:space-y-4">
         {stepsList.map((step, idx) => {
           const isActive = currentStep === step.id;
           const isCompleted = currentStep > step.id;
           
           return (
-            <li key={idx} className="flex items-center gap-3">
+            <li key={idx} className="flex items-center gap-2 sm:gap-3">
               {isCompleted || (idx === 0) ? (
-                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 flex-shrink-0" />
               ) : isActive ? (
-                <div className="w-5 h-5 rounded-full border-2 border-blue-500 flex items-center justify-center flex-shrink-0">
-                  <div className="w-2 h-2 rounded-full bg-blue-500" />
+                <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-blue-500 flex items-center justify-center flex-shrink-0">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-500" />
                 </div>
               ) : (
-                <Circle className="w-5 h-5 text-gray-300 flex-shrink-0" />
+                <Circle className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300 flex-shrink-0" />
               )}
-              <span className={`text-sm font-medium ${
+              <span className={`text-xs sm:text-sm font-medium ${
                 isActive 
                   ? 'text-blue-600 font-semibold' 
                   : isCompleted || (idx === 0)

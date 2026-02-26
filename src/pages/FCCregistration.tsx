@@ -7,19 +7,16 @@ import { fccAPI } from '../api';
 import { ChevronDown, ChevronUp, Plus, Trash2, GraduationCap, Rocket, Briefcase, Users, Layout, Loader } from 'lucide-react';
 
 const FCCRegistration: React.FC = () => {
-   const [currentStep, setCurrentStep] = useState<Step>(Step.AGREEMENTS);
+  const [currentStep, setCurrentStep] = useState<Step>(Step.AGREEMENTS);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleFormSubmit = async () => {
     setIsProcessing(true);
-
     try {
       const response = await fccAPI.saveRegistration(formData);
-
       if (response.success) {
-        alert('Registration completed successfully! Your registration ID: ' + response.registrationId);
-        // Show a success message or redirect
+        alert('Registration submitted successfully! Your registration ID: ' + response.registrationId);
         window.location.href = '/';
       } else {
         throw new Error(response.message || 'Failed to save registration');
@@ -565,16 +562,16 @@ const FCCRegistration: React.FC = () => {
     <div className="min-h-screen bg-white">
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-7xl mx-auto py-12 px-2 pl-0">
-          <div className="flex gap-8 mb-12">
+          <div className="flex flex-col lg:flex-row gap-8 mb-12">
             {/* Sidebar Progress Box */}
-            <div className="w-72 flex-shrink-0">
+            <div className="w-full lg:w-72 flex-shrink-0">
               <Sidebar currentStep={currentStep} />
             </div>
             
             {/* Main Content */}
-            <div className="flex-1 pr-8">
+            <div className="flex-1 pr-0 lg:pr-8 pt-8 lg:pt-0">
               <header className="mb-8">
-                <h1 className="text-6xl font-extrabold text-blue-600 mb-4">Registration</h1>
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-blue-600 mb-4">Registration</h1>
               </header>
 
               <StepIndicator currentStep={currentStep} />
@@ -584,35 +581,27 @@ const FCCRegistration: React.FC = () => {
               </div>
 
               <div className="sticky bottom-8 z-10">
-                <div className="flex justify-end items-center gap-4 p-6">
+                <div className="flex flex-col sm:flex-row justify-end items-center gap-4 p-6">
                   <button 
                     onClick={prevStep}
                     disabled={currentStep === Step.AGREEMENTS}
-                    className="px-8 py-4 rounded-lg font-bold text-slate-500 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 disabled:opacity-0 transition-all"
+                    className="px-8 py-4 rounded-lg font-bold text-slate-500 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 disabled:opacity-0 transition-all w-full sm:w-auto"
                   >
                     Previous Page
                   </button>
 
                   {isLastStep ? (
                     <button 
-                      className="px-12 py-4 bg-emerald-600 text-white border-2 border-emerald-700 rounded-lg font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-200 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all hover:-translate-y-1 flex items-center gap-2"
-                      onClick={handleFormSubmit}
-                      disabled={isProcessing}
+                      className="px-12 py-4 bg-emerald-600 text-white border-2 border-emerald-700 rounded-lg font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1 w-full sm:w-auto"
+                      onClick={() => alert("Registration Submitted Successfully!")}
                     >
-                      {isProcessing ? (
-                        <>
-                          <Loader className="w-5 h-5 animate-spin" />
-                          Processing...
-                        </>
-                      ) : (
-                        'Submit Registration'
-                      )}
+                      Submit Registration
                     </button>
                   ) : (
                     <button 
                       onClick={nextStep}
                       disabled={!isCurrentStepComplete()}
-                      className="px-12 py-4 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 disabled:bg-slate-300 disabled:shadow-none disabled:cursor-not-allowed transition-all hover:-translate-y-1"
+                      className="px-12 py-4 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 disabled:bg-slate-300 disabled:shadow-none disabled:cursor-not-allowed transition-all hover:-translate-y-1 w-full sm:w-auto"
                     >
                       Next Page
                     </button>

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
 import { Link } from "react-router-dom";
-
+import FCCForm from "../pages/FCCregistration";
 interface HeroProps {
   title?: string;
   subtitle?: string;
@@ -232,7 +232,7 @@ export default function Hero({
               className="w-full flex justify-center px-4"
             >
                    <Link
-                to="/"
+                to="/FCCForm"
                 className="group relative w-full max-w-[280px] sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-transparent border-[1.5px] border-neon-cyan text-neon-cyan font-heading font-semibold text-[12px] sm:text-[14px] tracking-[2px] sm:tracking-[3px] uppercase rounded-[4px] transition-all duration-300 hover:bg-neon-cyan/15 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] text-center"
               >
                 Register for Event
