@@ -2,12 +2,17 @@
 
 // determine base URL from environment variable or default to local server
 let API_BASE_URL = ((import.meta as any).env.VITE_API_URL as string) || 'http://localhost:5000/api';
+
+// strip any accidental leading junk like "[{" or whitespace
+API_BASE_URL = API_BASE_URL.replace(/^[^h]*?(https?:\/\/)/, '$1');
 // remove any trailing slash(es)
 API_BASE_URL = API_BASE_URL.replace(/\/+$/g, '');
 
+// final sanity check
 if (!API_BASE_URL.startsWith('http')) {
   console.warn('VITE_API_URL may be misconfigured:', API_BASE_URL);
 }
+console.debug('Using API_BASE_URL =', API_BASE_URL);
 
 // helper that ensures a leading slash when joining
 const makeUrl = (path: string) => {
