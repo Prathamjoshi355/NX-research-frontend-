@@ -5,11 +5,16 @@ import InitiativesWhatWeDo from "../components/InitiativesWhatWeDo";
 import InitiativesProcess from "../components/InitiativesProcess";
 import InitiativesOutcomes from "../components/InitiativesOutcomes";
 import InitiativesWhy from "../components/InitiativesWhy";
+import SEO from "../components/SEO";
 // import InitiativesCTA from "../components/InitiativesCTA";
 
 export default function InitiativesPage() {
   return (
     <div className="initiatives-page">
+      <SEO 
+        title="Initiatives" 
+        description="Explore NX Research initiatives focused on venture building, strategic innovation, and ecosystem development."
+      />
       <style>{`
         /* Common Section Styles */
         .section { padding: 80px 24px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 10; }

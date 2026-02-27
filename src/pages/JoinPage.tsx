@@ -22,6 +22,7 @@ import { PATHS } from '../constants';
 import { AppPath, PathDefinition, FormSection, FormField } from '../types';
 import { NXForm } from '../components/NXForm';
 import { joinAPI } from '../api';
+import SEO from '../components/SEO';
 import "./Formindex.css";
 const IconMap: Record<string, React.ReactNode> = {
   BookOpen: <BookOpen className="w-6 h-6" />,
@@ -109,6 +110,10 @@ export default function join() {
 
   return (
     <div className="min-h-screen bg-nx-navy text-nx-white font-sans selection:bg-nx-cyan selection:text-nx-navy relative overflow-x-hidden">
+      <SEO 
+        title="Join the Ecosystem" 
+        description="Join the NX Research ecosystem. Choose your path: Venture Building, Strategic Innovation, or Ecosystem Development."
+      />
       {/* Background Pattern */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.08] z-0">
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #00f2ff 1px, transparent 0)', backgroundSize: '32px 32px' }} />

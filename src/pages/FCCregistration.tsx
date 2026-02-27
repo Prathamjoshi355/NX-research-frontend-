@@ -5,6 +5,7 @@ import { Step, FormData, INITIAL_FORM_DATA } from '../FCCtypes';
 import Sidebar from '../components/FCCRegistrationSidebar';
 import StepIndicator from '../components/FCCRegistrationStepIndicator';
 import { fccAPI } from '../api';
+import SEO from '../components/SEO';
 import { ChevronDown, ChevronUp, Plus, Trash2, GraduationCap, Rocket, Briefcase, Loader, CheckCircle } from 'lucide-react';
 
 import './Formindex.css';
@@ -586,6 +587,10 @@ const FCCRegistration: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-nx-navy text-nx-white">
+      <SEO 
+        title="FCC Registration" 
+        description="Register for the Founder Circle Community (FCC) and join an elite network of founders and innovators."
+      />
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
           <AnimatePresence mode="wait">

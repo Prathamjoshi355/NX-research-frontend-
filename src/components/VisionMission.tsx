@@ -25,10 +25,10 @@ export default function VisionMission() {
             <span className="font-mono text-[9px] sm:text-[11px] text-neon-cyan tracking-[4px] sm:tracking-[6px] uppercase mb-4 sm:mb-6">
               Vision
             </span>
-            <h2 className="text-lg sm:text-2xl md:text-[28px] font-display font-semibold text-text-primary mb-4 sm:mb-6 leading-[1.5] sm:leading-[1.6]">
+            <h3 className="text-lg sm:text-2xl md:text-[28px] font-display font-semibold text-text-primary mb-4 sm:mb-6 leading-[1.5] sm:leading-[1.6]">
               To create a global network where maximum startups are connected through NX Research, 
               enabling every founder to access the support, guidance, and ecosystem needed to build and scale successfully.
-            </h2>
+            </h3>
           </motion.div>
 
           {/* Mission */}
@@ -42,9 +42,9 @@ export default function VisionMission() {
             <span className="font-mono text-[9px] sm:text-[11px] text-gold tracking-[4px] sm:tracking-[6px] uppercase mb-4 sm:mb-6">
               Mission
             </span>
-            <h2 className="text-lg sm:text-xl font-heading font-semibold text-text-primary mb-4 sm:mb-6">
+            <h3 className="text-lg sm:text-xl font-heading font-semibold text-text-primary mb-4 sm:mb-6">
               Empowering the next generation of founders.
-            </h2>
+            </h3>
             <p className="font-heading font-normal text-text-secondary text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
               NX Research empowers students and early innovators to transform ideas into real startups by offering mentorship, technical guidance, research opportunities, collaborations, and strategic support.
             </p>

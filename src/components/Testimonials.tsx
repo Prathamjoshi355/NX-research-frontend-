@@ -119,9 +119,10 @@ export default function Testimonials() {
                       alt={testimonials[currentIndex].name} 
                       className="w-14 h-14 rounded-full border-2 border-neon-cyan/30 p-0.5" 
                       referrerPolicy="no-referrer" 
+                      loading="lazy"
                     />
                     <div className="text-left">
-                      <h4 className="text-text-primary font-bold text-base sm:text-lg">{testimonials[currentIndex].name}</h4>
+                      <h3 className="text-text-primary font-bold text-base sm:text-lg">{testimonials[currentIndex].name}</h3>
                       <p className="text-neon-cyan font-mono text-[10px] sm:text-[11px] uppercase tracking-[3px]">{testimonials[currentIndex].role}</p>
                     </div>
                   </div>

@@ -25,6 +25,7 @@ export default function Footer() {
 
               <a
                 href="https://www.linkedin.com/company/nx-research"
+                aria-label="LinkedIn"
                 className="w-10 h-10 rounded-full bg-bg-secondary flex items-center justify-center text-text-secondary hover:bg-neon-cyan hover:text-bg-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,212,255,0.1)] hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]"
               >
                 <Linkedin size={18} />
@@ -32,6 +33,7 @@ export default function Footer() {
 
               <a
                 href="https://www.instagram.com/nxresearch?igsh=NmtxbG9oNHNnMzd0"
+                aria-label="Instagram"
                 className="w-10 h-10 rounded-full bg-bg-secondary flex items-center justify-center text-text-secondary hover:bg-neon-cyan hover:text-bg-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,212,255,0.1)] hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]"
               >
                 <Instagram size={18} />
