@@ -11,7 +11,7 @@ import JoinPage from "./pages/JoinPage";
 import FCCPage from "./pages/FCC";
 import ScrollToTop from "./components/ScrollToTop";
 import FCCregistration from "./pages/FCCregistration"
-import NXForm from "./pages/JoinPage";
+// import NXForm from "./pages/JoinPage";
 
 function AppContent() {
   return (
@@ -27,7 +27,7 @@ function AppContent() {
         <Route path="/founder-circle" element={<FounderCirclePage />} />
         <Route path="/join" element={<JoinPage />} />
         <Route path="/FCC" element={<FCCPage />} />
-        <Route path="/join" element={<NXForm />} />
+        {/* <Route path="/join" element={<NXForm />} /> */}
         <Route path="/FCCregistration" element={<FCCregistration/>}/>
         {/* Add more routes here as they are built */}
       </Routes>
