@@ -88,7 +88,9 @@ const FCCRegistration: React.FC = () => {
   const isPersonalInfoComplete = () => 
     formData.firstName && formData.lastName && formData.personalEmail && 
     formData.professionalEmail && formData.personalContact && formData.professionalContact && 
-    formData.gender && formData.pronoun && formData.city && formData.state;
+    // gender must be one of the defined options now that it's a select
+    ['Female','Male','Other'].includes(formData.gender) && 
+    formData.pronoun && formData.city && formData.state;
   
   const isCategoryComplete = () => formData.category !== null;
   
@@ -180,7 +182,19 @@ const FCCRegistration: React.FC = () => {
               <Input label="Professional Email" type="email" value={formData.professionalEmail} onChange={v => handleInputChange('professionalEmail', v)} />
               <Input label="Personal Contact" value={formData.personalContact} onChange={v => handleInputChange('personalContact', v)} />
               <Input label="Professional Contact" value={formData.professionalContact} onChange={v => handleInputChange('professionalContact', v)} />
-              <Input label="Gender" value={formData.gender} onChange={v => handleInputChange('gender', v)} />
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-nx-gray">Gender</label>
+                <select
+                  className="w-full px-4 py-3 bg-nx-navy border border-nx-steel rounded-lg focus:ring-2 focus:ring-nx-cyan outline-none transition-all text-nx-white"
+                  value={formData.gender}
+                  onChange={(e) => handleInputChange('gender', e.target.value)}
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Female">Female</option>
+                  <option value="Male">Male</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-nx-gray">Pronoun</label>
                 <select 
@@ -267,7 +281,7 @@ const FCCRegistration: React.FC = () => {
 
       case Step.SELECT_CATEGORY:
         const categories = [
-          { id: 'STUDENT', label: 'Student', icon: GraduationCap },
+          // { id: 'STUDENT', label: 'Student', icon: GraduationCap },
           { id: 'STARTUP', label: 'Start Up', icon: Rocket },
           { id: 'INVESTOR', label: 'Investor', icon: Briefcase },
           // { id: 'ORGANIZER', label: 'Organizer', icon: Users },
@@ -297,116 +311,116 @@ const FCCRegistration: React.FC = () => {
         );
 
       case Step.CATEGORY_DETAILS:
-        if (formData.category === 'STUDENT') {
-          // ensure studentInfo exists
-          if (!formData.studentInfo) {
-            // defensive: initialize if missing
-            handleInputChange('category', 'STUDENT');
-            return null;
-          }
-          const s = formData.studentInfo;
-          return (
-            <div className="animate-in slide-in-from-right-8 duration-300">
-              <CollapsibleSection title="Student Details" defaultOpen>
-                <div className="p-8 space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <Input label="Academic Institution Name" value={s.institution} onChange={(v) => handleInputChange('studentInfo', { ...s, institution: v })} />
-                    <Input label="Degree Program" value={s.degreeProgram} onChange={(v) => handleInputChange('studentInfo', { ...s, degreeProgram: v })} />
-                    <Input label="Degree Level" value={s.degreeLevel} onChange={(v) => handleInputChange('studentInfo', { ...s, degreeLevel: v })} />
-                    <Input label="Expected Graduation Year" value={s.graduationYear} onChange={(v) => handleInputChange('studentInfo', { ...s, graduationYear: v })} />
-                  </div>
-                  <div className="bg-nx-muted/30 p-6 rounded-2xl border border-nx-steel/30 space-y-6">
-                    <p className="font-semibold text-nx-white">Are you registering solo or group?</p>
-                    <div className="flex gap-8">
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="registrationType" className="w-4 h-4 text-nx-cyan" checked={!s.isGroup} onChange={() => {
-                          const full = `${formData.firstName} ${formData.lastName}`.trim();
-                          handleInputChange('studentInfo', { ...s, isGroup: false, members: [full || ''], memberCount: 1 });
-                        }} />
-                        <span className="text-sm font-medium text-nx-white">Solo</span>
-                      </label>
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="registrationType" className="w-4 h-4 text-nx-cyan" checked={s.isGroup} onChange={() => {
-                          const full = `${formData.firstName} ${formData.lastName}`.trim();
-                          const members = [full || '', '', ''];
-                          handleInputChange('studentInfo', { ...s, isGroup: true, members, memberCount: 3 });
-                        }} />
-                        <span className="text-sm font-medium text-nx-white">Group</span>
-                      </label>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-nx-steel/30">
-                      <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase text-nx-gray">Number of Members</label>
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="number"
-                            min={1}
-                            max={4}
-                            value={s.isGroup ? (s.memberCount || 1) : 1}
-                            onChange={s.isGroup ? (e: any) => {
-                              const newCount = Math.max(1, Math.min(4, Number(e.target.value || 1)));
-                              const newMembers = [...(s.members || [])];
-                              while (newMembers.length < newCount) newMembers.push('');
-                              newMembers.length = newCount;
-                              handleInputChange('studentInfo', { ...s, memberCount: newCount, members: newMembers });
-                            } : undefined}
-                            disabled={!s.isGroup}
-                            readOnly={!s.isGroup}
-                            className="w-24 p-3 bg-nx-navy border border-nx-steel rounded-lg outline-none text-nx-white"
-                          />
-                        </div>
-                        <p className="text-xs text-nx-gray">Include yourself as the first member; max 4.</p>
-                      </div>
-                      <Input label="Group Name" value={s.groupName} onChange={(v) => handleInputChange('studentInfo', { ...s, groupName: v })} />
-                    </div>
-                    <div className="space-y-4">
-                      <label className="text-xs font-bold uppercase text-nx-gray">Members Names</label>
-                      {!s.isGroup ? (
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-2">
-                            <input
-                              value={`${formData.firstName} ${formData.lastName}`.trim()}
-                              readOnly
-                              className="w-full p-3 bg-nx-muted/50 border border-nx-steel rounded-lg outline-none text-nx-gray"
-                            />
-                          </div>
-                          <div className="text-xs text-nx-gray">Solo registration — just you (read-only).</div>
-                        </div>
-                      ) : (
-                        <div className="space-y-3">
-                          {Array.from({ length: s.memberCount || 1 }).map((_, idx) => (
-                            <div key={idx} className="flex items-center gap-2">
-                              {idx === 0 ? (
-                                <input
-                                  value={`${formData.firstName} ${formData.lastName}`.trim()}
-                                  readOnly
-                                  className="w-full p-3 bg-nx-muted/50 border border-nx-steel rounded-lg outline-none text-nx-gray"
-                                />
-                              ) : (
-                                <input
-                                  value={(s.members && s.members[idx]) || ''}
-                                  onChange={(e) => {
-                                    const newMembers = [...(s.members || [])];
-                                    while (newMembers.length < (s.memberCount || 1)) newMembers.push('');
-                                    newMembers[idx] = e.target.value;
-                                    handleInputChange('studentInfo', { ...s, members: newMembers });
-                                  }}
-                                  placeholder={`Member ${idx + 1}`}
-                                  className="w-full p-3 bg-nx-navy border border-nx-steel rounded-lg outline-none focus:ring-2 focus:ring-nx-cyan text-nx-white"
-                                />
-                              )}
-                            </div>
-                          ))}
-                          <div className="text-xs text-nx-gray">First member is you (read-only).</div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </CollapsibleSection>
-            </div>
-          );
-        }
+        // if (formData.category === 'STUDENT') {
+        //   // ensure studentInfo exists
+        //   if (!formData.studentInfo) {
+        //     // defensive: initialize if missing
+        //     handleInputChange('category', 'STUDENT');
+        //     return null;
+        //   }
+        //   const s = formData.studentInfo;
+        //   return (
+        //     <div className="animate-in slide-in-from-right-8 duration-300">
+        //       <CollapsibleSection title="Student Details" defaultOpen>
+        //         <div className="p-8 space-y-8">
+        //           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        //             <Input label="Academic Institution Name" value={s.institution} onChange={(v) => handleInputChange('studentInfo', { ...s, institution: v })} />
+        //             <Input label="Degree Program" value={s.degreeProgram} onChange={(v) => handleInputChange('studentInfo', { ...s, degreeProgram: v })} />
+        //             <Input label="Degree Level" value={s.degreeLevel} onChange={(v) => handleInputChange('studentInfo', { ...s, degreeLevel: v })} />
+        //             <Input label="Expected Graduation Year" value={s.graduationYear} onChange={(v) => handleInputChange('studentInfo', { ...s, graduationYear: v })} />
+        //           </div>
+        //           <div className="bg-nx-muted/30 p-6 rounded-2xl border border-nx-steel/30 space-y-6">
+        //             <p className="font-semibold text-nx-white">Are you registering solo or group?</p>
+        //             <div className="flex gap-8">
+        //               <label className="flex items-center gap-2 cursor-pointer">
+        //                 <input type="radio" name="registrationType" className="w-4 h-4 text-nx-cyan" checked={!s.isGroup} onChange={() => {
+        //                   const full = `${formData.firstName} ${formData.lastName}`.trim();
+        //                   handleInputChange('studentInfo', { ...s, isGroup: false, members: [full || ''], memberCount: 1 });
+        //                 }} />
+        //                 <span className="text-sm font-medium text-nx-white">Solo</span>
+        //               </label>
+        //               <label className="flex items-center gap-2 cursor-pointer">
+        //                 <input type="radio" name="registrationType" className="w-4 h-4 text-nx-cyan" checked={s.isGroup} onChange={() => {
+        //                   const full = `${formData.firstName} ${formData.lastName}`.trim();
+        //                   const members = [full || '', '', ''];
+        //                   handleInputChange('studentInfo', { ...s, isGroup: true, members, memberCount: 3 });
+        //                 }} />
+        //                 <span className="text-sm font-medium text-nx-white">Group</span>
+        //               </label>
+        //             </div>
+        //             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-nx-steel/30">
+        //               <div className="space-y-2">
+        //                 <label className="text-xs font-bold uppercase text-nx-gray">Number of Members</label>
+        //                 <div className="flex items-center gap-2">
+        //                   <input
+        //                     type="number"
+        //                     min={1}
+        //                     max={4}
+        //                     value={s.isGroup ? (s.memberCount || 1) : 1}
+        //                     onChange={s.isGroup ? (e: any) => {
+        //                       const newCount = Math.max(1, Math.min(4, Number(e.target.value || 1)));
+        //                       const newMembers = [...(s.members || [])];
+        //                       while (newMembers.length < newCount) newMembers.push('');
+        //                       newMembers.length = newCount;
+        //                       handleInputChange('studentInfo', { ...s, memberCount: newCount, members: newMembers });
+        //                     } : undefined}
+        //                     disabled={!s.isGroup}
+        //                     readOnly={!s.isGroup}
+        //                     className="w-24 p-3 bg-nx-navy border border-nx-steel rounded-lg outline-none text-nx-white"
+        //                   />
+        //                 </div>
+        //                 <p className="text-xs text-nx-gray">Include yourself as the first member; max 4.</p>
+        //               </div>
+        //               <Input label="Group Name" value={s.groupName} onChange={(v) => handleInputChange('studentInfo', { ...s, groupName: v })} />
+        //             </div>
+        //             <div className="space-y-4">
+        //               <label className="text-xs font-bold uppercase text-nx-gray">Members Names</label>
+        //               {!s.isGroup ? (
+        //                 <div className="space-y-3">
+        //                   <div className="flex items-center gap-2">
+        //                     <input
+        //                       value={`${formData.firstName} ${formData.lastName}`.trim()}
+        //                       readOnly
+        //                       className="w-full p-3 bg-nx-muted/50 border border-nx-steel rounded-lg outline-none text-nx-gray"
+        //                     />
+        //                   </div>
+        //                   <div className="text-xs text-nx-gray">Solo registration — just you (read-only).</div>
+        //                 </div>
+        //               ) : (
+        //                 <div className="space-y-3">
+        //                   {Array.from({ length: s.memberCount || 1 }).map((_, idx) => (
+        //                     <div key={idx} className="flex items-center gap-2">
+        //                       {idx === 0 ? (
+        //                         <input
+        //                           value={`${formData.firstName} ${formData.lastName}`.trim()}
+        //                           readOnly
+        //                           className="w-full p-3 bg-nx-muted/50 border border-nx-steel rounded-lg outline-none text-nx-gray"
+        //                         />
+        //                       ) : (
+        //                         <input
+        //                           value={(s.members && s.members[idx]) || ''}
+        //                           onChange={(e) => {
+        //                             const newMembers = [...(s.members || [])];
+        //                             while (newMembers.length < (s.memberCount || 1)) newMembers.push('');
+        //                             newMembers[idx] = e.target.value;
+        //                             handleInputChange('studentInfo', { ...s, members: newMembers });
+        //                           }}
+        //                           placeholder={`Member ${idx + 1}`}
+        //                           className="w-full p-3 bg-nx-navy border border-nx-steel rounded-lg outline-none focus:ring-2 focus:ring-nx-cyan text-nx-white"
+        //                         />
+        //                       )}
+        //                     </div>
+        //                   ))}
+        //                   <div className="text-xs text-nx-gray">First member is you (read-only).</div>
+        //                 </div>
+        //               )}
+        //             </div>
+        //           </div>
+        //         </div>
+        //       </CollapsibleSection>
+        //     </div>
+        //   );
+        // }
         if (formData.category === 'STARTUP') {
           return (
             <div className="animate-in slide-in-from-right-8 duration-300">
@@ -424,7 +438,7 @@ const FCCRegistration: React.FC = () => {
                         ))}
                       </div>
                     </div>
-                    <Input label="Member Count (Range 5)" type="number" />
+                    <Input label="Member Count (Range 2)" type="number" min="1" max="2" />
                     <Input label="Industry (Optional)" />
                   </div>
                   <div className="flex items-center justify-between p-6 bg-nx-cyan/10 rounded-2xl border border-nx-cyan/20">
