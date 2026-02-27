@@ -1,17 +1,20 @@
 
 import React, { useState } from 'react';
-import { Step, FormData, INITIAL_FORM_DATA, Category } from '../FCCtypes';
+import { motion, AnimatePresence } from 'motion/react';
+import { Step, FormData, INITIAL_FORM_DATA } from '../FCCtypes';
 import Sidebar from '../components/FCCRegistrationSidebar';
 import StepIndicator from '../components/FCCRegistrationStepIndicator';
 import { fccAPI } from '../api';
-import { ChevronDown, ChevronUp, Plus, Trash2, GraduationCap, Rocket, Briefcase, Users, Layout, Loader } from 'lucide-react';
-// Note: CreditCard icon removed since payment step was eliminated
+import { ChevronDown, ChevronUp, Plus, Trash2, GraduationCap, Rocket, Briefcase, Loader, CheckCircle } from 'lucide-react';
+import './Formindex.css';
 
 const FCCRegistration: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<Step>(Step.AGREEMENTS);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [registrationId, setRegistrationId] = useState<string | null>(null);
 
   const submitForm = async () => {
     setIsSubmitting(true);
@@ -19,18 +22,15 @@ const FCCRegistration: React.FC = () => {
     try {
       const response = await fccAPI.saveRegistration(formData);
       if (response.success) {
-        alert(`✅ Registration Submitted Successfully!\nRegistration ID: ${response.registrationId}`);
-        // Reset form
+        setRegistrationId(response.registrationId || null);
+        setIsSubmitted(true);
         setFormData(INITIAL_FORM_DATA);
-        setCurrentStep(Step.AGREEMENTS);
       } else {
         setSubmitError(response.message || 'Submission failed');
-        alert(`❌ Error: ${response.message}`);
       }
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'Unknown error occurred';
       setSubmitError(errorMsg);
-      alert(`❌ Error submitting form: ${errorMsg}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -132,41 +132,41 @@ const FCCRegistration: React.FC = () => {
       case Step.AGREEMENTS:
         return (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <CollapsibleSection title="Registration Notifications" defaultOpen>
-              <div className="p-6 space-y-4 text-slate-600 leading-relaxed">
-                <p>We'll send you important updates regarding the event schedule, networking opportunities, and logistics via your registered email and contact number.</p>
-              </div>
-              <div className="p-6 bg-slate-50 border-t border-slate-100">
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <input 
-                    type="checkbox" 
-                    checked={formData.receiveNotifications}
-                    onChange={(e) => handleInputChange('receiveNotifications', e.target.checked)}
-                    className="w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <span className="text-sm font-medium group-hover:text-indigo-600 transition-colors">I wish to receive notifications</span>
-                </label>
-              </div>
-            </CollapsibleSection>
+      <CollapsibleSection title="Registration Notifications" defaultOpen>
+        <div className="p-6 space-y-4 text-nx-gray leading-relaxed">
+          <p>We'll send you important updates regarding the event schedule, networking opportunities, and logistics via your registered email and contact number.</p>
+        </div>
+        <div className="p-6 bg-nx-muted/50 border-t border-nx-steel/30">
+          <label className="flex items-center gap-3 cursor-pointer group">
+            <input 
+              type="checkbox" 
+              checked={formData.receiveNotifications}
+              onChange={(e) => handleInputChange('receiveNotifications', e.target.checked)}
+              className="w-5 h-5 rounded border-nx-steel bg-nx-navy text-nx-cyan focus:ring-nx-cyan"
+            />
+            <span className="text-sm font-medium group-hover:text-nx-cyan transition-colors">I wish to receive notifications</span>
+          </label>
+        </div>
+      </CollapsibleSection>
 
-            <CollapsibleSection title="Privacy and Terms" defaultOpen>
-              <div className="p-6 space-y-4 text-slate-600 leading-relaxed max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200">
-                <p>By registering for this event, you agree to our standard privacy policy and terms of service. We respect your data and will never sell it to third parties.</p>
-                <p>Participants are expected to maintain professional conduct throughout the sessions. Any form of harassment or unprofessional behavior will lead to immediate disqualification without refund.</p>
-                <p>Photography and videography will be conducted during the event for promotional purposes. By attending, you grant permission for your likeness to be used in event media.</p>
-              </div>
-              <div className="p-6 bg-slate-50 border-t border-slate-100">
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <input 
-                    type="checkbox" 
-                    checked={formData.agreedToTerms}
-                    onChange={(e) => handleInputChange('agreedToTerms', e.target.checked)}
-                    className="w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <span className="text-sm font-medium group-hover:text-indigo-600 transition-colors">I agree and wish to continue</span>
-                </label>
-              </div>
-            </CollapsibleSection>
+      <CollapsibleSection title="Privacy and Terms" defaultOpen>
+        <div className="p-6 space-y-4 text-nx-gray leading-relaxed max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-nx-steel">
+          <p>By registering for this event, you agree to our standard privacy policy and terms of service. We respect your data and will never sell it to third parties.</p>
+          <p>Participants are expected to maintain professional conduct throughout the sessions. Any form of harassment or unprofessional behavior will lead to immediate disqualification without refund.</p>
+          <p>Photography and videography will be conducted during the event for promotional purposes. By attending, you grant permission for your likeness to be used in event media.</p>
+        </div>
+        <div className="p-6 bg-nx-muted/50 border-t border-nx-steel/30">
+          <label className="flex items-center gap-3 cursor-pointer group">
+            <input 
+              type="checkbox" 
+              checked={formData.agreedToTerms}
+              onChange={(e) => handleInputChange('agreedToTerms', e.target.checked)}
+              className="w-5 h-5 rounded border-nx-steel bg-nx-navy text-nx-cyan focus:ring-nx-cyan"
+            />
+            <span className="text-sm font-medium group-hover:text-nx-cyan transition-colors">I agree and wish to continue</span>
+          </label>
+        </div>
+      </CollapsibleSection>
           </div>
         );
 
@@ -182,9 +182,9 @@ const FCCRegistration: React.FC = () => {
               <Input label="Professional Contact" value={formData.professionalContact} onChange={v => handleInputChange('professionalContact', v)} />
               <Input label="Gender" value={formData.gender} onChange={v => handleInputChange('gender', v)} />
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-700">Pronoun</label>
+                <label className="text-sm font-semibold text-nx-gray">Pronoun</label>
                 <select 
-                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-none focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  className="w-full px-4 py-3 bg-nx-navy border border-nx-steel rounded-lg focus:ring-2 focus:ring-nx-cyan outline-none transition-all text-nx-white"
                   value={formData.pronoun}
                   onChange={(e) => handleInputChange('pronoun', e.target.value)}
                 >
@@ -196,9 +196,9 @@ const FCCRegistration: React.FC = () => {
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-700">Select your City</label>
+                <label className="text-sm font-semibold text-nx-gray">Select your City</label>
                 <select 
-                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-none focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  className="w-full px-4 py-3 bg-nx-navy border border-nx-steel rounded-lg focus:ring-2 focus:ring-nx-cyan outline-none transition-all text-nx-white"
                   value={formData.city}
                   onChange={(e) => handleInputChange('city', e.target.value)}
                 >
@@ -224,9 +224,9 @@ const FCCRegistration: React.FC = () => {
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-700">Select your State</label>
+                <label className="text-sm font-semibold text-nx-gray">Select your State</label>
                 <select 
-                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-none focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  className="w-full px-4 py-3 bg-nx-navy border border-nx-steel rounded-lg focus:ring-2 focus:ring-nx-cyan outline-none transition-all text-nx-white"
                   value={formData.state}
                   onChange={(e) => handleInputChange('state', e.target.value)}
                 >
@@ -284,10 +284,10 @@ const FCCRegistration: React.FC = () => {
                     key={cat.id}
                     onClick={() => handleInputChange('category', cat.id)}
                     className={`flex flex-col items-center gap-4 p-8 rounded-2xl border-2 transition-all duration-300 ${
-                      isSelected ? 'border-indigo-600 bg-indigo-50 text-indigo-600 shadow-md' : 'border-slate-100 bg-white hover:border-indigo-200 hover:bg-slate-50 text-slate-500'
+                      isSelected ? 'border-nx-cyan bg-nx-cyan/10 text-nx-cyan shadow-lg shadow-nx-cyan/20' : 'border-nx-steel/30 bg-nx-muted/30 hover:border-nx-cyan/50 hover:bg-nx-muted/50 text-nx-gray'
                     }`}
                   >
-                    <Icon className={`w-12 h-12 ${isSelected ? 'animate-bounce' : ''}`} />
+                    <Icon className={`w-12 h-12 ${isSelected ? 'animate-pulse' : ''}`} />
                     <span className="font-bold uppercase tracking-wider text-sm">{cat.label}</span>
                   </button>
                 );
@@ -315,28 +315,28 @@ const FCCRegistration: React.FC = () => {
                     <Input label="Degree Level" value={s.degreeLevel} onChange={(v) => handleInputChange('studentInfo', { ...s, degreeLevel: v })} />
                     <Input label="Expected Graduation Year" value={s.graduationYear} onChange={(v) => handleInputChange('studentInfo', { ...s, graduationYear: v })} />
                   </div>
-                  <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-6">
-                    <p className="font-semibold text-slate-800">Are you registering solo or group?</p>
+                  <div className="bg-nx-muted/30 p-6 rounded-2xl border border-nx-steel/30 space-y-6">
+                    <p className="font-semibold text-nx-white">Are you registering solo or group?</p>
                     <div className="flex gap-8">
                       <label className="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="registrationType" className="w-4 h-4 text-indigo-600" checked={!s.isGroup} onChange={() => {
+                        <input type="radio" name="registrationType" className="w-4 h-4 text-nx-cyan" checked={!s.isGroup} onChange={() => {
                           const full = `${formData.firstName} ${formData.lastName}`.trim();
                           handleInputChange('studentInfo', { ...s, isGroup: false, members: [full || ''], memberCount: 1 });
                         }} />
-                        <span className="text-sm font-medium">Solo</span>
+                        <span className="text-sm font-medium text-nx-white">Solo</span>
                       </label>
                       <label className="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="registrationType" className="w-4 h-4 text-indigo-600" checked={s.isGroup} onChange={() => {
+                        <input type="radio" name="registrationType" className="w-4 h-4 text-nx-cyan" checked={s.isGroup} onChange={() => {
                           const full = `${formData.firstName} ${formData.lastName}`.trim();
                           const members = [full || '', '', ''];
                           handleInputChange('studentInfo', { ...s, isGroup: true, members, memberCount: 3 });
                         }} />
-                        <span className="text-sm font-medium">Group</span>
+                        <span className="text-sm font-medium text-nx-white">Group</span>
                       </label>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-200">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-nx-steel/30">
                       <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase text-slate-400">Number of Members</label>
+                        <label className="text-xs font-bold uppercase text-nx-gray">Number of Members</label>
                         <div className="flex items-center gap-2">
                           <input
                             type="number"
@@ -352,25 +352,25 @@ const FCCRegistration: React.FC = () => {
                             } : undefined}
                             disabled={!s.isGroup}
                             readOnly={!s.isGroup}
-                            className="w-24 p-3 bg-white border border-slate-200 rounded-none outline-none"
+                            className="w-24 p-3 bg-nx-navy border border-nx-steel rounded-lg outline-none text-nx-white"
                           />
                         </div>
-                        <p className="text-xs text-slate-400">Include yourself as the first member; max 4.</p>
+                        <p className="text-xs text-nx-gray">Include yourself as the first member; max 4.</p>
                       </div>
                       <Input label="Group Name" value={s.groupName} onChange={(v) => handleInputChange('studentInfo', { ...s, groupName: v })} />
                     </div>
                     <div className="space-y-4">
-                      <label className="text-xs font-bold uppercase text-slate-400">Members Names</label>
+                      <label className="text-xs font-bold uppercase text-nx-gray">Members Names</label>
                       {!s.isGroup ? (
                         <div className="space-y-3">
                           <div className="flex items-center gap-2">
                             <input
                               value={`${formData.firstName} ${formData.lastName}`.trim()}
                               readOnly
-                              className="w-full p-3 bg-slate-100 border border-slate-200 rounded-lg outline-none"
+                              className="w-full p-3 bg-nx-muted/50 border border-nx-steel rounded-lg outline-none text-nx-gray"
                             />
                           </div>
-                          <div className="text-xs text-slate-400">Solo registration — just you (read-only).</div>
+                          <div className="text-xs text-nx-gray">Solo registration — just you (read-only).</div>
                         </div>
                       ) : (
                         <div className="space-y-3">
@@ -380,7 +380,7 @@ const FCCRegistration: React.FC = () => {
                                 <input
                                   value={`${formData.firstName} ${formData.lastName}`.trim()}
                                   readOnly
-                                  className="w-full p-3 bg-slate-100 border border-slate-200 rounded-lg outline-none"
+                                  className="w-full p-3 bg-nx-muted/50 border border-nx-steel rounded-lg outline-none text-nx-gray"
                                 />
                               ) : (
                                 <input
@@ -392,12 +392,12 @@ const FCCRegistration: React.FC = () => {
                                     handleInputChange('studentInfo', { ...s, members: newMembers });
                                   }}
                                   placeholder={`Member ${idx + 1}`}
-                                  className="w-full p-3 bg-white border border-slate-200 rounded-none outline-none focus:ring-2 focus:ring-indigo-500"
+                                  className="w-full p-3 bg-nx-navy border border-nx-steel rounded-lg outline-none focus:ring-2 focus:ring-nx-cyan text-nx-white"
                                 />
                               )}
                             </div>
                           ))}
-                          <div className="text-xs text-slate-400">First member is you (read-only).</div>
+                          <div className="text-xs text-nx-gray">First member is you (read-only).</div>
                         </div>
                       )}
                     </div>
@@ -415,10 +415,10 @@ const FCCRegistration: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <Input label="Startup Name" />
                     <div className="space-y-2">
-                      <label className="text-sm font-semibold text-slate-700">Stage</label>
-                      <div className="flex rounded-lg overflow-hidden border border-slate-200">
+                      <label className="text-sm font-semibold text-nx-gray">Stage</label>
+                      <div className="flex rounded-lg overflow-hidden border border-nx-steel/30">
                         {['IDEA', 'MVP', 'REVENUE'].map(stage => (
-                          <button key={stage} className="flex-1 py-3 text-xs font-bold hover:bg-slate-50 transition-colors border-r last:border-0 uppercase tracking-tighter">
+                          <button key={stage} className="flex-1 py-3 text-xs font-bold hover:bg-nx-muted/50 transition-colors border-r border-nx-steel/30 last:border-0 uppercase tracking-tighter text-nx-white">
                             {stage}
                           </button>
                         ))}
@@ -427,10 +427,10 @@ const FCCRegistration: React.FC = () => {
                     <Input label="Member Count (Range 5)" type="number" />
                     <Input label="Industry (Optional)" />
                   </div>
-                  <div className="flex items-center justify-between p-6 bg-indigo-50 rounded-2xl border border-indigo-100">
+                  <div className="flex items-center justify-between p-6 bg-nx-cyan/10 rounded-2xl border border-nx-cyan/20">
                     <div className="space-y-1">
-                      <p className="font-bold text-indigo-900">Promotion Listing</p>
-                      <p className="text-xs text-indigo-600">Get listed in our startup directory</p>
+                      <p className="font-bold text-nx-white">Promotion Listing</p>
+                      <p className="text-xs text-nx-cyan">Get listed in our startup directory</p>
                     </div>
                     <ToggleButton />
                   </div>
@@ -446,33 +446,33 @@ const FCCRegistration: React.FC = () => {
                 <div className="p-8 space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <Input label="Company Name (Optional)" />
-                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
-                      <span className="text-sm font-semibold">Promotion List</span>
-                      <ToggleButton />
-                    </div>
+                  <div className="flex items-center justify-between p-4 bg-nx-muted/50 rounded-xl border border-nx-steel/30">
+                    <span className="text-sm font-semibold text-nx-white">Promotion List</span>
+                    <ToggleButton />
                   </div>
-                  <div className="p-6 bg-amber-50 rounded-2xl border border-amber-100 space-y-4">
-                    <p className="text-sm text-amber-900 leading-relaxed italic">
-                      "If you have your logo or Poster design for standees, send via email. If not, only send logo via email!"
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm font-bold text-amber-700">Our email:</span>
-                      <span className="text-indigo-600 font-mono text-sm underline cursor-pointer">logos@event.com</span>
-                    </div>
+                </div>
+                <div className="p-6 bg-nx-cyan/5 rounded-2xl border border-nx-cyan/20 space-y-4">
+                  <p className="text-sm text-nx-cyan leading-relaxed italic">
+                    "If you have your logo or Poster design for standees, send via email. If not, only send logo via email!"
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-bold text-nx-white">Our email:</span>
+                    <span className="text-nx-cyan font-mono text-sm underline cursor-pointer">logos@event.com</span>
                   </div>
+                </div>
                 </div>
               </CollapsibleSection>
             </div>
           );
         }
-        return <div className="p-12 text-center text-slate-400 italic">No details needed for this category. Click Next.</div>;
+        return <div className="p-12 text-center text-nx-gray italic">No details needed for this category. Click Next.</div>;
 
       case Step.ADDITIONAL_INFO:
         return (
           <div className="space-y-8 animate-in slide-in-from-right-8 duration-300">
             <CollapsibleSection title="Additional Information" defaultOpen>
               <div className="p-8 space-y-6">
-                <p className="font-semibold text-slate-800">Which of the following you interest?</p>
+                <p className="font-semibold text-nx-white">Which of the following you interest?</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[
                     'Networking',
@@ -481,10 +481,10 @@ const FCCRegistration: React.FC = () => {
                     'Collaboration / Team Members',
                     'Learning / Exposure'
                   ].map((interest) => (
-                    <label key={interest} className="flex items-center gap-3 p-4 rounded-xl border border-slate-100 hover:bg-slate-50 transition-colors cursor-pointer">
+                    <label key={interest} className="flex items-center gap-3 p-4 rounded-xl border border-nx-steel/30 hover:bg-nx-muted/50 transition-colors cursor-pointer">
                       <input 
                         type="checkbox" 
-                        className="w-5 h-5 rounded border-slate-300 text-indigo-600"
+                        className="w-5 h-5 rounded border-nx-steel bg-nx-navy text-nx-cyan focus:ring-nx-cyan"
                         checked={formData.interests.includes(interest)}
                         onChange={(e) => {
                           const newInterests = e.target.checked 
@@ -493,7 +493,7 @@ const FCCRegistration: React.FC = () => {
                           handleInputChange('interests', newInterests);
                         }}
                       />
-                      <span className="text-sm font-medium text-slate-700">{interest}</span>
+                      <span className="text-sm font-medium text-nx-gray">{interest}</span>
                     </label>
                   ))}
                 </div>
@@ -505,7 +505,7 @@ const FCCRegistration: React.FC = () => {
                 {formData.socialNetworks.map((net, idx) => (
                   <div key={idx} className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end group animate-in slide-in-from-top-2">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold uppercase text-slate-400">Social Network</label>
+                      <label className="text-xs font-bold uppercase text-nx-gray">Social Network</label>
                       <input 
                         placeholder="e.g. LinkedIn"
                         value={net.platform}
@@ -514,11 +514,11 @@ const FCCRegistration: React.FC = () => {
                           newNets[idx].platform = e.target.value;
                           handleInputChange('socialNetworks', newNets);
                         }}
-                        className="w-full p-4 bg-white border border-slate-200 rounded-none outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="w-full p-4 bg-nx-navy border border-nx-steel rounded-lg outline-none focus:ring-2 focus:ring-nx-cyan text-nx-white"
                       />
                     </div>
                     <div className="space-y-2 relative">
-                      <label className="text-xs font-bold uppercase text-slate-400">URL</label>
+                      <label className="text-xs font-bold uppercase text-nx-gray">URL</label>
                       <div className="flex gap-2">
                         <input 
                           placeholder="https://..."
@@ -528,7 +528,7 @@ const FCCRegistration: React.FC = () => {
                             newNets[idx].url = e.target.value;
                             handleInputChange('socialNetworks', newNets);
                           }}
-                          className="flex-1 p-4 bg-white border border-slate-200 rounded-none outline-none focus:ring-2 focus:ring-indigo-500"
+                          className="flex-1 p-4 bg-nx-navy border border-nx-steel rounded-lg outline-none focus:ring-2 focus:ring-nx-cyan text-nx-white"
                         />
                         {idx > 0 && (
                           <button 
@@ -536,7 +536,7 @@ const FCCRegistration: React.FC = () => {
                               const newNets = formData.socialNetworks.filter((_, i) => i !== idx);
                               handleInputChange('socialNetworks', newNets);
                             }}
-                            className="p-4 text-rose-500 bg-rose-50 rounded-xl hover:bg-rose-100 transition-colors"
+                            className="p-4 text-rose-500 bg-rose-500/10 rounded-xl hover:bg-rose-500/20 transition-colors"
                           >
                             <Trash2 className="w-5 h-5" />
                           </button>
@@ -547,12 +547,12 @@ const FCCRegistration: React.FC = () => {
                 ))}
                 <button 
                   onClick={() => handleInputChange('socialNetworks', [...formData.socialNetworks, { platform: '', url: '' }])}
-                  className="flex items-center gap-2 px-6 py-4 rounded-xl border-2 border-dashed border-slate-200 text-slate-500 hover:border-indigo-400 hover:text-indigo-600 transition-all w-full justify-center group"
+                  className="flex items-center gap-2 px-6 py-4 rounded-xl border-2 border-dashed border-nx-steel/50 text-nx-gray hover:border-nx-cyan hover:text-nx-cyan transition-all w-full justify-center group"
                 >
                   <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform" />
                   <span className="font-bold">Add Another Social Platform</span>
                 </button>
-                <div className="text-xs text-slate-400 mt-2">Add Social Media profile for community</div>
+                <div className="text-xs text-nx-gray mt-2">Add Social Media profile for community</div>
               </div>
             </CollapsibleSection>
           </div>
@@ -568,65 +568,108 @@ const FCCRegistration: React.FC = () => {
   const isLastStep = currentStep === Step.ADDITIONAL_INFO;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-nx-navy text-nx-white">
       <main className="flex-1 overflow-y-auto">
-        <div className="max-w-7xl mx-auto py-12 px-2 pl-0">
-          <div className="flex flex-col lg:flex-row gap-8 mb-12">
-            {/* Sidebar Progress Box */}
-            <div className="w-full lg:w-72 flex-shrink-0">
-              <Sidebar currentStep={currentStep} />
-            </div>
-            
-            {/* Main Content */}
-            <div className="flex-1 pr-0 lg:pr-8 pt-8 lg:pt-0">
-              <header className="mb-8">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-blue-600 mb-4">Registration</h1>
-              </header>
+        <div className="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+          <AnimatePresence mode="wait">
+            {isSubmitted ? (
+              <motion.div 
+                key="success"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                className="max-w-2xl mx-auto bg-nx-muted border border-nx-cyan/30 rounded-3xl p-8 sm:p-16 text-center shadow-2xl shadow-nx-cyan/10"
+              >
+                <div className="w-24 h-24 bg-nx-cyan/20 rounded-full flex items-center justify-center mx-auto mb-8">
+                  <CheckCircle className="w-12 h-12 text-nx-cyan" />
+                </div>
+                <h2 className="text-3xl sm:text-5xl font-extrabold text-nx-white mb-6">Registration Successful!</h2>
+                <p className="text-nx-gray text-xl mb-10 leading-relaxed">
+                  Thank you for registering. We will contact you with further details soon.
+                </p>
+                {registrationId && (
+                  <div className="bg-nx-navy/50 border border-nx-steel rounded-2xl p-6 mb-10">
+                    <p className="text-xs uppercase tracking-[0.2em] text-nx-gray mb-2 font-bold">Registration ID</p>
+                    <p className="text-2xl sm:text-3xl font-mono text-nx-cyan break-all">{registrationId}</p>
+                  </div>
+                )}
+                <button 
+                  onClick={() => {
+                    setIsSubmitted(false);
+                    setCurrentStep(Step.AGREEMENTS);
+                  }}
+                  className="w-full sm:w-auto px-12 py-5 bg-nx-cyan text-nx-navy font-extrabold rounded-xl hover:bg-white transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-nx-cyan/20"
+                >
+                  Back to Registration
+                </button>
+              </motion.div>
+            ) : (
+              <div key="form" className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+                {/* Sidebar Progress Box */}
+                <div className="w-full lg:w-80 flex-shrink-0">
+                  <Sidebar currentStep={currentStep} />
+                </div>
+                
+                {/* Main Content */}
+                <div className="flex-1">
+                  <header className="mb-10">
+                    <h1 className="text-4xl sm:text-6xl font-black text-nx-cyan mb-4 tracking-tighter">Registration</h1>
+                    <p className="text-nx-gray text-lg">Complete the steps below to join the community.</p>
+                  </header>
 
-              <StepIndicator currentStep={currentStep} />
+                  <StepIndicator currentStep={currentStep} />
 
-              <div className="min-h-[600px] mb-12">
-                {renderStepContent()}
-              </div>
-
-              <div className="sticky bottom-8 z-10">
-                <div className="flex flex-col sm:flex-row justify-end items-center gap-4 p-6">
-                  <button 
-                    onClick={prevStep}
-                    disabled={currentStep === Step.AGREEMENTS}
-                    className="px-8 py-4 rounded-lg font-bold text-slate-500 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 disabled:opacity-0 transition-all w-full sm:w-auto"
-                  >
-                    Previous Page
-                  </button>
-
-                  {isLastStep ? (
-                    <button 
-                      disabled={isSubmitting}
-                      className="px-12 py-4 bg-emerald-600 text-white border-2 border-emerald-700 rounded-lg font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto flex items-center justify-center gap-2"
-                      onClick={submitForm}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader className="w-5 h-5 animate-spin" />
-                          Submitting...
-                        </>
-                      ) : (
-                        'Submit Registration'
-                      )}
-                    </button>
-                  ) : (
-                    <button 
-                      onClick={nextStep}
-                      disabled={!isCurrentStepComplete()}
-                      className="px-12 py-4 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 disabled:bg-slate-300 disabled:shadow-none disabled:cursor-not-allowed transition-all hover:-translate-y-1 w-full sm:w-auto"
-                    >
-                      Next Page
-                    </button>
+                  {submitError && (
+                    <div className="mb-8 p-4 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-500 font-medium flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+                      {submitError}
+                    </div>
                   )}
+
+                  <div className="min-h-[500px] mb-12">
+                    {renderStepContent()}
+                  </div>
+
+                  <div className="sticky bottom-6 z-10">
+                    <div className="flex flex-col sm:flex-row justify-end items-center gap-4 p-6 bg-nx-navy/80 backdrop-blur-md border border-nx-steel/30 rounded-2xl shadow-xl">
+                      <button 
+                        onClick={prevStep}
+                        disabled={currentStep === Step.AGREEMENTS || isSubmitting}
+                        className="px-8 py-4 rounded-xl font-bold text-nx-gray bg-nx-muted border border-nx-steel hover:bg-nx-steel hover:text-nx-white disabled:opacity-0 transition-all w-full sm:w-auto"
+                      >
+                        Previous Page
+                      </button>
+
+                      {isLastStep ? (
+                        <button 
+                          disabled={isSubmitting || !isCurrentStepComplete()}
+                          className="px-12 py-4 bg-nx-cyan text-nx-navy border-2 border-nx-cyan rounded-xl font-black hover:bg-white hover:border-white shadow-lg shadow-nx-cyan/20 transition-all hover:-translate-y-1 disabled:opacity-30 disabled:cursor-not-allowed w-full sm:w-auto flex items-center justify-center gap-2"
+                          onClick={submitForm}
+                        >
+                          {isSubmitting ? (
+                            <>
+                              <Loader className="w-5 h-5 animate-spin" />
+                              Submitting...
+                            </>
+                          ) : (
+                            'Submit Registration'
+                          )}
+                        </button>
+                      ) : (
+                        <button 
+                          onClick={nextStep}
+                          disabled={!isCurrentStepComplete()}
+                          className="px-12 py-4 bg-nx-cyan text-nx-navy rounded-xl font-black hover:bg-white shadow-lg shadow-nx-cyan/20 disabled:bg-nx-steel disabled:text-nx-gray disabled:shadow-none disabled:cursor-not-allowed transition-all hover:-translate-y-1 w-full sm:w-auto"
+                        >
+                          Next Page
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            )}
+          </AnimatePresence>
         </div>
       </main>
     </div>
@@ -637,16 +680,18 @@ const FCCRegistration: React.FC = () => {
 const CollapsibleSection: React.FC<{ title: string, children: React.ReactNode, defaultOpen?: boolean }> = ({ title, children, defaultOpen = false }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
-    <div className="transition-all duration-300">
+    <div className="transition-all duration-300 mb-4">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center p-6 bg-white rounded-lg border border-slate-400 shadow-sm hover:bg-white transition-colors"
+        className="w-full flex justify-between items-center p-6 bg-nx-muted border border-nx-steel/50 rounded-xl shadow-lg hover:border-nx-cyan/50 transition-all"
       >
-        <span className="text-lg font-bold text-slate-800 tracking-tight">{title}</span>
-        {isOpen ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+        <span className="text-lg font-bold text-nx-white tracking-tight">{title}</span>
+        {isOpen ? <ChevronUp className="w-5 h-5 text-nx-cyan" /> : <ChevronDown className="w-5 h-5 text-nx-cyan" />}
       </button>
-      <div className={`transition-all duration-500 ${isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-        {children}
+      <div className={`transition-all duration-500 ${isOpen ? 'max-h-[2000px] opacity-100 mt-2' : 'max-h-0 opacity-0'} overflow-hidden`}>
+        <div className="bg-nx-muted/50 border border-nx-steel/30 rounded-xl overflow-hidden">
+          {children}
+        </div>
       </div>
     </div>
   );
@@ -654,12 +699,12 @@ const CollapsibleSection: React.FC<{ title: string, children: React.ReactNode, d
 
 const Input: React.FC<{ label: string, type?: string, value?: string, onChange?: (v: string) => void }> = ({ label, type = 'text', value, onChange }) => (
   <div className="space-y-2">
-    <label className="text-sm font-semibold text-slate-700">{label}</label>
+    <label className="text-sm font-semibold text-nx-gray">{label}</label>
     <input 
       type={type}
       value={value}
       onChange={(e) => onChange?.(e.target.value)}
-      className="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-none focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition-all font-medium text-slate-800 placeholder:text-slate-300"
+      className="w-full px-5 py-4 bg-nx-navy border border-nx-steel rounded-lg focus:ring-2 focus:ring-nx-cyan focus:border-nx-cyan outline-none transition-all font-medium text-nx-white placeholder:text-nx-steel"
       placeholder={`Enter ${label.toLowerCase()}...`}
     />
   </div>
@@ -670,7 +715,7 @@ const ToggleButton: React.FC = () => {
   return (
     <button 
       onClick={() => setActive(!active)}
-      className={`relative w-14 h-8 rounded-full transition-colors duration-300 p-1 ${active ? 'bg-indigo-600' : 'bg-slate-300'}`}
+      className={`relative w-14 h-8 rounded-full transition-colors duration-300 p-1 ${active ? 'bg-nx-cyan' : 'bg-nx-steel'}`}
     >
       <div className={`w-6 h-6 bg-white rounded-full shadow-md transition-transform duration-300 ${active ? 'translate-x-6' : 'translate-x-0'}`} />
     </button>

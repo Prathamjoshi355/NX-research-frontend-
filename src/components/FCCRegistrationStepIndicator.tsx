@@ -36,7 +36,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep }) => {
   ];
 
   return (
-    <div className="w-full mb-8 overflow-x-auto">
+    <div className="w-full mb-12 overflow-x-auto no-scrollbar">
       <div className="flex justify-between items-start px-4 sm:px-8 min-w-[600px]">
         {steps.map((item, idx) => {
           const Icon = item.icon;
@@ -44,23 +44,23 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep }) => {
           const isCompleted = currentStep > item.step;
           
           return (
-            <div key={idx} className="flex flex-col items-center gap-2 sm:gap-3">
+            <div key={idx} className="flex flex-col items-center gap-2 sm:gap-4 relative group">
               {/* Circle */}
-              <div className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full flex items-center justify-center transition-all duration-300 border-2 ${
+              <div className={`w-14 h-14 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center transition-all duration-500 border-2 ${
                 isActive 
-                  ? 'bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-200' 
+                  ? 'bg-nx-cyan border-nx-cyan text-nx-navy shadow-lg shadow-nx-cyan/30 scale-110' 
                   : isCompleted
-                  ? 'bg-blue-600 border-blue-600 text-white'
-                  : 'bg-white border-gray-300 text-gray-400'
+                  ? 'bg-nx-cyan/20 border-nx-cyan text-nx-cyan'
+                  : 'bg-nx-muted border-nx-steel text-nx-gray'
               }`}>
-                <Icon className="w-8 h-8 sm:w-10 sm:h-10" strokeWidth={1.5} />
+                <Icon className="w-7 h-7 sm:w-9 sm:h-9" strokeWidth={2} />
               </div>
               
               {/* Label */}
-              <span className={`text-xs sm:text-sm font-semibold text-center whitespace-pre-line leading-tight max-w-[80px] sm:max-w-[90px] transition-colors ${
+              <span className={`text-[10px] sm:text-xs font-bold text-center whitespace-pre-line leading-tight max-w-[80px] sm:max-w-[100px] transition-colors uppercase tracking-tighter ${
                 isActive || isCompleted
-                  ? 'text-blue-600' 
-                  : 'text-gray-400'
+                  ? 'text-nx-cyan' 
+                  : 'text-nx-gray'
               }`}>
                 {item.label}
               </span>
