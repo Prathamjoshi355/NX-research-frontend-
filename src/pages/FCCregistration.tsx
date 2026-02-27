@@ -6,7 +6,9 @@ import Sidebar from '../components/FCCRegistrationSidebar';
 import StepIndicator from '../components/FCCRegistrationStepIndicator';
 import { fccAPI } from '../api';
 import { ChevronDown, ChevronUp, Plus, Trash2, GraduationCap, Rocket, Briefcase, Loader, CheckCircle } from 'lucide-react';
+
 import './Formindex.css';
+import { label } from 'motion/react-client';
 
 const FCCRegistration: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<Step>(Step.AGREEMENTS);
@@ -431,7 +433,7 @@ const FCCRegistration: React.FC = () => {
                     <div className="space-y-2">
                       <label className="text-sm font-semibold text-nx-gray">Stage</label>
                       <div className="flex rounded-lg overflow-hidden border border-nx-steel/30">
-                        {['IDEA', 'MVP', 'REVENUE'].map(stage => (
+                        {['IDEA', 'GROWTH-STAGE', 'REVENUE'].map(stage => (
                           <button key={stage} className="flex-1 py-3 text-xs font-bold hover:bg-nx-muted/50 transition-colors border-r border-nx-steel/30 last:border-0 uppercase tracking-tighter text-nx-white">
                             {stage}
                           </button>
@@ -442,6 +444,7 @@ const FCCRegistration: React.FC = () => {
                     <Input label="Industry (Optional)" />
                   </div>
                   <div className="flex items-center justify-between p-6 bg-nx-cyan/10 rounded-2xl border border-nx-cyan/20">
+                  
                     <div className="space-y-1">
                       <p className="font-bold text-nx-white">Promotion Listing</p>
                       <p className="text-xs text-nx-cyan">Get listed in our startup directory</p>

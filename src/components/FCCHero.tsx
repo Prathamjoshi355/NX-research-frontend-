@@ -81,7 +81,7 @@ export default function Hero({
           }`}
         >
           <source
-            src="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1771707288/WhatsApp_Video_2026-02-21_at_1.59.15_AM_bfz1ju.mp4"
+            src="https://res.cloudinary.com/dhy9pmo8s/video/upload/v1771958328/Founder_Circle_msjyn2.mp4"
             type="video/mp4"
           />
         </video>

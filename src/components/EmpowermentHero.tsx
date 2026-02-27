@@ -81,6 +81,7 @@ export default function EmpowermentHero() {
               className="absolute top-2 right-2 w-7 h-7 sm:w-8 sm:h-8 bg-black/60 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-black/80 transition-all"
             >
               <VolumeX size={14} />
+              
             </motion.button>
           )}
         </AnimatePresence>

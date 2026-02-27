@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { Instagram, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -22,15 +22,21 @@ export default function Footer() {
               Building the next generation of ventures through deep research, elite networking, and strategic innovation.
             </p>
             <div className="flex gap-6">
-              <a href="#" className="w-10 h-10 rounded-full bg-bg-secondary flex items-center justify-center text-text-secondary hover:bg-neon-cyan hover:text-bg-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,212,255,0.1)] hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]">
-                <Twitter size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-bg-secondary flex items-center justify-center text-text-secondary hover:bg-neon-cyan hover:text-bg-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,212,255,0.1)] hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]">
+
+              <a
+                href="https://www.linkedin.com/company/nx-research"
+                className="w-10 h-10 rounded-full bg-bg-secondary flex items-center justify-center text-text-secondary hover:bg-neon-cyan hover:text-bg-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,212,255,0.1)] hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]"
+              >
                 <Linkedin size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-bg-secondary flex items-center justify-center text-text-secondary hover:bg-neon-cyan hover:text-bg-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,212,255,0.1)] hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]">
-                <Github size={18} />
+
+              <a
+                href="https://www.instagram.com/nxresearch?igsh=NmtxbG9oNHNnMzd0"
+                className="w-10 h-10 rounded-full bg-bg-secondary flex items-center justify-center text-text-secondary hover:bg-neon-cyan hover:text-bg-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,212,255,0.1)] hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]"
+              >
+                <Instagram size={18} />
               </a>
+
             </div>
           </div>
 
@@ -51,12 +57,12 @@ export default function Footer() {
             <ul className="space-y-6 text-text-secondary font-heading text-sm">
               <li className="flex items-center gap-3">
                 <Mail size={16} className="text-neon-cyan" />
-                <span>hello@nxresearch.com</span>
+                <span>nxresearch@nxresearch.com</span>
               </li>
-              <li className="font-mono text-[12px] leading-relaxed">
+              {/* <li className="font-mono text-[12px] leading-relaxed">
                 123 Innovation Way,<br />
                 Tech City, TC 10101
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
