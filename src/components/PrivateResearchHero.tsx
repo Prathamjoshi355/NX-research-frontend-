@@ -142,8 +142,7 @@ export default function PrivateResearchHero() {
           )}
         </AnimatePresence>
 
-        {/* ── Unmute row — centered on mobile, right aligned on desktop ── */}
-        <div className="w-full flex items-center justify-center sm:justify-end gap-2 sm:gap-3 mb-4 px-4 sm:pr-4">
+      <div className={`w-full flex items-center gap-2 sm:gap-3 mb-4 px-4 sm:pr-4 ${isMuted ? "justify-center sm:justify-end" : "justify-end"}`}>
           {/* Label — only when muted */}
           <AnimatePresence>
             {isMuted && (
@@ -209,7 +208,7 @@ export default function PrivateResearchHero() {
             </button>
           </div>
         </div>
-
+        
         {/* CTA */}
         <AnimatePresence>
           {isMuted && (

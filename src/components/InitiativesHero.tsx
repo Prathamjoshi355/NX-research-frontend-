@@ -145,8 +145,7 @@ export default function InitiativesHero() {
           )}
         </AnimatePresence>
 
-        {/* ── Unmute row — right aligned, above CTA ── */}
-        <div className="w-full flex items-center justify-center sm:justify-end gap-2 sm:gap-3 mb-6 px-4 sm:pr-4">
+      <div className={`w-full flex items-center gap-2 sm:gap-3 mb-4 px-4 sm:pr-4 ${isMuted ? "justify-center sm:justify-end" : "justify-end"}`}>
           {/* Label — only when muted */}
           <AnimatePresence>
             {isMuted && (
@@ -202,17 +201,17 @@ export default function InitiativesHero() {
 
             <button
               onClick={toggleMute}
-              className="relative w-14 h-14 sm:w-[68px] sm:h-[68px] bg-bg-primary/60 backdrop-blur-2xl border-2 border-neon-cyan rounded-full flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-bg-primary transition-all duration-500 group shadow-[0_0_35px_rgba(0,212,255,0.35)] hover:shadow-[0_0_70px_rgba(0,212,255,0.75)]"
+              className="relative w-12 h-12 sm:w-[68px] sm:h-[68px] bg-bg-primary/60 backdrop-blur-2xl border-2 border-neon-cyan rounded-full flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-bg-primary transition-all duration-500 group shadow-[0_0_35px_rgba(0,212,255,0.35)] hover:shadow-[0_0_70px_rgba(0,212,255,0.75)]"
             >
               {isMuted ? (
-                <VolumeX size={26} className="group-hover:scale-110 transition-transform" />
+                <VolumeX size={22} className="sm:size-[26px] group-hover:scale-110 transition-transform" />
               ) : (
-                <Volume2 size={26} className="group-hover:scale-110 transition-transform" />
+                <Volume2 size={22} className="sm:size-[26px] group-hover:scale-110 transition-transform" />
               )}
             </button>
           </div>
         </div>
-
+        
         {/* CTA */}
         <AnimatePresence>
           {isMuted && (

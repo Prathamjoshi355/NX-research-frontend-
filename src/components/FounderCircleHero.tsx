@@ -144,73 +144,72 @@ export default function FounderCircleHero() {
         </AnimatePresence>
 
       {/* ── Unmute row — Fixed at bottom right ── */}
-      <div className="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 z-50 flex items-center gap-3">
-        {/* Label — only when muted */}
-        <AnimatePresence>
-          {isMuted && (
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.4 }}
-              className="flex items-center gap-3"
-            >
-              <span className="text-neon-cyan font-sans text-[10px] sm:text-[12px] font-bold tracking-[2px] uppercase whitespace-nowrap drop-shadow-[0_0_10px_rgba(0,212,255,0.5)]">
-                unmute for experience
-              </span>
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="hidden xs:flex items-center gap-[3px]"
-              >
-                <div className="w-6 h-[1.5px] bg-neon-cyan shadow-[0_0_8px_rgba(0,212,255,0.8)]" />
-                <div
-                  className="w-0 h-0"
-                  style={{
-                    borderTop: "5px solid transparent",
-                    borderBottom: "5px solid transparent",
-                    borderLeft: "6px solid rgb(0,212,255)",
-                  }}
-                />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Mute Button */}
-        <div className="relative flex-shrink-0">
+     <div className={`w-full flex items-center gap-2 sm:gap-3 mb-4 px-4 sm:pr-4 ${isMuted ? "justify-center sm:justify-end" : "justify-end"}`}>
+          {/* Label — only when muted */}
           <AnimatePresence>
             {isMuted && (
-              <>
-                <motion.span
-                  key="r1"
-                  animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
-                  transition={{ duration: 2.5, repeat: Infinity }}
-                  className="absolute inset-0 rounded-full border-2 border-neon-cyan pointer-events-none"
-                />
-                <motion.span
-                  key="r2"
-                  animate={{ scale: [1, 2.5, 1], opacity: [0.3, 0, 0.3] }}
-                  transition={{ duration: 2.5, repeat: Infinity, delay: 0.4 }}
-                  className="absolute inset-0 rounded-full border border-neon-cyan/40 pointer-events-none"
-                />
-              </>
+              <motion.div
+                initial={{ opacity: 0, x: 8 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 8 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center gap-2"
+              >
+                <span className="text-neon-cyan font-mono text-[10px] sm:text-[12px] font-bold tracking-[1px] sm:tracking-[2px] uppercase whitespace-nowrap">
+                  unmute for experience
+                </span>
+                <motion.div
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.4, repeat: Infinity }}
+                  className="hidden xs:flex items-center gap-[2px]"
+                >
+                  <div className="w-4 h-[1.5px] bg-neon-cyan" />
+                  <div
+                    className="w-0 h-0"
+                    style={{
+                      borderTop: "4px solid transparent",
+                      borderBottom: "4px solid transparent",
+                      borderLeft: "5px solid rgb(0,212,255)",
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
             )}
           </AnimatePresence>
 
-          <button
-            onClick={toggleMute}
-            className="relative w-14 h-14 sm:w-[72px] sm:h-[72px] bg-bg-primary/40 backdrop-blur-3xl border-2 border-neon-cyan rounded-full flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-bg-primary transition-all duration-500 group shadow-[0_0_40px_rgba(0,212,255,0.4)] hover:shadow-[0_0_80px_rgba(0,212,255,0.8)]"
-          >
-            {isMuted ? (
-              <VolumeX size={28} className="group-hover:scale-110 transition-transform" />
-            ) : (
-              <Volume2 size={28} className="group-hover:scale-110 transition-transform" />
-            )}
-          </button>
-        </div>
-      </div>
+          {/* Mute Button */}
+          <div className="relative flex-shrink-0">
+            <AnimatePresence>
+              {isMuted && (
+                <>
+                  <motion.span
+                    key="r1"
+                    animate={{ scale: [1, 1.65, 1], opacity: [0.55, 0, 0.55] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute inset-0 rounded-full border-2 border-neon-cyan pointer-events-none"
+                  />
+                  <motion.span
+                    key="r2"
+                    animate={{ scale: [1, 2.3, 1], opacity: [0.25, 0, 0.25] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.35 }}
+                    className="absolute inset-0 rounded-full border border-neon-cyan/30 pointer-events-none"
+                  />
+                </>
+              )}
+            </AnimatePresence>
 
+            <button
+              onClick={toggleMute}
+              className="relative w-12 h-12 sm:w-[68px] sm:h-[68px] bg-bg-primary/60 backdrop-blur-2xl border-2 border-neon-cyan rounded-full flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-bg-primary transition-all duration-500 group shadow-[0_0_35px_rgba(0,212,255,0.35)] hover:shadow-[0_0_70px_rgba(0,212,255,0.75)]"
+            >
+              {isMuted ? (
+                <VolumeX size={22} className="sm:size-[26px] group-hover:scale-110 transition-transform" />
+              ) : (
+                <Volume2 size={22} className="sm:size-[26px] group-hover:scale-110 transition-transform" />
+              )}
+            </button>
+          </div>
+        </div>
       {/* ── Main Content ── */}
         <AnimatePresence>
           {isMuted && (

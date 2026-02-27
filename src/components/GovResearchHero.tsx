@@ -139,8 +139,9 @@ export default function GovResearchHeroPreview() {
           )}
         </AnimatePresence>
 
-        {/* Unmute row */}
-        <div className="w-full flex flex-col xs:flex-row items-center justify-center sm:justify-end gap-3 sm:gap-4 mb-4 sm:mb-6 px-2 sm:px-4 sm:pr-4">
+
+       <div className={`w-full flex items-center gap-2 sm:gap-3 mb-4 px-4 sm:pr-4 ${isMuted ? "justify-center sm:justify-end" : "justify-end"}`}>
+          {/* Label — only when muted */}
           <AnimatePresence>
             {isMuted && (
               <motion.div
@@ -150,7 +151,7 @@ export default function GovResearchHeroPreview() {
                 transition={{ duration: 0.3 }}
                 className="flex items-center gap-2"
               >
-                <span className="text-cyan-400 font-mono text-[9px] sm:text-[12px] font-bold tracking-[1px] sm:tracking-[2px] uppercase whitespace-nowrap">
+                <span className="text-neon-cyan font-mono text-[10px] sm:text-[12px] font-bold tracking-[1px] sm:tracking-[2px] uppercase whitespace-nowrap">
                   unmute for experience
                 </span>
                 <motion.div
@@ -158,13 +159,13 @@ export default function GovResearchHeroPreview() {
                   transition={{ duration: 1.4, repeat: Infinity }}
                   className="hidden xs:flex items-center gap-[2px]"
                 >
-                  <div className="w-4 h-[1.5px] bg-cyan-400" />
+                  <div className="w-4 h-[1.5px] bg-neon-cyan" />
                   <div
                     className="w-0 h-0"
                     style={{
                       borderTop: "4px solid transparent",
                       borderBottom: "4px solid transparent",
-                      borderLeft: "5px solid rgb(34,211,238)",
+                      borderLeft: "5px solid rgb(0,212,255)",
                     }}
                   />
                 </motion.div>
@@ -181,13 +182,13 @@ export default function GovResearchHeroPreview() {
                     key="r1"
                     animate={{ scale: [1, 1.65, 1], opacity: [0.55, 0, 0.55] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="absolute inset-0 rounded-full border-2 border-cyan-400 pointer-events-none"
+                    className="absolute inset-0 rounded-full border-2 border-neon-cyan pointer-events-none"
                   />
                   <motion.span
                     key="r2"
                     animate={{ scale: [1, 2.3, 1], opacity: [0.25, 0, 0.25] }}
                     transition={{ duration: 2, repeat: Infinity, delay: 0.35 }}
-                    className="absolute inset-0 rounded-full border border-cyan-400/30 pointer-events-none"
+                    className="absolute inset-0 rounded-full border border-neon-cyan/30 pointer-events-none"
                   />
                 </>
               )}
@@ -195,12 +196,12 @@ export default function GovResearchHeroPreview() {
 
             <button
               onClick={toggleMute}
-              className="relative w-12 h-12 xs:w-14 xs:h-14 sm:w-[68px] sm:h-[68px] bg-slate-950/60 backdrop-blur-2xl border-2 border-cyan-400 rounded-full flex items-center justify-center text-cyan-400 hover:bg-cyan-400 hover:text-slate-950 transition-all duration-500 group shadow-[0_0_35px_rgba(34,211,238,0.35)] hover:shadow-[0_0_70px_rgba(34,211,238,0.75)]"
+              className="relative w-12 h-12 sm:w-[68px] sm:h-[68px] bg-bg-primary/60 backdrop-blur-2xl border-2 border-neon-cyan rounded-full flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-bg-primary transition-all duration-500 group shadow-[0_0_35px_rgba(0,212,255,0.35)] hover:shadow-[0_0_70px_rgba(0,212,255,0.75)]"
             >
               {isMuted ? (
-                <VolumeX size={22} className="xs:size-[26px] group-hover:scale-110 transition-transform" />
+                <VolumeX size={22} className="sm:size-[26px] group-hover:scale-110 transition-transform" />
               ) : (
-                <Volume2 size={22} className="xs:size-[26px] group-hover:scale-110 transition-transform" />
+                <Volume2 size={22} className="sm:size-[26px] group-hover:scale-110 transition-transform" />
               )}
             </button>
           </div>
