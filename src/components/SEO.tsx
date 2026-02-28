@@ -77,7 +77,7 @@ const SEO: React.FC<SEOProps> = ({
     setMeta('twitter:image', ogImage);
 
     // JSON-LD structured data
-    let script = document.querySelector('script[type="application/ld+json"]');
+    let script = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement | null;
     const defaultSchema = {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -94,7 +94,7 @@ const SEO: React.FC<SEOProps> = ({
     if (script) {
       script.textContent = JSON.stringify(finalSchema);
     } else {
-      script = document.createElement('script');
+      script = document.createElement('script') as HTMLScriptElement;
       script.type = 'application/ld+json';
       script.textContent = JSON.stringify(finalSchema);
       document.head.appendChild(script);
