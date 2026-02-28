@@ -26,15 +26,18 @@ const SEO: React.FC<SEOProps> = ({
 
     const metaDesc = description ||
       'NX Research builds the next generation of ventures through deep research, elite networking, and strategic innovation.';
-    const metaTag = document.querySelector('meta[name="description"]');
-    if (metaTag) {
-      metaTag.setAttribute('content', metaDesc);
-    } else {
-      const m = document.createElement('meta');
-      m.name = 'description';
-      m.content = metaDesc;
-      document.head.appendChild(m);
-    }
+    const setMeta = (name: string, content: string) => {
+      let tag = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
+      if (tag) {
+        tag.content = content;
+      } else {
+        tag = document.createElement('meta');
+        tag.name = name;
+        tag.content = content;
+        document.head.appendChild(tag);
+      }
+    };
+    setMeta('description', metaDesc);
 
     if (canonical) {
       let link: HTMLLinkElement | null = document.querySelector('link[rel="canonical"]');
@@ -46,7 +49,57 @@ const SEO: React.FC<SEOProps> = ({
       link.href = canonical;
     }
 
-    // other tags (og, twitter, schema) omitted for brevity
+    // Open Graph tags
+    const setProperty = (prop: string, content: string) => {
+      let tag = document.querySelector(`meta[property="${prop}"]`) as HTMLMetaElement | null;
+      if (tag) {
+        tag.content = content;
+      } else {
+        tag = document.createElement('meta');
+        tag.setAttribute('property', prop);
+        tag.content = content;
+        document.head.appendChild(tag);
+      }
+    };
+    const url = canonical || window.location.href;
+    setProperty('og:title', title ? `${title} | ${siteTitle}` : siteTitle);
+    setProperty('og:description', metaDesc);
+    setProperty('og:type', ogType);
+    setProperty('og:url', url);
+    setProperty('og:image', ogImage);
+    setProperty('og:site_name', siteTitle);
+
+    // Twitter cards
+    setMeta('twitter:card', 'summary_large_image');
+    setMeta('twitter:creator', twitterHandle);
+    setMeta('twitter:title', title ? `${title} | ${siteTitle}` : siteTitle);
+    setMeta('twitter:description', metaDesc);
+    setMeta('twitter:image', ogImage);
+
+    // JSON-LD structured data
+    let script = document.querySelector('script[type="application/ld+json"]');
+    const defaultSchema = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": siteTitle,
+      "url": "https://www.nxresearchh.com",
+      "logo": "https://www.nxresearchh.com/logo.png",
+      "description": metaDesc,
+      "sameAs": [
+        "https://www.linkedin.com/company/nx-research",
+        "https://www.instagram.com/nxresearch"
+      ]
+    };
+    const finalSchema = schemaData || defaultSchema;
+    if (script) {
+      script.textContent = JSON.stringify(finalSchema);
+    } else {
+      script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(finalSchema);
+      document.head.appendChild(script);
+    }
+    // end SEO update
   }, [title, description, canonical]);
 
   return null;
