@@ -285,7 +285,7 @@ const FCCRegistration: React.FC = () => {
       case Step.SELECT_CATEGORY:
         const categories = [
           // { id: 'STUDENT', label: 'Student', icon: GraduationCap, fee: '₹299' },
-          { id: 'STARTUP', label: 'Start Up', icon: Rocket, fee: '₹1000 for 2 person' },
+          { id: 'STARTUP', label: 'Start Up', icon: Rocket, fee: '₹999 for 2 person' },
           { id: 'INVESTOR', label: 'Investor', icon: Briefcase, fee: '₹1500' },
           // { id: 'ORGANIZER', label: 'Organizer', icon: Users, fee: 'Free' },
           // { id: 'TECH_CONTENT_CREATOR', label: 'Tech Content Creator', icon: Layout, fee: 'Free' },
