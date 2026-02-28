@@ -612,7 +612,7 @@ const FCCRegistration: React.FC = () => {
                 </div>
                 <h2 className="text-3xl sm:text-5xl font-extrabold text-nx-white mb-6">Registration Successful!</h2>
                 <p className="text-nx-gray text-xl mb-10 leading-relaxed">
-                  Thank you for registering. We will contact you with further details soon.
+                  Thank you for registering. We will contact you for payment details and confirmation mail.
                 </p>
                 {registrationId && (
                   <div className="bg-nx-navy/50 border border-nx-steel rounded-2xl p-6 mb-10">
