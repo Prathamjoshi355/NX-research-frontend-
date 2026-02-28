@@ -213,34 +213,6 @@ const FCCRegistration: React.FC = () => {
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-nx-gray">Select your City</label>
-                <select 
-                  className="w-full px-4 py-3 bg-nx-navy border border-nx-steel rounded-lg focus:ring-2 focus:ring-nx-cyan outline-none transition-all text-nx-white"
-                  value={formData.city}
-                  onChange={(e) => handleInputChange('city', e.target.value)}
-                >
-                  <option value="">Select City</option>
-                  <option value="Mumbai">Mumbai</option>
-                  <option value="Delhi">Delhi</option>
-                  <option value="Bangalore">Bangalore</option>
-                  <option value="Hyderabad">Hyderabad</option>
-                  <option value="Chennai">Chennai</option>
-                  <option value="Kolkata">Kolkata</option>
-                  <option value="Pune">Pune</option>
-                  <option value="Ahmedabad">Ahmedabad</option>
-                  <option value="Jaipur">Jaipur</option>
-                  <option value="Lucknow">Lucknow</option>
-                  <option value="Chandigarh">Chandigarh</option>
-                  <option value="Indore">Indore</option>
-                  <option value="Surat">Surat</option>
-                  <option value="Bhopal">Bhopal</option>
-                  <option value="Visakhapatnam">Visakhapatnam</option>
-                  <option value="Kochi">Kochi</option>
-                  <option value="Guwahati">Guwahati</option>
-                  <option value="Cochin">Cochin</option>
-                </select>
-              </div>
-              <div className="space-y-2">
                 <label className="text-sm font-semibold text-nx-gray">Select your State</label>
                 <select 
                   className="w-full px-4 py-3 bg-nx-navy border border-nx-steel rounded-lg focus:ring-2 focus:ring-nx-cyan outline-none transition-all text-nx-white"
@@ -248,7 +220,7 @@ const FCCRegistration: React.FC = () => {
                   onChange={(e) => handleInputChange('state', e.target.value)}
                 >
                   <option value="">Select State</option>
-                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  {/* <option value="Andhra Pradesh">Andhra Pradesh</option>
                   <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                   <option value="Assam">Assam</option>
                   <option value="Bihar">Bihar</option>
@@ -259,9 +231,9 @@ const FCCRegistration: React.FC = () => {
                   <option value="Himachal Pradesh">Himachal Pradesh</option>
                   <option value="Jharkhand">Jharkhand</option>
                   <option value="Karnataka">Karnataka</option>
-                  <option value="Kerala">Kerala</option>
+                  <option value="Kerala">Kerala</option> */}
                   <option value="Madhya Pradesh">Madhya Pradesh</option>
-                  <option value="Maharashtra">Maharashtra</option>
+                  {/* <option value="Maharashtra">Maharashtra</option>
                   <option value="Manipur">Manipur</option>
                   <option value="Meghalaya">Meghalaya</option>
                   <option value="Mizoram">Mizoram</option>
@@ -275,7 +247,35 @@ const FCCRegistration: React.FC = () => {
                   <option value="Tripura">Tripura</option>
                   <option value="Uttar Pradesh">Uttar Pradesh</option>
                   <option value="Uttarakhand">Uttarakhand</option>
-                  <option value="West Bengal">West Bengal</option>
+                  <option value="West Bengal">West Bengal</option> */}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-nx-gray">Select your City</label>
+                <select 
+                  className="w-full px-4 py-3 bg-nx-navy border border-nx-steel rounded-lg focus:ring-2 focus:ring-nx-cyan outline-none transition-all text-nx-white"
+                  value={formData.city}
+                  onChange={(e) => handleInputChange('city', e.target.value)}
+                >
+                  <option value="">Select City</option>
+                  {/* <option value="Mumbai">Mumbai</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Bangalore">Bangalore</option>
+                  <option value="Hyderabad">Hyderabad</option>
+                  <option value="Chennai">Chennai</option>
+                  <option value="Kolkata">Kolkata</option>
+                  <option value="Pune">Pune</option>
+                  <option value="Ahmedabad">Ahmedabad</option>
+                  <option value="Jaipur">Jaipur</option>
+                  <option value="Lucknow">Lucknow</option>
+                  <option value="Chandigarh">Chandigarh</option> */}
+                  <option value="Indore">Indore</option>
+                  {/* <option value="Surat">Surat</option>
+                  <option value="Bhopal">Bhopal</option>
+                  <option value="Visakhapatnam">Visakhapatnam</option>
+                  <option value="Kochi">Kochi</option>
+                  <option value="Guwahati">Guwahati</option>
+                  <option value="Cochin">Cochin</option> */}
                 </select>
               </div>
             </div>
@@ -284,11 +284,11 @@ const FCCRegistration: React.FC = () => {
 
       case Step.SELECT_CATEGORY:
         const categories = [
-          // { id: 'STUDENT', label: 'Student', icon: GraduationCap },
-          { id: 'STARTUP', label: 'Start Up', icon: Rocket },
-          { id: 'INVESTOR', label: 'Investor', icon: Briefcase },
-          // { id: 'ORGANIZER', label: 'Organizer', icon: Users },
-          // { id: 'TECH_CONTENT_CREATOR', label: 'Tech Content Creator', icon: Layout },
+          // { id: 'STUDENT', label: 'Student', icon: GraduationCap, fee: '₹299' },
+          { id: 'STARTUP', label: 'Start Up', icon: Rocket, fee: '₹1000 for 2 person' },
+          { id: 'INVESTOR', label: 'Investor', icon: Briefcase, fee: '₹1500' },
+          // { id: 'ORGANIZER', label: 'Organizer', icon: Users, fee: 'Free' },
+          // { id: 'TECH_CONTENT_CREATOR', label: 'Tech Content Creator', icon: Layout, fee: 'Free' },
         ];
         return (
           <CollapsibleSection title="Select Category" defaultOpen>
@@ -301,19 +301,24 @@ const FCCRegistration: React.FC = () => {
                     key={cat.id}
                     onClick={() => handleInputChange('category', cat.id)}
                     className={`flex flex-col items-center gap-4 p-8 rounded-2xl border-2 transition-all duration-300 ${
-                      isSelected ? 'border-nx-cyan bg-nx-cyan/10 text-nx-cyan shadow-lg shadow-nx-cyan/20' : 'border-nx-steel/30 bg-nx-muted/30 hover:border-nx-cyan/50 hover:bg-nx-muted/50 text-nx-gray'
+                      isSelected ? 'border-nx-cyan bg-nx-cyan/10 text-nx-cyan shadow-lg shadow-nx-cyan/20' : 'border-nx-steel/30 bg-nx-muted/30 hover:border-nx-cyan/50 hover:bg-nx-muted/50 text-nx-blue'
                     }`}
                   >
                     <Icon className={`w-12 h-12 ${isSelected ? 'animate-pulse' : ''}`} />
-                    <span className="font-bold uppercase tracking-wider text-sm">{cat.label}</span>
+                    <div className="text-center">
+                      <span className="block font-bold uppercase tracking-wider text-sm">{cat.label}</span>
+                      <span className={`block text-xs text-nx-blue font-mono mt-1 ${isSelected ? 'text-nx-neon' : 'text-nx-steel'}`}>
+                        Entry Fee: {cat.fee}
+                      </span>
+                    </div>
                   </button>
                 );
               })}
             </div>
           </CollapsibleSection>
         );
-
-      case Step.CATEGORY_DETAILS:
+        
+        case Step.CATEGORY_DETAILS:
         // if (formData.category === 'STUDENT') {
         //   // ensure studentInfo exists
         //   if (!formData.studentInfo) {
