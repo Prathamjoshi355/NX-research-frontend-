@@ -23,7 +23,16 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       if (location.pathname === "/") {
-        const sections = ["initiatives", "empowerment", "gov-research", "private-research", "fcc", "how-it-works", "testimonials", "vision-mission"];
+        const sections = [
+          "initiatives",
+          "empowerment",
+          "gov-research",
+          "private-research",
+          "fcc",
+          "how-it-works",
+          "testimonials",
+          "vision-mission",
+        ];
         for (const section of sections) {
           const element = document.getElementById(section);
           if (element) {
@@ -40,79 +49,67 @@ export default function Navbar() {
         setActiveSection(path.toLowerCase());
       }
     };
+
     window.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]);
 
-  // Body scroll lock when mobile menu is open
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+    return () => (document.body.style.overflow = "");
   }, [isMobileMenuOpen]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-[100] h-16 bg-bg-primary border-b border-neon-cyan/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 shrink-0" onClick={() => setIsMobileMenuOpen(false)}>
-          <span className="font-display font-black text-xl sm:text-2xl tracking-[3px] sm:tracking-[4px] text-neon-cyan drop-shadow-[0_0_10px_rgba(0,212,255,0.5)]">
-            NX
-          </span>
-          <span className="font-display font-normal text-xl sm:text-2xl tracking-[3px] sm:tracking-[4px] text-text-primary">
+
+        {/* ✅ Logo */}
+        <Link
+          to="/"
+          className="flex items-center gap-2 shrink-0"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <img
+            src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1772075032/N-removebg-preview_t7qzbd.png"
+            alt="logo"
+            className="h-10 w-auto object-contain drop-shadow-[0_0_1px_rgba(0,212,255,0.7)] hover:drop-shadow-[0_0_14px_rgba(0,212,255,1)] transition-all duration-10 animate-logoGlow"
+/>
+
+          <span className="font-display text-xl sm:text-2xl tracking-[3px] sm:tracking-[4px] text-text-primary">
             RESEARCH
           </span>
         </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8 lg:gap-10">
+
           <Link
             to="/"
-            className={`font-heading text-[13px] lg:text-[14px] tracking-[2px] uppercase transition-all duration-300 relative py-2 ${
-              activeSection === "home" && location.pathname === "/" ? "text-neon-cyan" : "text-text-secondary hover:text-neon-cyan"
+            className={`font-heading text-[14px] tracking-[2px] uppercase py-2 ${
+              activeSection === "home" && location.pathname === "/"
+                ? "text-neon-cyan"
+                : "text-text-secondary hover:text-neon-cyan"
             }`}
           >
             Home
-            {activeSection === "home" && location.pathname === "/" && (
-              <motion.div layoutId="activeNav" className="absolute bottom-0 left-0 right-0 h-[2px] bg-neon-cyan shadow-[0_0_10px_#00d4ff]" />
-            )}
           </Link>
 
+          {/* Pillars Dropdown */}
           <div
             className="relative h-full flex items-center"
             onMouseEnter={() => setIsPillarOpen(true)}
             onMouseLeave={() => setIsPillarOpen(false)}
           >
-            <Link
-              to={activePillar ? activePillar.href : "#"}
-              onClick={(e) => { if (!activePillar) e.preventDefault(); }}
-              className={`flex items-center gap-1 font-heading text-[13px] lg:text-[14px] tracking-[2px] uppercase transition-all duration-300 cursor-pointer relative py-2 ${
-                activePillar || (location.pathname === "/" && pillars.some(p => p.href.includes(activeSection)))
-                  ? "text-neon-cyan"
-                  : "text-text-secondary hover:text-neon-cyan"
-              }`}
-            >
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={displayLabel}
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {displayLabel}
-                </motion.span>
-              </AnimatePresence>
-              <ChevronDown size={14} className={`transition-transform duration-300 ${isPillarOpen ? "rotate-180" : ""}`} />
-
-              {(activePillar || (location.pathname === "/" && pillars.some(p => p.href.includes(activeSection)))) && (
-                <motion.div layoutId="activeNav" className="absolute bottom-0 left-0 right-0 h-[2px] bg-neon-cyan shadow-[0_0_10px_#00d4ff]" />
-              )}
-            </Link>
+            <span className="flex items-center gap-1 font-heading text-[14px] tracking-[2px] uppercase text-text-secondary hover:text-neon-cyan py-2 cursor-pointer">
+              {displayLabel}
+              <ChevronDown
+                size={14}
+                className={`transition-transform ${
+                  isPillarOpen ? "rotate-180" : ""
+                }`}
+              />
+            </span>
 
             <AnimatePresence>
               {isPillarOpen && (
@@ -120,19 +117,14 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  className="absolute top-full left-0 mt-0 w-64 bg-bg-secondary/95 backdrop-blur-xl border border-neon-cyan/12 rounded-xl overflow-hidden shadow-2xl"
+                  className="absolute top-full left-0 w-64 bg-bg-secondary border border-neon-cyan/20 rounded-xl shadow-xl"
                 >
-                  {pillars.map((pillar) => (
+                  {pillars.map(pillar => (
                     <Link
                       key={pillar.name}
                       to={pillar.href}
-                      className={`group flex items-center gap-3 px-4 py-4 text-[13px] font-heading tracking-[1px] uppercase transition-all duration-300 border-b border-white/5 last:border-0 ${
-                        pillar.href === location.pathname
-                          ? "text-neon-cyan bg-neon-cyan/10"
-                          : "text-text-secondary hover:text-neon-cyan hover:bg-neon-cyan/10"
-                      }`}
+                      className="block px-4 py-3 text-sm uppercase text-text-secondary hover:text-neon-cyan hover:bg-neon-cyan/10"
                     >
-                      <div className={`w-1.5 h-1.5 rounded-full bg-neon-cyan transition-transform duration-300 ${pillar.href === location.pathname ? "scale-100" : "scale-0 group-hover:scale-100"}`} />
                       {pillar.name}
                     </Link>
                   ))}
@@ -143,29 +135,23 @@ export default function Navbar() {
 
           <Link
             to="/FCC"
-            className={`font-heading text-[13px] lg:text-[14px] tracking-[2px] uppercase transition-all duration-300 relative py-2 ${
-              activeSection === "fcc" || location.pathname === "/FCC" ? "text-neon-cyan" : "text-text-secondary hover:text-neon-cyan"
-            }`}
+            className="font-heading text-[14px] tracking-[2px] uppercase text-text-secondary hover:text-neon-cyan py-2"
           >
             FCC
-            {(activeSection === "fcc" || location.pathname === "/FCC") && (
-              <motion.div layoutId="activeNav" className="absolute bottom-0 left-0 right-0 h-[2px] bg-neon-cyan shadow-[0_0_10px_#00d4ff]" />
-            )}
           </Link>
 
           <Link
             to="/join"
-            className="font-heading text-[13px] lg:text-[14px] tracking-[2px] uppercase bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan px-5 lg:px-6 py-2 rounded-md font-bold hover:bg-neon-cyan hover:text-bg-primary transition-all duration-300 shadow-[0_0_20px_rgba(0,212,255,0.2)]"
+            className="font-heading text-[14px] tracking-[2px] uppercase bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan px-6 py-2 rounded-md font-bold hover:bg-neon-cyan hover:text-bg-primary transition"
           >
             Join us
           </Link>
         </div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white p-2 -mr-2 z-[110] relative"
+          className="md:hidden p-2 text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
@@ -175,68 +161,41 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "tween", duration: 0.3 }}
-            className="fixed inset-0 top-16 z-[100] bg-bg-primary md:hidden flex flex-col overflow-y-auto"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            className="fixed inset-0 top-16 bg-bg-primary md:hidden flex flex-col p-6"
           >
-            <div className="flex flex-col gap-6 px-6 pt-8 pb-6">
-              {/* Home */}
-              <Link
-                to="/"
-                className={`text-2xl font-display font-bold uppercase tracking-tight ${
-                  location.pathname === "/" ? "text-neon-cyan" : "text-text-primary/70"
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
+            <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl mb-6">
+              Home
+            </Link>
 
-              {/* Pillars Section */}
-              <div>
-                <p className="text-text-dim font-mono text-[10px] uppercase tracking-[4px] mb-4">Our Pillars</p>
-                <div className="flex flex-col gap-3">
-                  {pillars.map((pillar) => (
-                    <Link
-                      key={pillar.name}
-                      to={pillar.href}
-                      className={`flex items-center justify-between p-4 rounded-xl border transition-all ${
-                        location.pathname === pillar.href
-                          ? "border-neon-cyan/30 bg-neon-cyan/5 text-neon-cyan"
-                          : "bg-white/5 border-white/5 text-text-primary/80"
-                      }`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <span className="text-base font-display font-bold uppercase leading-tight pr-2">{pillar.name}</span>
-                      <ChevronDown size={16} className="-rotate-90 text-neon-cyan shrink-0" />
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* FCC */}
+            {pillars.map(p => (
               <Link
-                to="/FCC"
-                className={`text-2xl font-display font-bold uppercase tracking-tight ${
-                  location.pathname === "/FCC" ? "text-neon-cyan" : "text-text-primary/70"
-                }`}
+                key={p.name}
+                to={p.href}
                 onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg mb-4"
               >
-                FCC
+                {p.name}
               </Link>
-            </div>
+            ))}
 
-            {/* Join Button */}
-            <div className="mt-auto px-6 pb-10 pt-4">
-              <Link
-                to="/join"
-                className="w-full py-4 bg-neon-cyan text-bg-primary font-heading font-bold text-center uppercase tracking-[2px] rounded-xl block shadow-[0_0_30px_rgba(0,212,255,0.3)] text-sm"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Join the Ecosystem
-              </Link>
-            </div>
+            <Link
+              to="/FCC"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-xl mt-4"
+            >
+              FCC
+            </Link>
+
+            <Link
+              to="/join"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="mt-auto bg-neon-cyan text-bg-primary py-4 text-center rounded-xl font-bold"
+            >
+              Join the Ecosystem
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
