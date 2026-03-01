@@ -9,8 +9,8 @@ export default function PrivateResearchPage() {
   return (
     <main className="initiatives-page">
       <SEO 
-        title="Private Research" 
-        description="Deep research and strategic consulting for private enterprises, helping them navigate innovation and growth."
+        title="Private Research & Strategic Innovation" 
+        description="Deep research and strategic consulting for private enterprises in India, helping them navigate innovation and venture growth."
       />
       <div className="page-grid" />
       <PrivateResearchHero />

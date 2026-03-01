@@ -10,8 +10,8 @@ export default function FounderCirclePage() {
   return (
     <main className="initiatives-page">
       <SEO 
-        title="Founder Circle" 
-        description="An exclusive ecosystem for founders to collaborate, share insights, and build high-impact ventures together."
+        title="Founder Circle | Exclusive Startup Ecosystem" 
+        description="An exclusive ecosystem for founders in India to collaborate, share insights, and build high-impact ventures together with NX Research."
       />
       <div className="page-grid" />
       <FounderCircleHero />

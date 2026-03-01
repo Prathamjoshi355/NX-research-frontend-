@@ -10,8 +10,8 @@ export default function GovResearchPage() {
   return (
     <main className="initiatives-page">
       <SEO 
-        title="Government Research" 
-        description="Strategic research and innovation projects for government entities, focusing on digital transformation and impact."
+        title="Government Research & Digital Transformation" 
+        description="Strategic research and innovation projects for government entities in India, focusing on digital transformation and public impact."
       />
       <div className="page-grid" />
       <GovResearchHero />

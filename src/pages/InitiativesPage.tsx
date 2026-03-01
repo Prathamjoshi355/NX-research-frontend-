@@ -12,8 +12,8 @@ export default function InitiativesPage() {
   return (
     <div className="initiatives-page">
       <SEO 
-        title="Initiatives" 
-        description="Explore NX Research initiatives focused on venture building, strategic innovation, and ecosystem development."
+        title="Strategic Initiatives & Venture Building" 
+        description="Explore NX Research initiatives focused on venture building, strategic innovation, and ecosystem development in India."
       />
       <style>{`
         /* Common Section Styles */

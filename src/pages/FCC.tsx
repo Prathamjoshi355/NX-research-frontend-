@@ -15,8 +15,8 @@ export default function FCCPage() {
   return (
      <main className="initiatives-page">
       <SEO 
-        title="Founder Circle Community" 
-        description="Join the Founder Circle Community (FCC) to network with elite founders, share insights, and build the next generation of ventures."
+        title="Founder Circle Community (FCC) | Elite Founder Networking" 
+        description="Join the Founder Circle Community (FCC) in India to network with elite founders, share insights, and build the next generation of ventures."
         schemaData={{
           "@context": "https://schema.org",
           "@type": "Event",

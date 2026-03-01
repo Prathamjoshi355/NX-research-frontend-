@@ -26,10 +26,11 @@ const SEO: React.FC<SEOProps> = ({
 }) => {
   useEffect(() => {
     const siteTitle = 'NX Research';
-    document.title = title ? `${title} | ${siteTitle}` : siteTitle;
+    const defaultTitle = 'NX Research | Building the Next Generation of Ventures';
+    document.title = title ? `${title} | ${siteTitle}` : defaultTitle;
 
     const metaDesc = description ||
-      'NX Research builds the next generation of ventures through deep research, elite networking, and strategic innovation.';
+      'NX Research builds the next generation of ventures through deep research, elite networking, and strategic innovation. Join our ecosystem today.';
     const setMeta = (name: string, content: string) => {
       let tag = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
       if (tag) {
@@ -69,7 +70,7 @@ const SEO: React.FC<SEOProps> = ({
       }
     };
     const url = builtCanonical || window.location.href;
-    setProperty('og:title', title ? `${title} | ${siteTitle}` : siteTitle);
+    setProperty('og:title', title ? `${title} | ${siteTitle}` : defaultTitle);
     setProperty('og:description', metaDesc);
     setProperty('og:type', ogType);
     setProperty('og:url', url);
@@ -80,7 +81,7 @@ const SEO: React.FC<SEOProps> = ({
     // Twitter cards
     setMeta('twitter:card', 'summary_large_image');
     setMeta('twitter:creator', twitterHandle);
-    setMeta('twitter:title', title ? `${title} | ${siteTitle}` : siteTitle);
+    setMeta('twitter:title', title ? `${title} | ${siteTitle}` : defaultTitle);
     setMeta('twitter:description', metaDesc);
     setMeta('twitter:image', ogImage);
 
