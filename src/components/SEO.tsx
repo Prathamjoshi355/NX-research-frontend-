@@ -7,6 +7,8 @@ interface SEOProps {
   ogType?: string;
   ogImage?: string;
   twitterHandle?: string;
+  noIndex?: boolean;
+  locale?: string;
   schemaData?: object;
 }
 
@@ -18,6 +20,8 @@ const SEO: React.FC<SEOProps> = ({
   ogType = 'website',
   ogImage = 'https://www.nxresearchh.com/og-image.jpg',
   twitterHandle = '@nxresearch',
+  noIndex,
+  locale,
   schemaData,
 }) => {
   useEffect(() => {
@@ -38,16 +42,19 @@ const SEO: React.FC<SEOProps> = ({
       }
     };
     setMeta('description', metaDesc);
+    // default robots
+    setMeta('robots', noIndex ? 'noindex,follow' : 'index,follow');
 
-    if (canonical) {
-      let link: HTMLLinkElement | null = document.querySelector('link[rel="canonical"]');
-      if (!link) {
-        link = document.createElement('link');
-        link.rel = 'canonical';
-        document.head.appendChild(link);
-      }
-      link.href = canonical;
+    // canonical: prefer provided, otherwise build from preferred domain to avoid duplicate content
+    const preferredDomain = 'https://www.nxresearchh.com';
+    const builtCanonical = canonical || `${preferredDomain}${window.location.pathname}`;
+    let link: HTMLLinkElement | null = document.querySelector('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'canonical';
+      document.head.appendChild(link);
     }
+    link.href = builtCanonical;
 
     // Open Graph tags
     const setProperty = (prop: string, content: string) => {
@@ -61,13 +68,14 @@ const SEO: React.FC<SEOProps> = ({
         document.head.appendChild(tag);
       }
     };
-    const url = canonical || window.location.href;
+    const url = builtCanonical || window.location.href;
     setProperty('og:title', title ? `${title} | ${siteTitle}` : siteTitle);
     setProperty('og:description', metaDesc);
     setProperty('og:type', ogType);
     setProperty('og:url', url);
     setProperty('og:image', ogImage);
     setProperty('og:site_name', siteTitle);
+    setProperty('og:locale', locale || 'en_IN');
 
     // Twitter cards
     setMeta('twitter:card', 'summary_large_image');
@@ -75,6 +83,28 @@ const SEO: React.FC<SEOProps> = ({
     setMeta('twitter:title', title ? `${title} | ${siteTitle}` : siteTitle);
     setMeta('twitter:description', metaDesc);
     setMeta('twitter:image', ogImage);
+
+    // Preconnect & preload important origins/assets
+    const preconnect = (href: string) => {
+      if (!document.querySelector(`link[rel="preconnect"][href="${href}"]`)) {
+        const l = document.createElement('link');
+        l.rel = 'preconnect';
+        l.href = href;
+        l.crossOrigin = '';
+        document.head.appendChild(l);
+      }
+    };
+    preconnect('https://res.cloudinary.com');
+    preconnect('https://fonts.gstatic.com');
+
+    // Preload OG image when available (non-blocking, low priority)
+    if (ogImage && !document.querySelector(`link[rel="preload"][href="${ogImage}"]`)) {
+      const preload = document.createElement('link');
+      preload.rel = 'preload';
+      preload.as = 'image';
+      preload.href = ogImage;
+      document.head.appendChild(preload);
+    }
 
     // JSON-LD structured data
     let script = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement | null;
@@ -100,7 +130,7 @@ const SEO: React.FC<SEOProps> = ({
       document.head.appendChild(script);
     }
     // end SEO update
-  }, [title, description, canonical]);
+  }, [title, description, canonical, ogType, ogImage, twitterHandle, noIndex, locale, schemaData]);
 
   return null;
 };

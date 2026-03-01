@@ -538,6 +538,8 @@ export const Benefits = () => {
                         alt={item.title} 
                         className="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-1000"
                         referrerPolicy="no-referrer"
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, #021F2F, rgba(2,31,47,0.3), transparent)' }} />
                       <div className="absolute inset-0" style={{ background: 'rgba(1,14,29,0.3)' }} />

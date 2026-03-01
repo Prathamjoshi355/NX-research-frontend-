@@ -17,6 +17,35 @@ export default function FCCPage() {
       <SEO 
         title="Founder Circle Community" 
         description="Join the Founder Circle Community (FCC) to network with elite founders, share insights, and build the next generation of ventures."
+        schemaData={{
+          "@context": "https://schema.org",
+          "@type": "Event",
+          "name": "Founder Circle Community - Gateway Sessions",
+          "startDate": "2026-06-15T10:00:00+05:30",
+          "endDate": "2026-06-15T17:00:00+05:30",
+          "eventStatus": "https://schema.org/EventScheduled",
+          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+          "location": {
+            "@type": "Place",
+            "name": "NX Research HQ",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "TBD",
+              "addressLocality": "Bhopal",
+              "addressRegion": "Madhya Pradesh",
+              "postalCode": "462001",
+              "addressCountry": "IN"
+            }
+          },
+          "image": [
+            "https://www.nxresearchh.com/og-image.jpg"
+          ],
+          "organizer": {
+            "@type": "Organization",
+            "name": "NX Research",
+            "url": "https://www.nxresearchh.com"
+          }
+        }}
       />
       <div className="page-grid" />
       <Hero />

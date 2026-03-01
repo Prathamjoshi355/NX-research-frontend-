@@ -17,9 +17,13 @@ export default function Footer() {
                 {/* ✅ Fixed Logo */}
                 <img
                   src="https://res.cloudinary.com/dhy9pmo8s/image/upload/v1772075032/N-removebg-preview_t7qzbd.png"
-                  alt="logo"
+                  alt="NX Research logo"
+                  width={40}
+                  height={40}
+                  loading="eager"
+                  decoding="async"
                   className="h-10 w-auto object-contain drop-shadow-[0_0_1px_rgba(0,212,255,0.7)] hover:drop-shadow-[0_0_1px_rgba(0,212,255,1)] transition-all duration-300 animate-logoGlow"
-/>
+                />
 
                 <span className="font-display text-xl sm:text-2xl tracking-[2px] sm:tracking-[4px] text-text-primary">
                   RESEARCH

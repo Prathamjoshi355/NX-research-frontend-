@@ -117,9 +117,12 @@ export default function Testimonials() {
                     <img 
                       src={testimonials[currentIndex].img} 
                       alt={testimonials[currentIndex].name} 
+                      width={56}
+                      height={56}
                       className="w-14 h-14 rounded-full border-2 border-neon-cyan/30 p-0.5" 
                       referrerPolicy="no-referrer" 
                       loading="lazy"
+                      decoding="async"
                     />
                     <div className="text-left">
                       <h3 className="text-text-primary font-bold text-base sm:text-lg">{testimonials[currentIndex].name}</h3>
