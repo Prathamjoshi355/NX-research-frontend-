@@ -36,8 +36,10 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep }) => {
   ];
 
   return (
-    <div className="w-full mb-12 overflow-x-auto no-scrollbar">
-      <div className="flex justify-between items-start px-4 sm:px-8 min-w-[600px]">
+    <div className="w-full mb-12 overflow-x-auto no-scrollbar 
+
+">
+      <div className="flex justify-between items-start px-4 sm:px-8 min-w-[600px] py-3"  >
         {steps.map((item, idx) => {
           const Icon = item.icon;
           const isActive = currentStep === item.step;

@@ -50,7 +50,7 @@ export default function Hero({
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[85dvh] w-full overflow-hidden flex items-center justify-center bg-bg-primary pt-20 pb-10"
+      className="relative min-h-[60dvh] sm:min-h-[85dvh] w-full overflow-hidden flex items-center justify-center bg-bg-primary pt-20 pb-10"
     >
       {/* ── Video Container ── */}
       <motion.div
@@ -65,9 +65,9 @@ export default function Hero({
         className={
           isPip
             ? // PiP mode — fixed bottom-right, big enough to see
-              "fixed bottom-6 right-6 z-50 w-[200px] sm:w-[300px] h-[112px] sm:h-[168px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)] border border-white/10 group/pip"
+              "fixed bottom-6 right-6 z-50 w-[200px] sm:w-[300px] h-[112px] sm:h-[168px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)] border border-white/10 group/pip bg-black"
             : // Hero mode — full screen absolute
-              "absolute inset-0 z-0 overflow-hidden"
+              "absolute inset-0 z-0 overflow-hidden bg-black"
         }
       >
         <video
@@ -76,7 +76,7 @@ export default function Hero({
           loop={isMuted}
           muted={isMuted}
           playsInline
-          className={`w-full h-full transition-all duration-700 ${
+          className={`w-full h-full transition-[filter,brightness,object-fit] duration-700 ${
             isMuted && !isPip ? "object-cover blur-[1px] brightness-[0.90]" : "object-contain blur-0 brightness-100"
           }`}
         >
@@ -86,28 +86,54 @@ export default function Hero({
           />
         </video>
 
-        {/* PiP Controls */}
+        {/* PiP Controls & Apply Now */}
         <AnimatePresence>
           {isPip && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/20 opacity-0 group-hover/pip:opacity-100 transition-opacity flex items-center justify-center"
+              className="absolute inset-0 bg-black/40 group-hover/pip:bg-black/60 transition-colors flex flex-col items-center justify-center gap-3"
             >
+              <Link
+                to="/join"
+                className="px-4 py-1.5 bg-neon-cyan text-bg-primary text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform"
+              >
+                Apply Now
+              </Link>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleMute();
                 }}
-                className="w-10 h-10 bg-black/60 rounded-full flex items-center justify-center text-white hover:bg-neon-cyan hover:text-bg-primary transition-all"
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-black/60 rounded-full flex items-center justify-center text-white hover:bg-neon-cyan hover:text-bg-primary transition-all"
               >
-                {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
               </button>
             </motion.div>
           )}
         </AnimatePresence>
       </motion.div>
+
+      {/* ── Apply Now Button (Bottom Left) ── */}
+      <AnimatePresence>
+        {!isMuted && !isPip && (
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="absolute bottom-8 left-8 z-30"
+          >
+            <Link
+              to="/join"
+              className="group relative flex items-center gap-3 px-6 py-3 bg-bg-primary/40 backdrop-blur-md border border-neon-cyan/50 text-neon-cyan font-bold uppercase tracking-[0.2em] text-xs rounded-full hover:bg-neon-cyan hover:text-bg-primary transition-all duration-300 shadow-[0_0_20px_rgba(0,212,255,0.2)]"
+            >
+              Apply Now
+              <div className="w-2 h-2 rounded-full bg-neon-cyan group-hover:bg-bg-primary animate-pulse" />
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── Gradient Overlay — fades when unmuted ── */}
       <AnimatePresence>
@@ -136,7 +162,7 @@ export default function Hero({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-xl xs:text-2xl sm:text-4xl md:text-[64px] font-display font-black text-text-primary tracking-tighter mb-2 sm:mb-3 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)]"
+                className="text-2xl xs:text-3xl sm:text-4xl md:text-[64px] font-display font-black text-text-primary tracking-tighter mb-2 sm:mb-3 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)]"
               >
                 {title}
               </motion.h1>

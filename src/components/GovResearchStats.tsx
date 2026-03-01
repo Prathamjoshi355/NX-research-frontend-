@@ -8,7 +8,12 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-function Counter({ value, suffix = "" }) {
+interface CounterProps {
+  value: number;
+  suffix?: string;
+}
+
+function Counter({ value, suffix = "" }: CounterProps) {
   const [displayValue, setDisplayValue] = useState(0);
   const nodeRef = useRef(null);
 
@@ -30,7 +35,17 @@ function Counter({ value, suffix = "" }) {
   );
 }
 
-function StatCard({ label, value, suffix, icon: Icon, accentColor, index }) {
+interface StatCardProps {
+  label: string;
+  value: number;
+  suffix: string;
+  icon: any;
+  accentColor: string;
+  index: number;
+  [key: string]: any;
+}
+
+function StatCard({ label, value, suffix, icon: Icon, accentColor, index }: StatCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -96,7 +111,7 @@ const stats = [
 export default function GovResearchStats() {
   return (
     <div
-      className="flex items-center justify-center p-0 sm:p-6 lg:p-8"
+      className="flex items-center justify-center p-4 sm:p-6 lg:p-8"
       style={{ background: "#07090f" }}
     >
       {/* Ambient glows */}
@@ -127,17 +142,19 @@ export default function GovResearchStats() {
             backdropFilter: "blur(24px)",
           }}
         >
-          {/* 5 cards — no scroll, flex wraps tight on mobile */}
-          <div className="flex gap-1.5 sm:gap-3">
+          {/* 5 cards — wrap on mobile */}
+          <div className="flex flex-wrap sm:flex-nowrap justify-center gap-2 sm:gap-3">
             {stats.map((stat, index) => (
-              <StatCard
-                label={stat.label}
-                value={stat.value}
-                suffix={stat.suffix}
-                icon={stat.icon}
-                accentColor={stat.accentColor}
-                index={index}
-              />
+              <div key={stat.label} className="w-[calc(50%-4px)] sm:flex-1 min-w-[140px] sm:min-w-0">
+                <StatCard
+                  label={stat.label}
+                  value={stat.value}
+                  suffix={stat.suffix}
+                  icon={stat.icon}
+                  accentColor={stat.accentColor}
+                  index={index}
+                />
+              </div>
             ))}
           </div>
         </div>

@@ -9,7 +9,7 @@ import SEO from '../components/SEO';
 import { ChevronDown, ChevronUp, Plus, Trash2, GraduationCap, Rocket, Briefcase, Loader, CheckCircle } from 'lucide-react';
 
 import './Formindex.css';
-import { label } from 'motion/react-client';
+// import { label } from 'motion/react-client';
 
 const FCCRegistration: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<Step>(Step.AGREEMENTS);
@@ -631,7 +631,7 @@ const FCCRegistration: React.FC = () => {
                 </button>
               </motion.div>
             ) : (
-              <div key="form" className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+              <div key="form" className="flex flex-col py-8 lg:flex-row gap-8 lg:gap-12">
                 {/* Sidebar Progress Box */}
                 <div className="w-full lg:w-80 flex-shrink-0">
                   <Sidebar currentStep={currentStep} />

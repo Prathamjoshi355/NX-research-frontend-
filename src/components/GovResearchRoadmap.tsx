@@ -52,7 +52,7 @@ const StageCard = ({ stage, index, total, smoothProgress }: StageCardProps) => {
       style={{ opacity, scale, y, display }}
       className="absolute inset-0 flex items-center justify-center"
     >
-      <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 lg:gap-16 w-full px-4 sm:px-6 max-w-5xl">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-8 lg:gap-16 w-full px-4 sm:px-6 max-w-5xl">
 
         {/* ── Left: Number + Icon Node ── */}
         <div className="relative flex flex-col items-center flex-shrink-0">
@@ -75,16 +75,16 @@ const StageCard = ({ stage, index, total, smoothProgress }: StageCardProps) => {
         </div>
 
         {/* ── Right: Content Card ── */}
-        <div className="glass-panel p-5 sm:p-6 md:p-8 lg:p-12 rounded-xl sm:rounded-2xl md:rounded-3xl max-w-lg w-full relative z-10 border-neon-cyan/20">
+        <div className="glass-panel p-4 sm:p-6 md:p-8 lg:p-12 rounded-xl sm:rounded-2xl md:rounded-3xl max-w-lg w-full relative z-10 border-neon-cyan/20">
           {/* Stage label row */}
-          <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <div className="flex items-center gap-2 sm:gap-4 mb-3 sm:mb-6">
             <span className="font-mono text-[8px] xs:text-[9px] sm:text-[10px] font-bold text-neon-cyan uppercase tracking-[0.2em] sm:tracking-[0.3em] whitespace-nowrap">
               Stage {stage.id}
             </span>
             <div className="flex-1 h-px bg-neon-cyan/10" />
           </div>
 
-          <h2 className="font-display font-black text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl text-text-primary tracking-tight mb-2 sm:mb-4 leading-tight uppercase italic text-glow-cyan line-clamp-2">
+          <h2 className="font-display font-black text-base xs:text-lg sm:text-2xl md:text-3xl lg:text-4xl text-text-primary tracking-tight mb-1 sm:mb-4 leading-tight uppercase italic text-glow-cyan line-clamp-2">
             {stage.title}
           </h2>
 
@@ -138,7 +138,7 @@ export default function GovResearchRoadmap() {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 1, restDelta: 0.001 });
 
   return (
-    <div ref={containerRef} className="relative h-[500vh] bg-bg-primary">
+    <div ref={containerRef} className="relative h-[200vh] sm:h-[400vh] bg-bg-primary py:0vh">
       {/* Blueprint grid */}
       <div className="fixed inset-0 pointer-events-none z-0 opacity-20">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,212,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,212,255,0.05)_1px,transparent_1px)] bg-[length:40px_40px]" />
@@ -165,7 +165,7 @@ export default function GovResearchRoadmap() {
       <section className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden z-10">
 
         {/* Header */}
-        <div className="absolute top-16 sm:top-20 md:top-24 text-center z-30 px-4 sm:px-6">
+        <div className="absolute top-6 sm:top-16 md:top-24 text-center z-30 px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -181,7 +181,7 @@ export default function GovResearchRoadmap() {
         </div>
 
         {/* Stage cards area */}
-        <div className="relative w-full max-w-7xl h-[60vh] flex items-center justify-center mt-12 sm:mt-16 md:mt-20">
+        <div className="relative w-full max-w-7xl h-[45vh] sm:h-[60vh] flex items-center justify-center mt-4 sm:mt-16 md:mt-20">
           {STAGES.map((stage, i) => (
             <StageCard
               key={stage.id}

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function JoinHero() {
   const [isMuted, setIsMuted] = useState(true);
@@ -39,7 +40,7 @@ export default function JoinHero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-bg-primary pt-24 pb-12"
+      className="relative min-h-[70dvh] sm:min-h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-bg-primary pt-24 pb-12"
     >
       {/* ── Video Container ── */}
       <motion.div
@@ -54,9 +55,9 @@ export default function JoinHero() {
         className={
           isPip
             ? // PiP mode — fixed bottom-right, big enough to see
-              "fixed bottom-8 right-8 z-50 w-[300px] h-[150px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)]"
+              "fixed bottom-8 right-8 z-50 w-[300px] h-[150px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)] bg-black"
             : // Hero mode — full screen absolute
-              "absolute inset-0 z-0 overflow-hidden"
+              "absolute inset-0 z-0 overflow-hidden bg-black"
         }
       >
         <video
@@ -65,8 +66,8 @@ export default function JoinHero() {
           loop={isMuted}
           muted={isMuted}
           playsInline
-          className={`w-full h-full object-cover object-center transition-all duration-700 ${
-            isMuted ? "blur-[4px] brightness-[0]" : "blur-0 brightness-100"
+          className={`w-full h-full transition-[filter,brightness,object-fit] duration-700 ${
+            isMuted && !isPip ? "object-cover blur-[4px] brightness-[0]" : "object-contain blur-0 brightness-100"
           }`}
         >
           <source
@@ -75,21 +76,54 @@ export default function JoinHero() {
           />
         </video>
 
-        {/* PiP close button */}
+        {/* PiP Controls & Apply Now */}
         <AnimatePresence>
           {isPip && (
-            <motion.button
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="absolute top-2 right-2 w-8 h-8 bg-black/60 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-black/80 transition-all"
+              className="absolute inset-0 bg-black/40 group-hover/pip:bg-black/60 transition-colors flex flex-col items-center justify-center gap-3"
             >
-              <VolumeX size={16} />
-            </motion.button>
+              <Link
+                to="/join"
+                className="px-4 py-1.5 bg-neon-cyan text-bg-primary text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform"
+              >
+                Apply Now
+              </Link>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleMute();
+                }}
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-black/60 rounded-full flex items-center justify-center text-white hover:bg-neon-cyan hover:text-bg-primary transition-all"
+              >
+                {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+              </button>
+            </motion.div>
           )}
         </AnimatePresence>
       </motion.div>
+
+      {/* ── Apply Now Button (Bottom Left) ── */}
+      <AnimatePresence>
+        {!isMuted && !isPip && (
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="absolute bottom-8 left-8 z-30"
+          >
+            <Link
+              to="/join"
+              className="group relative flex items-center gap-3 px-6 py-3 bg-bg-primary/40 backdrop-blur-md border border-neon-cyan/50 text-neon-cyan font-bold uppercase tracking-[0.2em] text-xs rounded-full hover:bg-neon-cyan hover:text-bg-primary transition-all duration-300 shadow-[0_0_20px_rgba(0,212,255,0.2)]"
+            >
+              Apply Now
+              <div className="w-2 h-2 rounded-full bg-neon-cyan group-hover:bg-bg-primary animate-pulse" />
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── Gradient Overlay — fades when unmuted ── */}
       <AnimatePresence>
@@ -129,7 +163,7 @@ export default function JoinHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-2xl xs:text-3xl sm:text-4xl md:text-[64px] font-display font-black text-text-primary tracking-tighter mb-4 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)]"
+                className="text-3xl xs:text-4xl sm:text-4xl md:text-[64px] font-display font-black text-text-primary tracking-tighter mb-4 leading-tight drop-shadow-[0_0_60px_rgba(0,212,255,0.3)]"
               >
                 Start Your Journey
               </motion.h1>
@@ -138,7 +172,7 @@ export default function JoinHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-base xs:text-lg sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-10 tracking-[0.2em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
+                className="text-lg xs:text-xl sm:text-xl md:text-3xl font-display font-normal text-neon-cyan mb-10 tracking-[0.2em] sm:tracking-widest uppercase drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] px-4"
               >
                 Apply to NX Research
               </motion.p>
