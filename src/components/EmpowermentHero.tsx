@@ -74,7 +74,7 @@ export default function EmpowermentHero() {
 
         {/* PiP Controls & Apply Now */}
         <AnimatePresence>
-          {isPip && (
+          {isPip && ( 
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
