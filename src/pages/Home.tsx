@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main>
       <SEO 
-        title="Venture Building & Strategic Innovation" 
+        title="NX Research - Building the Future of Ventures" 
         description="NX Research builds the next generation of ventures through deep research, elite networking, and strategic innovation. Join our ecosystem today."
       />
       <Hero />
