@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const testimonials = [
   {
-  name: "Harsh Khandelwal",
+  name: "Rajat Chaturvedi",
   role: "Founder, Nexisparks Technology",
   quote: "We highly appreciate NX Research for creating a strong technology-focused ecosystem. Their structured approach, technical guidance, and collaborative support helped us accelerate IT project development and convert innovative concepts into scalable digital solutions.",
   img: "https://picsum.photos/seed/nexisparks/200/200",
